@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "CelebratON",
+  "alias": "celebraton.now.sh",
+  "builds": [{ "src": "next.config.js", "use": "@now/next" }]
+}

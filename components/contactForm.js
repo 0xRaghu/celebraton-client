@@ -1,0 +1,95 @@
+import { Form, Icon, Input, Button, Checkbox, Row, Col } from "antd";
+import axios from "axios";
+
+class NormalLoginForm extends React.Component {
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        // console.log("Received values of form: ", values);
+        values.profile = this.props.profile;
+        axios.post("/api/contactForms/Customer", values);
+      }
+    });
+  };
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <div>
+        <Row>
+          <Col xs={{ span: 12, offset: 6 }} lg={{ span: 12, offset: 6 }}>
+            <h1 style={{ align: "center", color: this.props.color }}>
+              Request Callback
+            </h1>
+            <Form onSubmit={this.handleSubmit} className="login-form">
+              <Form.Item>
+                {getFieldDecorator("name", {
+                  rules: [{ required: true, message: "Please enter your Name" }]
+                })(
+                  <Input
+                    prefix={
+                      <Icon type="text" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    placeholder="Name"
+                  />
+                )}
+              </Form.Item>
+              <Form.Item>
+                {getFieldDecorator("mobile", {
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please enter your Mobile Number"
+                    },
+                    {
+                      min: 10,
+                      message: "Mobile number must be min 10 digits long"
+                    }
+                  ]
+                })(
+                  <Input
+                    prefix={
+                      <Icon type="text" style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
+                    type="input"
+                    placeholder="Mobile"
+                  />
+                )}
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className="login-form-button"
+                >
+                  Request Callback
+                </Button>
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
+        <style jsx>{`
+          #components-form-demo-normal-login .login-form {
+            max-width: 30px;
+          }
+          .ant-input {
+            padding: 50px;
+          }
+          #components-form-demo-normal-login .login-form-button {
+            width: 100%;
+          }
+          h1 {
+            color: white;
+          }
+        `}</style>
+      </div>
+    );
+  }
+}
+
+const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
+  NormalLoginForm
+);
+
+export default WrappedNormalLoginForm;

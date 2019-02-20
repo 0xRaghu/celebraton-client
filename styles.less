@@ -1,0 +1,64 @@
+@import "~antd/dist/antd.less"; // Import Ant Design styles by less entry
+@import "node_modules/react-image-gallery/styles/css/image-gallery.css";
+@primary-color: #ba0f58;
+
+body {
+  bgcolor: #ececec;
+}
+
+.ant-card-body {
+  text-align: center;
+}
+
+.ant-card-meta-title {
+  color: #8c8c8c;
+}
+.ant-card-meta-title:hover {
+  color: #ba0f58;
+}
+
+.ant-card-head {
+  background-color: #ba0f59;
+  color: white;
+}
+
+.ant-carousel .slick-slide {
+  text-align: center;
+  min-height: 180px;
+  color: #8c8c8c;
+  overflow: hidden;
+}
+.ant-carousel .slick-dots li button {
+  background: black;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  background: black;
+}
+
+.ant-modal {
+  width: 80% !important;
+}
+.ant-modal-header {
+  text-align: center;
+}
+
+.ant-layout-header {
+  height: 40px;
+  text-align: right;
+}
+
+.ant-menu-item-active:hover {
+  background: #ba0f58;
+}
+.ant-drawer-content {
+  overflow: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .ant-layout-sider {
+    position: absolute;
+    z-index: 100000;
+    height: 100%;
+  }
+}
