@@ -19,10 +19,10 @@ class Home extends Component {
   static contextType = HomeContext;
   static async getInitialProps() {
     let categories = await axios.get("/api/categories/allCategories/1/0");
-    categories = await categories.json();
+    categories = await categories.data;
 
-    let locations = await fetch("/api/admin/getLocations");
-    locations = await locations.json();
+    let locations = await axios.get("/api/admin/getLocations");
+    locations = await locations.data;
 
     return { categories, locations };
   }
