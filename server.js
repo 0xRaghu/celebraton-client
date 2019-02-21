@@ -16,8 +16,10 @@ app.prepare().then(() => {
   const server = express();
   server.use(compression());
 
-  server.get("*", (req, res) => {
-    return handle(req, res);
+  server.get("*.js", (req, res, next) => {
+    req.url = req.url + ".gz";
+    res.set("Content-Encoding", "gzip");
+    next();
   });
 
   server.listen(process.env.PORT || 3000, err => {
