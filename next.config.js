@@ -35,3 +35,6 @@ module.exports = {
 
 const withLess = require("@zeit/next-less");
 module.exports = withLess();
+
+const withBabelMinify = require("next-babel-minify")();
+module.exports = withBabelMinify();
