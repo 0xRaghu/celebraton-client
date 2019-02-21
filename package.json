@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "node server.js -p $PORT",
     "deploy": "now --public",
     "alias": "now alias",
     "heroku-postbuild": "npm run build"

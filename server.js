@@ -6,6 +6,12 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+var http = require("http");
+setInterval(function() {
+  http.get("http://celebraton.herokuapp.com");
+  http.get("http://celebraton-server.herokuapp.com");
+}, 300000); // every 5 minutes (300000)
+
 app.prepare().then(() => {
   const server = express();
   server.use(compression());
