@@ -17,7 +17,7 @@ app.prepare().then(() => {
   server.use(compression());
 
   server.get("*", (req, res) => {
-    return app.render(req, res);
+    return handle(req, res);
   });
 
   server.listen(process.env.PORT || 3000, err => {
