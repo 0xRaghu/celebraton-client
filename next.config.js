@@ -1,3 +1,4 @@
+var CompressionPlugin = require("compression-webpack-plugin");
 module.exports = {
   webpack: config => {
     // Fixes npm packages that depend on `fs` module
@@ -29,6 +30,7 @@ module.exports = {
         // ...other rules
       }
     ];
+
     plugins: [
       new webpack.DefinePlugin({
         "process.env": {
@@ -52,8 +54,3 @@ module.exports = {
 
 const withLess = require("@zeit/next-less");
 module.exports = withLess();
-
-const withBabelMinify = require("next-babel-minify")();
-module.exports = withBabelMinify();
-
-var CompressionPlugin = require("compression-webpack-plugin");

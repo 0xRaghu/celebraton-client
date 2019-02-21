@@ -16,7 +16,11 @@ app.prepare().then(() => {
   const server = express();
   server.use(compression());
 
-  server.get("*.js", (req, res, next) => {
+  server.get("*", (req, res) => {
+    return handle(req, res);
+  });
+
+  server.get("*.js", function(req, res, next) {
     req.url = req.url + ".gz";
     res.set("Content-Encoding", "gzip");
     next();
