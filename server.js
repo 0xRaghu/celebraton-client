@@ -14,13 +14,8 @@ setInterval(function() {
 
 app.prepare().then(() => {
   const server = express();
-  // server.use(compression());
+  server.use(compression());
 
-  server.get("*.js", function(req, res, next) {
-    req.url = req.url + ".gz";
-    res.set("Content-Encoding", "gzip");
-    next();
-  });
   server.get("*", (req, res) => {
     return handle(req, res);
   });

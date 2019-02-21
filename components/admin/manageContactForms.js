@@ -47,15 +47,9 @@ class ManageContactForms extends Component {
   }
 
   getData = callback => {
-    reqwest({
-      url: `/api/contactForms/allForms/2/${this.state.count}`,
-      type: "json",
-      method: "get",
-      contentType: "application/json",
-      success: res => {
-        callback(res);
-      }
-    });
+    axios
+      .get(`/api/contactForms/allForms/2/${this.state.count}`)
+      .then(res => callback(res.data));
   };
 
   onLoadMore = () => {

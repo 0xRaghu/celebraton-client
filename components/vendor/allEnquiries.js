@@ -65,16 +65,9 @@ class AllEnquiries extends Component {
   }
 
   getData = callback => {
-    reqwest({
-      url: `/api/enquiries/allEnquiries/2/${this.state.count}`,
-      data: { profile: this.state.profile },
-      type: "json",
-      method: "get",
-      contentType: "application/json",
-      success: res => {
-        callback(res);
-      }
-    });
+    axios
+      .get(`/api/enquiries/allEnquiries/2/${this.state.count}`)
+      .then(res => callback(res));
   };
 
   onLoadMore = () => {

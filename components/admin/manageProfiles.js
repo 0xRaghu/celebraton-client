@@ -61,15 +61,9 @@ class AdminManageProfile extends Component {
     // this.setState({ categories, locations: locations[0].locations });
   }
   getData = callback => {
-    reqwest({
-      url: `/api/profiles/allProfiles/2/${this.state.count}`,
-      type: "json",
-      method: "get",
-      contentType: "application/json",
-      success: res => {
-        callback(res);
-      }
-    });
+    axios
+      .get(`/api/profiles/allProfiles/2/${this.state.count}`)
+      .then(res => callback(res.data));
   };
   onLoadMore = () => {
     this.setState({

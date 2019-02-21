@@ -94,15 +94,9 @@ class ManageEnquiriesAdmin extends Component {
   }
 
   getData = callback => {
-    reqwest({
-      url: `/api/enquiries/allEnquiries/2/${this.state.count}`,
-      type: "json",
-      method: "get",
-      contentType: "application/json",
-      success: res => {
-        callback(res);
-      }
-    });
+    axios
+      .get(`/api/enquiries/allEnquiries/2/${this.state.count}`)
+      .then(res => callback(res.data));
   };
 
   onLoadMore = () => {

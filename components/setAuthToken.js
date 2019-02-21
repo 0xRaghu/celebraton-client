@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://celebraton-server.herokuapp.com/";
+axios.defaults.baseURL = "https://celebraton-server.herokuapp.com";
 
 const setAuthToken = token => {
   if (token) {
