@@ -19,8 +19,14 @@ class Hero extends Component {
     return (
       <HomeConsumer>
         {() => (
-          <div>
-            <div className="hero-image">
+          <div
+            className="hero-image"
+            style={{
+              backgroundImage:
+                "linear-gradient(to bottom right, #C81F70, #BF3A30)"
+            }}
+          >
+            <div>
               <Row
                 type="flex"
                 style={{ alignItems: "center", height: "500px" }}
@@ -63,11 +69,8 @@ class Hero extends Component {
                 /* The hero image */
                 .hero-image {
                   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-                  background-image: linear-gradient(
-                      rgba(0, 0, 0, 0.4),
-                      rgba(0, 0, 0, 0.4)
-                    ),
-                    url("../static/banner3.jpg");
+                  
+                    background-color: red
 
                   /* Set a specific height */
                   height: 500px;

@@ -6,7 +6,7 @@ import AllEnquiries from "../components/vendor/allEnquiries";
 import Router from "next/router";
 import Link from "next/link";
 import { LoginContext } from "../components/provider/loginProvider";
-import axios from "../../Celebratonv3/client/node_modules/axios";
+import axios from "axios";
 
 const { Header, Content, Footer, Sider } = Layout;
 

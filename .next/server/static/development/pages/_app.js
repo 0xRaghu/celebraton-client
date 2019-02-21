@@ -1196,8 +1196,8 @@ function (_Component) {
                 disabled: true
               });
 
-              isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default()("/api/categories/allCategories/7/5").then(function (categories) {
-                return categories.json();
+              axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/api/categories/allCategories/7/5").then(function (categories) {
+                return categories.data;
               }).then(function (category) {
                 return category.map(function (cat) {
                   return _this.setState(function (prevState) {
@@ -1281,7 +1281,7 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 68
+          lineNumber: 69
         },
         __self: this
       }, this.props.children);
