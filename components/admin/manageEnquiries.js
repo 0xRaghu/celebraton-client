@@ -56,8 +56,9 @@ class ManageEnquiriesAdmin extends Component {
   };
   static contextType = HomeContext;
   componentWillMount() {
-    fetch("/api/admin/allCategories")
-      .then(categories => categories.json())
+    axios
+      .get("/api/admin/allCategories")
+      .then(categories => categories.data)
       .then(category =>
         this.setState({
           categories: category,
@@ -65,8 +66,9 @@ class ManageEnquiriesAdmin extends Component {
         })
       );
 
-    fetch("/api/admin/getLocations")
-      .then(locations => locations.json())
+    axios
+      .get("/api/admin/getLocations")
+      .then(locations => locations.data)
       .then(locations =>
         this.setState({
           locations: locations[0].locations,

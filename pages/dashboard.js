@@ -6,6 +6,7 @@ import AllEnquiries from "../components/vendor/allEnquiries";
 import Router from "next/router";
 import Link from "next/link";
 import { LoginContext } from "../components/provider/loginProvider";
+import axios from "../../Celebratonv3/client/node_modules/axios";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -16,8 +17,8 @@ class Dashboard extends Component {
   };
   static contextType = LoginContext;
   static async getInitialProps() {
-    let profile = await fetch("/api/profiles/getProfile");
-    profile = await profile.json();
+    let profile = await axios.get("/api/profiles/getProfile");
+    profile = await profile.data;
 
     return { profile };
   }

@@ -28,14 +28,16 @@ class Category extends Component {
 
   static getInitialProps = async context => {
     let query = context.query.enquiry.split("-");
-    let categories = await fetch("/api/categories/allCategories/50/0");
+    let categories = await axios.get("/api/categories/allCategories/50/0");
 
-    categories = await categories.json();
-    let category = await fetch("/api/categories/categoryBySlug/" + query[0]);
+    categories = await categories.data;
+    let category = await axios.get(
+      "/api/categories/categoryBySlug/" + query[0]
+    );
 
-    category = await category.json();
-    let locations = await fetch("/api/admin/getLocations");
-    locations = await locations.json();
+    category = await category.data;
+    let locations = await axios.get("/api/admin/getLocations");
+    locations = await locations.data;
     let location = query[1];
 
     return { categories, category, locations, location };

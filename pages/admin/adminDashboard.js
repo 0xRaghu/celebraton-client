@@ -8,6 +8,7 @@ import Router from "next/router";
 import Link from "next/link";
 import AddGeneral from "./addGeneral";
 import { LoginContext } from "../../components/provider/loginProvider";
+import axios from "../../../Celebratonv3/client/node_modules/axios";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -28,8 +29,8 @@ class Dashboard extends Component {
   };
 
   static async getInitialProps() {
-    let profile = await fetch("/api/profiles/getProfile");
-    profile = await profile.json();
+    let profile = await axios.get("/api/profiles/getProfile");
+    profile = await profile.data;
 
     return { profile };
   }

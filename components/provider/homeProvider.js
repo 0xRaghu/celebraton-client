@@ -31,8 +31,9 @@ class HomeProvider extends Component {
   };
   updateLimit = async () => {
     this.setState({ disabled: true });
-    fetch("/api/categories/allCategories/7/5")
-      .then(categories => categories.json())
+    axios
+      .get("/api/categories/allCategories/7/5")
+      .then(categories => categories.data)
       .then(category =>
         category.map(cat =>
           this.setState(prevState => ({
