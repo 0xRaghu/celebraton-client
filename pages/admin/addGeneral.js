@@ -26,12 +26,13 @@ class AddGeneral extends Component {
     category: {
       eventType: [],
       servicesRequired: [],
-      budget: [{ from: 0, to: 0, option: 0, leadPrice: 0 }]
+      budget: [{ _id: 0, from: 0, to: 0, option: 0, leadPrice: 0 }]
     },
     locations: "",
     locId: "",
     additionalBudget: "",
-    updatedBudget: ""
+    updatedBudget: "",
+    mode: "addCategory"
   };
 
   componentDidMount() {
@@ -54,7 +55,8 @@ class AddGeneral extends Component {
   };
   onChangeCategory = value => {
     this.setState({
-      category: value
+      category: value,
+      mode: "updateCategory"
     });
   };
 
@@ -69,8 +71,28 @@ class AddGeneral extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
-        // axios.post("/api/categories/addCategory", values);
+        // console.log("Received values of form: ", values);
+        if (this.state.mode === "updateCategory") {
+          axios
+            .post(
+              `/api/categories/updateCategory/${this.state.category._id}`,
+              values
+            )
+            .then(cat => {
+              const index = this.state.categories.findIndex(
+                x => x._id === this.state.category._id
+              );
+
+              (this.state.categories[index] = cat.data),
+                this.setState({ category: cat.data });
+            });
+        } else {
+          axios.post(`/api/categories/addCategory`, values).then(cat => {
+            axios
+              .get("/api/categories/allCategories/7/0")
+              .then(cat => this.setState({ categories: cat.data }));
+          });
+        }
       }
     });
   };
@@ -285,7 +307,7 @@ class AddGeneral extends Component {
         </h1>
 
         {this.state.category.budget.map((budget, index) => (
-          <React.Fragment>
+          <React.Fragment key={budget._id}>
             <Row gutter={16}>
               <Col span={5}>
                 {budget.option +
@@ -296,7 +318,7 @@ class AddGeneral extends Component {
                   "," +
                   budget.leadPrice}
               </Col>
-              <Col span={9} key={budget._id}>
+              <Col span={9}>
                 <Input
                   placeholder={
                     budget.option +

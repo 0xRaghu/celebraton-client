@@ -12,7 +12,8 @@ import {
   Select,
   InputNumber,
   Upload,
-  Icon
+  Icon,
+  Radio
 } from "antd";
 import WrappedNormalLoginForm from "../contactForm";
 import Router from "next/router";
@@ -20,6 +21,7 @@ import { LoginContext } from "../provider/loginProvider";
 import { HomeConsumer } from "../provider/homeProvider";
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
+import { storage } from "../../firebase";
 const { TextArea } = Input;
 
 class ManageProfile extends Component {
@@ -27,13 +29,13 @@ class ManageProfile extends Component {
   state = {
     categories: [],
     locations: [],
-    budgetBracket: 0
+    budgetBracket: 0,
+    portfolioImages: [],
+    imageUrl: [],
+    artistSelected: false
   };
 
   componentDidMount() {
-    if (this.props.profile !== {}) {
-      //   Router.push("/dashboard");
-    }
     axios.get("/api/categories/allCategories/7/0").then(categories => {
       this.setState({ categories: categories.data });
     });
@@ -41,6 +43,14 @@ class ManageProfile extends Component {
     axios
       .get("/api/admin/getLocations")
       .then(loc => this.setState({ locations: loc.data[0].locations }));
+    typeof this.props.profile !== "undefined"
+      ? this.setState({ imageUrl: this.props.profile.images })
+      : null;
+    typeof this.props.profile !== "undefined"
+      ? this.setState({
+          artistSelected: this.props.profile.categories.includes("Artist")
+        })
+      : null;
   }
   componentWillMount() {
     // this.setState({ categories, locations: locations[0].locations });
@@ -51,18 +61,88 @@ class ManageProfile extends Component {
     });
   };
   normFile = e => {
-    console.log("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
+    const file = e.file;
+    this.setState({ portfolioImages: this.state.portfolioImages.concat(file) });
+  };
+  catChange = name => {
+    if (name === "Artist") {
+      this.setState({ artistSelected: !this.state.artistSelected });
     }
-    return e && e.fileList;
   };
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      if (!err) {
+      if (!err && typeof this.props.profile === "undefined") {
         // console.log("Received values of form: ", values);
-        axios.post("/api/profiles/addOrUpdateProfile", values);
+        axios.post("/api/profiles/addProfile", values).then(profile => {
+          this.state.portfolioImages.map(image => {
+            const upload = storage
+              .ref(`/vendorImages/${image.name}`)
+              .put(image.originFileObj);
+            upload.on(
+              "state_changed",
+              snapshot => {
+                console.log("progress");
+              },
+              error => {
+                console.log("error");
+              },
+              () => {
+                storage
+                  .ref("vendorImages")
+                  .child(image.name)
+                  .getDownloadURL()
+                  .then(url => {
+                    let temp = { original: url, thumbnail: url };
+                    this.setState({
+                      imageUrl: this.state.imageUrl.concat(temp)
+                    });
+                    axios.post(
+                      `/api/profiles/addImages/${profile.data._id}`,
+                      this.state.imageUrl
+                    );
+                  });
+              }
+            );
+          });
+          this.context.updateProfile(profile.data);
+        });
+      }
+      if (!err && typeof this.props.profile !== "undefined") {
+        // console.log("Received values of form: ", values);
+        axios.post("/api/profiles/updateProfile", values).then(profile => {
+          this.state.portfolioImages.map(image => {
+            const upload = storage
+              .ref(`/vendorImages/${image.name}`)
+              .put(image.originFileObj);
+            upload.on(
+              "state_changed",
+              snapshot => {
+                console.log("progress");
+              },
+              error => {
+                console.log("error");
+              },
+              () => {
+                storage
+                  .ref("vendorImages")
+                  .child(image.name)
+                  .getDownloadURL()
+                  .then(url => {
+                    let temp = { original: url, thumbnail: url };
+                    this.setState({
+                      imageUrl: this.state.imageUrl.concat(temp)
+                    });
+                    axios.post(
+                      `/api/profiles/addImages/${profile.data._id}`,
+                      this.state.imageUrl
+                    );
+                  });
+              }
+            );
+          });
+          this.context.updateProfile(profile.data);
+        });
       }
     });
   };
@@ -105,7 +185,10 @@ class ManageProfile extends Component {
           <Form.Item {...Layout} label="Company Name">
             {getFieldDecorator(
               "companyName",
-              { initialValue: profile.companyName },
+              {
+                initialValue:
+                  typeof profile !== "undefined" ? profile.companyName : ""
+              },
               {
                 rules: [
                   {
@@ -119,7 +202,10 @@ class ManageProfile extends Component {
           <Form.Item {...Layout} label="Description">
             {getFieldDecorator(
               "description",
-              { initialValue: profile.description },
+              {
+                initialValue:
+                  typeof profile !== "undefined" ? profile.description : ""
+              },
               {
                 rules: [
                   {
@@ -140,7 +226,8 @@ class ManageProfile extends Component {
             {getFieldDecorator(
               "categories",
               {
-                initialValue: profile.categories
+                initialValue:
+                  typeof profile !== "undefined" ? profile.categories : null
               },
               {
                 rules: [
@@ -161,7 +248,12 @@ class ManageProfile extends Component {
                       sm={{ span: 24 }}
                       key={category.name}
                     >
-                      <Checkbox value={category.name}>{category.name}</Checkbox>
+                      <Checkbox
+                        value={category.name}
+                        onChange={() => this.catChange(category.name)}
+                      >
+                        {category.name}
+                      </Checkbox>
                     </Col>
                   ))}
                 </Row>
@@ -173,7 +265,8 @@ class ManageProfile extends Component {
             {getFieldDecorator(
               "locations",
               {
-                initialValue: profile.locations
+                initialValue:
+                  typeof profile !== "undefined" ? profile.locations : null
               },
               {
                 rules: [
@@ -203,9 +296,12 @@ class ManageProfile extends Component {
           </Form.Item>
           <Form.Item {...Layout} label="Choose Primary Location">
             {getFieldDecorator("primaryLocation", {
-              initialValue: profile.primaryLocation
-                ? profile.primaryLocation
-                : "Chennai"
+              initialValue:
+                typeof profile !== "undefined"
+                  ? profile.primaryLocation
+                    ? profile.primaryLocation
+                    : "Chennai"
+                  : "Chennai"
             })(
               <Select size="large" style={{ width: 180 }}>
                 {locations.map(location => (
@@ -217,7 +313,10 @@ class ManageProfile extends Component {
           <Form.Item {...Layout} label="Minimum Budget">
             {getFieldDecorator(
               "budgetBracket",
-              { initialValue: profile.budgetBracket },
+              {
+                initialValue:
+                  typeof profile !== "undefined" ? profile.budgetBracket : ""
+              },
               {
                 value:
                   typeof this.state.budgetBracket === "number"
@@ -226,6 +325,102 @@ class ManageProfile extends Component {
               }
             )(<InputNumber onChange={this.onChangeBudgetBracket} />)}
           </Form.Item>
+          <Form.Item {...Layout} label="Experience">
+            {getFieldDecorator("experience", {
+              initialValue:
+                typeof profile !== "undefined" ? profile.experience : ""
+            })(<Input placeholder="Experience in the events industry" />)}
+          </Form.Item>
+          <Form.Item {...Layout} label="Events Covered">
+            {getFieldDecorator("eventsCovered", {
+              initialValue:
+                typeof profile !== "undefined" ? profile.eventsCovered : ""
+            })(<Input placeholder="Enter number of events covered till now" />)}
+          </Form.Item>
+          <Form.Item {...Layout} label="Cancellation Policy">
+            {getFieldDecorator("cancellationPolicy", {
+              initialValue:
+                typeof profile !== "undefined" ? profile.cancellationPolicy : ""
+            })(<TextArea placeholder="Cancellation Policy if any" autosize />)}
+            <div style={{ margin: "24px 0" }} />
+          </Form.Item>
+          <Form.Item {...Layout} label="Payment Terms">
+            {getFieldDecorator("paymentTerms", {
+              initialValue:
+                typeof profile !== "undefined" ? profile.paymentTerms : ""
+            })(
+              <TextArea
+                placeholder="Advance(%), Payment on event date(%), Payment on Delivery(%)"
+                autosize
+              />
+            )}
+            <div style={{ margin: "24px 0" }} />
+          </Form.Item>
+          {this.state.artistSelected ? (
+            <React.Fragment>
+              <Form.Item {...Layout} label="Artist Genre">
+                {getFieldDecorator("artistGenre", {
+                  initialValue: profile.artistGenre
+                })(<Input placeholder="Enter the Genre" />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Languages Known">
+                {getFieldDecorator("languagesKnown", {
+                  initialValue: profile.languagesKnown
+                })(<Input placeholder="Enter the Languages you know" />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Troupe Size (Performing)">
+                {getFieldDecorator("troupeSizeP", {
+                  initialValue: profile.troupeSizeP
+                })(<Input placeholder="Enter number" />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Troupe Size (Non-Performing)">
+                {getFieldDecorator("troupeSizeNP", {
+                  initialValue: profile.troupeSizeNP
+                })(<Input placeholder="Enter number" />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Performance Duration">
+                {getFieldDecorator("performanceDuration", {
+                  initialValue: profile.performanceDuration
+                })(<Input placeholder="Duration per performance" />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Event Preference">
+                {getFieldDecorator("eventPreference", {
+                  initialValue: profile.eventPreference
+                })(<Input placeholder="What do you prefer?" />)}
+              </Form.Item>
+              <Form.Item label="Open to Travel?" {...Layout}>
+                {getFieldDecorator("openToTravel", {
+                  initialValue: profile.openToTravel
+                })(
+                  <Radio.Group buttonStyle="solid">
+                    <Radio.Button value={true}>Yes</Radio.Button>
+                    <Radio.Button value={false}>No</Radio.Button>
+                  </Radio.Group>
+                )}
+              </Form.Item>
+              <Form.Item {...Layout} label="Managed By">
+                {getFieldDecorator("managedBy", {
+                  initialValue: profile.managedBy
+                })(<Input placeholder="Self or Manager?" />)}
+              </Form.Item>
+
+              <Form.Item {...Layout} label="Manager Name">
+                {getFieldDecorator("managerName", {
+                  initialValue: profile.managerName
+                })(<Input placeholder="Enter your manager's name" />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Manager Mobile">
+                {getFieldDecorator("managerNumber", {
+                  initialValue: profile.managerNumber
+                })(<Input placeholder="Enter your manager's mobile" />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Manager Email">
+                {getFieldDecorator("managerMail", {
+                  initialValue: profile.managerMail
+                })(<Input placeholder="Enter your manager's email id" />)}
+              </Form.Item>
+            </React.Fragment>
+          ) : null}
           <Form.Item
             {...Layout}
             label="Portfolio Images"
@@ -243,7 +438,14 @@ class ManageProfile extends Component {
             )}
           </Form.Item>
           <Form.Item {...Layout} label="Youtube videos">
-            {getFieldDecorator("videos", { initialValue: profile.videos }, {})(
+            {getFieldDecorator(
+              "videos",
+              {
+                initialValue:
+                  typeof profile !== "undefined" ? profile.videos.join(",") : ""
+              },
+              {}
+            )(
               <TextArea
                 placeholder={`Provide youtube urls seperated by comma ${"\n"}ex., https://www.youtube.com/watch?v=7GBCHRxq3Sc,https://www.youtube.com/watch?v=VRdaHFy0FcY`}
               />
@@ -252,7 +454,9 @@ class ManageProfile extends Component {
           <div style={{ textAlign: "center" }}>
             <Form.Item {...tailformItemLayout}>
               <Button type="primary" htmlType="submit">
-                Update Profile
+                {typeof profile !== "undefined"
+                  ? "Update Profile"
+                  : "Create Profile"}
               </Button>
             </Form.Item>
           </div>

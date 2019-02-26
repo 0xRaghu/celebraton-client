@@ -28,13 +28,6 @@ class Dashboard extends Component {
     limit: 20
   };
 
-  static async getInitialProps() {
-    let profile = await axios.get("/api/profiles/getProfile");
-    profile = await profile.data;
-
-    return { profile };
-  }
-
   clickManageProfile = () => {
     this.setState({ content: <AdminManageProfile /> });
   };
@@ -82,27 +75,27 @@ class Dashboard extends Component {
 
             <Menu theme="dark" mode="inline" defaultSelectedKeys={["2"]}>
               <Menu.Item key="1" onClick={() => this.clickGeneral()}>
-                <Icon type="user" />
+                <Icon type="pic-center" />
                 <span className="nav-text">General</span>
               </Menu.Item>
               <Menu.Item key="2" onClick={() => this.clickAllEnquiries()}>
-                <Icon type="user" />
+                <Icon type="appstore" />
                 <span className="nav-text">All Enquiries</span>
               </Menu.Item>
               <Menu.Item key="3" onClick={() => this.clickManageProfile()}>
-                <Icon type="upload" />
+                <Icon type="profile" />
                 <span className="nav-text">Manage Profiles</span>
               </Menu.Item>
               <Menu.Item key="4" onClick={() => this.clickManageContactForms()}>
-                <Icon type="upload" />
+                <Icon type="user" />
                 <span className="nav-text">Contact Forms</span>
               </Menu.Item>
               <Menu.Item key="5" onClick={() => this.clickManageProfile()}>
-                <Icon type="video-camera" />
+                <Icon type="area-chart" />
                 <span className="nav-text">Admin Dashboard</span>
               </Menu.Item>
 
-              <Menu.Item key="6">
+              {/* <Menu.Item key="6">
                 <Link
                   href={"/profile?profileId=" + this.props.profile.slug}
                   prefetch
@@ -112,9 +105,9 @@ class Dashboard extends Component {
                     <span className="nav-text">View Profile</span>
                   </a>
                 </Link>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item key="7" onClick={() => this.clickManageProfile()}>
-                <Icon type="user" />
+                <Icon type="logout" />
                 <span className="nav-text">Sign Out</span>
               </Menu.Item>
             </Menu>

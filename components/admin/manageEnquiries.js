@@ -25,7 +25,8 @@ import moment from "moment";
 import Link from "next/link";
 
 import reqwest from "reqwest";
-import { withRouter } from "next/router";
+
+import { storage } from "../../firebase";
 
 import { HomeConsumer, HomeContext } from "../provider/homeProvider";
 const { Meta } = Card;
@@ -52,7 +53,9 @@ class ManageEnquiriesAdmin extends Component {
     categories: [],
     locations: [],
     selectedLocation: "",
-    enquiryMode: "create"
+    enquiryMode: "create",
+    sampleImage: [],
+    imageUrl: []
   };
   static contextType = HomeContext;
   componentWillMount() {
@@ -165,6 +168,37 @@ class ManageEnquiriesAdmin extends Component {
 
           (this.state.enquiries[index] = enq.data),
             this.setState({ currentEnquiry: enq.data });
+
+          this.state.sampleImage.map(image => {
+            const upload = storage
+              .ref(`/customerImages/${image.name}`)
+              .put(image.originFileObj);
+            upload.on(
+              "state_changed",
+              snapshot => {
+                console.log("progress");
+              },
+              error => {
+                console.log("error");
+              },
+              () => {
+                storage
+                  .ref("customerImages")
+                  .child(image.name)
+                  .getDownloadURL()
+                  .then(url => {
+                    this.setState({
+                      imageUrl: this.state.imageUrl.concat(url)
+                    });
+                    axios.post(
+                      `/api/enquiries/addImages/${enq.data._id}`,
+                      this.state.imageUrl
+                    );
+                  });
+              }
+            );
+          });
+          this.props.form.resetFields();
         });
       }
     });
@@ -180,11 +214,8 @@ class ManageEnquiriesAdmin extends Component {
     });
   };
   normFile = e => {
-    console.log("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
+    const file = e.file;
+    this.setState({ sampleImage: this.state.sampleImage.concat(file) });
   };
   selectCategory = category => {
     this.setState({ modalCategory: category });
@@ -215,8 +246,6 @@ class ManageEnquiriesAdmin extends Component {
           <Button onClick={this.onLoadMore}>Load more</Button>
         </div>
       ) : null;
-
-    const { router } = this.props;
 
     typeof currentEnquiry.budgetRange !== "undefined"
       ? null
@@ -542,4 +571,4 @@ const ManageEnquiries = Form.create({ name: "enquiryFormAdmin" })(
   ManageEnquiriesAdmin
 );
 
-export default withRouter(ManageEnquiries);
+export default ManageEnquiries;

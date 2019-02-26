@@ -19,7 +19,8 @@ class Nav extends React.Component {
       showDrawer,
       onCloseDrawer,
       isAuthenticated,
-      signOut
+      signOut,
+      currentUser
     } = this.context;
     return (
       <LoginConsumer>
@@ -33,11 +34,13 @@ class Nav extends React.Component {
                   defaultSelectedKeys={[""]}
                   style={{ lineHeight: "40px" }}
                 >
-                  <Menu.Item key="1">
-                    <Link href="/dashboard">
-                      <a>Dashboard</a>
-                    </Link>
-                  </Menu.Item>
+                  {currentUser.role !== "customer" ? (
+                    <Menu.Item key="1">
+                      <Link href="/dashboard">
+                        <a>Dashboard</a>
+                      </Link>
+                    </Menu.Item>
+                  ) : null}
                   <Menu.Item key="2">
                     <a onClick={signOut}>Sign Out</a>
                   </Menu.Item>

@@ -23,7 +23,8 @@ class HomeProvider extends Component {
     this.setState({
       category: categories,
       locations: locations[0].locations,
-      modalCategory: categories[0]
+      modalCategory: categories[0],
+      disabled: false
     });
   };
   selectLocation = event => {
@@ -53,7 +54,6 @@ class HomeProvider extends Component {
     this.setState({ visible: false });
   };
   clickModal = category => {
-    console.log(category);
     this.setState({ visible: true, modalCategory: category });
   };
 

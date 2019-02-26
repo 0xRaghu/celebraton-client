@@ -35,7 +35,9 @@ const CLOUDINARY_UPLOAD_URL =
 class Enquiry extends Component {
   state = {
     inputGuests: 0,
-    Imageurl: []
+    imageUrl: [],
+    sampleImage: [],
+    newEnquiry: {}
   };
   static contextType = HomeContext;
   submitEnquiry = e => {
@@ -44,13 +46,43 @@ class Enquiry extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         let request = { enquiry: values, category: this.props.modalCategory };
-        axios
-          .post("/api/enquiries/addEnquiry", request)
-          .then(this.context.handleCancel());
+        axios.post("/api/enquiries/addEnquiry", request).then(enquiry => {
+          this.state.sampleImage.map(image => {
+            const upload = storage
+              .ref(`/customerImages/${image.name}`)
+              .put(image.originFileObj);
+            upload.on(
+              "state_changed",
+              snapshot => {
+                console.log("progress");
+              },
+              error => {
+                console.log("error");
+              },
+              () => {
+                storage
+                  .ref("customerImages")
+                  .child(image.name)
+                  .getDownloadURL()
+                  .then(url => {
+                    this.setState({
+                      imageUrl: this.state.imageUrl.concat(url)
+                    });
+                    axios.post(
+                      `/api/enquiries/addImages/${enquiry.data._id}`,
+                      this.state.imageUrl
+                    );
+                  });
+              }
+            );
+          });
+          this.props.form.resetFields();
+          this.context.handleCancel();
+        });
         notification.open({
-          message: "Notification Title",
+          message: "Enquiry Submitted",
           description:
-            "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+            "Your enquiry has been submitted. Our representatives will call you soon. Thanks for choosing CelebratON for your celebrations",
           duration: 10,
           onClick: () => {
             console.log("Notification Clicked!");
@@ -71,28 +103,7 @@ class Enquiry extends Component {
   };
   normFile = e => {
     const file = e.file;
-
-    const upload = storage
-      .ref(`/customerImages/${file.name}`)
-      .put(file.originFileObj);
-    upload.on(
-      "state_changed",
-      snapshot => {
-        console.log("progress");
-      },
-      error => {
-        console.log("error");
-      },
-      () => {
-        storage
-          .ref("customerImages")
-          .child(file.name)
-          .getDownloadURL()
-          .then(url => {
-            console.log(url);
-          });
-      }
-    );
+    this.setState({ sampleImage: this.state.sampleImage.concat(file) });
   };
 
   render() {
@@ -265,7 +276,7 @@ class Enquiry extends Component {
                   valuePropName: "fileList",
                   getValueFromEvent: this.normFile
                 })(
-                  <Upload name="logo" listType="picture" multiple={true}>
+                  <Upload name="logo" listType="picture" multiple={false}>
                     <Button>
                       <Icon type="upload" /> Click to upload
                     </Button>

@@ -55,10 +55,6 @@ class Login extends Component {
                         {
                           required: true,
                           message: "Please input your Mobile Number!"
-                        },
-                        {
-                          type: "number",
-                          message: "Enter a valid mobile number!"
                         }
                       ],
                       value: { mobile }
@@ -66,7 +62,7 @@ class Login extends Component {
                       <Input
                         prefix={
                           <Icon
-                            type="user"
+                            type="mobile"
                             style={{ color: "rgba(0,0,0,.25)" }}
                           />
                         }

@@ -12,7 +12,20 @@ const { Header, Content, Footer, Sider } = Layout;
 
 class Profile extends Component {
   state = {
-    currentProfile: []
+    defaultImage: [
+      {
+        original:
+          "http://marketing4startups.co.uk/ImageEvents/wp-content/uploads/2016/02/event-management-placeholder.jpg",
+        thumbnail:
+          "http://marketing4startups.co.uk/ImageEvents/wp-content/uploads/2016/02/event-management-placeholder.jpg"
+      }
+    ],
+    defaultVideo: ["MEf2-GJmIdY"],
+    currentProfile: {
+      videos: [],
+      images: [],
+      videoEmbedUrl: []
+    }
   };
   constructor(props) {
     super(props);
@@ -29,24 +42,20 @@ class Profile extends Component {
   componentDidMount() {
     axios
       .get("/api/profiles/currentProfile/" + this.props.router.query.profileId)
-      .then(profile => this.setState({ currentProfile: profile.data }));
+      .then(profile => {
+        this.setState({
+          currentProfile: profile.data
+        });
+        profile.data.videos.length == 0 || profile.data.videos === undefined
+          ? null
+          : this.setState({ defaultVideo: profile.data.videoEmbedUrl });
+        profile.data.images.length == 0 || profile.data.images === undefined
+          ? null
+          : this.setState({ defaultImage: profile.data.images });
+      });
   }
 
   render() {
-    const images = [
-      {
-        original: "http://lorempixel.com/1000/600/nature/1/",
-        thumbnail: "http://lorempixel.com/250/150/nature/1/"
-      },
-      {
-        original: "http://lorempixel.com/1000/600/nature/2/",
-        thumbnail: "http://lorempixel.com/250/150/nature/2/"
-      },
-      {
-        original: "http://lorempixel.com/1000/600/nature/3/",
-        thumbnail: "http://lorempixel.com/250/150/nature/3/"
-      }
-    ];
     const { currentProfile } = this.state;
 
     return (
@@ -117,35 +126,105 @@ class Profile extends Component {
             `}</style>
           </div>
         </div>
+        <Row type="flex" align="middle">
+          <Col xs={{ span: 21, offset: 1 }} md={{ span: 14, offset: 1 }}>
+            <h1 style={{ textAlign: "center" }}>
+              <br />
 
-        <h1 style={{ textAlign: "center" }}>
-          <br />
+              <u>{currentProfile.companyName}</u>
+            </h1>
+            <h4 style={{ textAlign: "center" }}>
+              <br />
 
-          <u>{currentProfile.companyName}</u>
-        </h1>
-        <h4 style={{ textAlign: "center" }}>
-          <br />
+              {currentProfile.description}
+            </h4>
+            {currentProfile.experience ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Experience: </b>
+                {currentProfile.experience}
+              </h4>
+            ) : null}
+            {currentProfile.eventsCovered ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Events Covered: </b>
+                {currentProfile.eventsCovered}
+              </h4>
+            ) : null}
+            {currentProfile.artistGenre ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Genre: </b>
+                {currentProfile.artistGenre}
+              </h4>
+            ) : null}
+            {currentProfile.languagesKnown ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Languages Known: </b>
+                {currentProfile.languagesKnown}
+              </h4>
+            ) : null}
+            {currentProfile.openToTravel ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Open to Travel: </b>
+                {currentProfile.openToTravel}
+              </h4>
+            ) : null}
+            {currentProfile.troupeSizeP ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Performing Troupe Size: </b>
+                {currentProfile.troupeSizeP}
+              </h4>
+            ) : null}
+            {currentProfile.troupeSizeNP ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Non performing Troupe Size: </b>
+                {currentProfile.troupeSizeNP}
+              </h4>
+            ) : null}
+            {currentProfile.performanceDuration ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Performance Duration: </b>
+                {currentProfile.performanceDuration}
+              </h4>
+            ) : null}
+            {currentProfile.eventPreference ? (
+              <h4 style={{ textAlign: "center" }}>
+                <b>Event Preference: </b>
+                {currentProfile.eventPreference}
+              </h4>
+            ) : null}
+          </Col>
+          <Col
+            xs={{ span: 24 }}
+            md={{ span: 8 }}
+            style={{ textAlign: "center" }}
+          >
+            <WrappedLoginForm color="black" profile={currentProfile} />
+          </Col>
+        </Row>
 
-          {currentProfile.description}
-        </h4>
         <div>
           {typeof window !== "undefined" ? (
             <Row type="flex" align="middle">
-              <Col xs={{ span: 21, offset: 1 }} md={{ span: 14, offset: 1 }}>
+              <Col xs={{ span: 21, offset: 1 }} md={{ span: 21, offset: 1 }}>
                 <br />
                 <h1 style={{ textAlign: "center" }}>Image Gallery</h1>
+
                 <ImageGallery
-                  items={images}
+                  items={
+                    this.state.currentProfile.images.length == 0 ||
+                    this.state.currentProfile.images === undefined
+                      ? this.state.defaultImage
+                      : this.state.currentProfile.images
+                  }
                   thumbnailPosition="bottom"
-                  autoPlay={true}
+                  autoPlay={false}
+                  originalClass="imgHeight"
                 />
-              </Col>
-              <Col
-                xs={{ span: 24 }}
-                md={{ span: 8 }}
-                style={{ textAlign: "center" }}
-              >
-                <WrappedLoginForm color="black" profile={currentProfile} />
+                <style jsx>{`
+                  .imgHeight {
+                    height: 50px;
+                  }
+                `}</style>
               </Col>
             </Row>
           ) : null}
@@ -169,25 +248,34 @@ class Profile extends Component {
                 </Col>
                 <Col xs={{ span: 20, offset: 0 }} md={{ span: 20, offset: 0 }}>
                   <Carousel ref={node => (this.carousel = node)}>
-                    <div>
+                    {this.state.currentProfile.videoEmbedUrl.length == 0 ||
+                    this.state.currentProfile.videoEmbedUrl === undefined ? (
                       <iframe
                         width="100%"
                         height="500"
-                        src="https://www.youtube.com/embed/BxePMaHH878"
+                        src={`https://www.youtube.com/embed/${
+                          this.state.defaultVideo[0]
+                        }`}
                         frameBorder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                       />
-                    </div>
-                    <div>
-                      <h3>2</h3>
-                    </div>
-                    <div>
-                      <h3>3</h3>
-                    </div>
-                    <div>
-                      <h3>4</h3>
-                    </div>
+                    ) : (
+                      this.state.currentProfile.videoEmbedUrl.map(
+                        videoEmbedUrl => (
+                          <div key={videoEmbedUrl}>
+                            <iframe
+                              width="100%"
+                              height="500"
+                              src={`https://www.youtube.com/embed/${videoEmbedUrl}`}
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            />
+                          </div>
+                        )
+                      )
+                    )}
                   </Carousel>
                 </Col>
                 <Col
@@ -200,6 +288,24 @@ class Profile extends Component {
                     theme="filled"
                     onClick={this.next}
                   />
+                </Col>
+                <Col
+                  xs={{ span: 22, offset: 2 }}
+                  md={{ span: 22, offset: 2 }}
+                  style={{ textAlign: "left" }}
+                >
+                  {currentProfile.paymentTerms ? (
+                    <h4>
+                      <b>Payment Terms: </b>
+                      {currentProfile.paymentTerms}
+                    </h4>
+                  ) : null}
+                  {currentProfile.cancellationPolicy ? (
+                    <h4>
+                      <b>Cancellation Policy: </b>
+                      {currentProfile.cancellationPolicy}
+                    </h4>
+                  ) : null}
                 </Col>
               </Row>
             </Col>

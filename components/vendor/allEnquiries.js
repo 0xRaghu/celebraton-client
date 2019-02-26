@@ -12,7 +12,9 @@ import {
   Modal,
   Table,
   Popover,
-  Icon
+  Icon,
+  Badge,
+  Tag
 } from "antd";
 import moment from "moment";
 import Link from "next/link";
@@ -32,12 +34,13 @@ class AllEnquiries extends Component {
     enquiries: [],
     list: [],
     count: 0,
-    junk: ""
+    junk: "",
+    profile: { enquiriesRead: [], wishList: [] }
   };
   componentWillMount() {
-    this.setState({
-      profile: this.props.profile
-    });
+    axios
+      .get("/api/profiles/getProfile")
+      .then(profile => this.setState({ profile: profile.data }));
   }
   componentDidMount() {
     this.getData(res => {
@@ -45,7 +48,7 @@ class AllEnquiries extends Component {
         initLoading: false,
         enquiries: res,
         list: res,
-        count: this.state.count + 2
+        count: this.state.count + 20
       });
     });
     this.props.router.query.enquiry
@@ -66,14 +69,14 @@ class AllEnquiries extends Component {
 
   getData = callback => {
     axios
-      .get(`/api/enquiries/allEnquiries/2/${this.state.count}`)
+      .get(`/api/enquiries/allEnquiries/20/${this.state.count}`)
       .then(res => callback(res.data));
   };
 
   onLoadMore = () => {
     this.setState({
       loading: true,
-      count: this.state.count + 2
+      count: this.state.count + 20
     });
     this.getData(res => {
       const enquiries = this.state.enquiries.concat(res);
@@ -97,6 +100,16 @@ class AllEnquiries extends Component {
     axios
       .get("/api/enquiries/currentEnquiry/" + id)
       .then(enquiry => this.setState({ currentEnquiry: enquiry.data }));
+    axios.post("/api/profiles/readEnquiry", { id: id }).then(profile => {
+      this.setState({ profile: profile.data });
+    });
+  };
+  wishListEnquiry = id => {
+    this.setState({ drawerVisible: true, currentId: id });
+
+    axios.post("/api/profiles/wishListEnquiry", { id: id }).then(profile => {
+      this.setState({ profile: profile.data });
+    });
   };
   onClose = () => {
     this.setState({
@@ -242,6 +255,16 @@ class AllEnquiries extends Component {
                 <Skeleton avatar title={false} loading={enquiry.loading} active>
                   <Link href={"/dashboard?enquiry=" + enquiry._id}>
                     <a>
+                      {this.state.profile.wishList.includes(enquiry._id) ? (
+                        <Tag color="#f50">WishList</Tag>
+                      ) : this.state.profile.enquiriesRead.includes(
+                          enquiry._id
+                        ) ? (
+                        <Tag color="grey">Read</Tag>
+                      ) : (
+                        <Tag color="#87d068">Unread</Tag>
+                      )}
+
                       <Card
                         hoverable
                         title={enquiry.category}
@@ -331,6 +354,20 @@ class AllEnquiries extends Component {
                 <br />
                 <b>CelebratON Comments: </b>
                 {currentEnquiry.celebratonComments}
+                {currentEnquiry.sampleImages !== null ? (
+                  <React.Fragment>
+                    <br />
+                    <div style={{ textAlign: "center" }}>
+                      <b>Sample Image: </b>
+                      <br />
+                      <img
+                        src={currentEnquiry.sampleImages}
+                        height="300px"
+                        width="auto"
+                      />
+                    </div>
+                  </React.Fragment>
+                ) : null}
               </Col>
               <Col
                 style={{ textAlign: "center" }}
@@ -391,10 +428,10 @@ class AllEnquiries extends Component {
                     Rs.{currentEnquiry.leadAmount}
                     <br />
                     <b>Wallet Balance: </b>
-                    Rs.{this.state.profile.Wallet}
+                    Rs.{this.props.profile.Wallet}
                     <br />
                     <b>Promotional Credit: </b>
-                    Rs.{this.state.profile.promoCredit}
+                    Rs.{this.props.profile.promoCredit}
                     <br />
                     <br />
                     <Button
@@ -403,6 +440,7 @@ class AllEnquiries extends Component {
                       size="large"
                       style={{ background: "green", borderColor: "green" }}
                       onClick={() => this.payForLead()}
+                      disabled={!this.props.profile.isAuthorized}
                     >
                       Pay Rs.{currentEnquiry.leadAmount}
                     </Button>
@@ -413,6 +451,7 @@ class AllEnquiries extends Component {
                       size="default"
                       icon="heart"
                       size="large"
+                      onClick={() => this.wishListEnquiry(currentEnquiry._id)}
                       // style={{ background: "red", borderColor: "red" }}
                     >
                       Add to Wishlist

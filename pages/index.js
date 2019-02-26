@@ -10,6 +10,7 @@ import Testimonials from "../components/home/testimonials";
 import Popup from "../components/home/modal";
 import { HomeConsumer, HomeContext } from "../components/provider/homeProvider";
 import { Card, Row, Col, Button } from "antd";
+import Artist from "../components/home/artist";
 
 import setAuthToken from "../components/setAuthToken";
 import { LoginConsumer } from "../components/provider/loginProvider";
@@ -75,8 +76,9 @@ class Home extends Component {
                   View More
                 </Button>
               </div>
-              <br />
             </div>
+            <Artist categories={category} />
+
             <h1 className="h1Heading">How it Works</h1>
             <HowItWorks />
             <Popup />

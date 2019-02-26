@@ -14,18 +14,18 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/dashboard": [
-      "static/runtime/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/css/static/development/pages/dashboard.js.chunk.css",
-      "static/runtime/main.js"
-    ],
     "/admin/adminDashboard": [
       "static/runtime/webpack.js",
       "static/css/styles.chunk.css",
       "static/chunks/styles.js",
       "static/css/static/development/pages/admin/adminDashboard.js.chunk.css",
+      "static/runtime/main.js"
+    ],
+    "/profile": [
+      "static/runtime/webpack.js",
+      "static/css/styles.chunk.css",
+      "static/chunks/styles.js",
+      "static/css/static/development/pages/profile.js.chunk.css",
       "static/runtime/main.js"
     ]
   }

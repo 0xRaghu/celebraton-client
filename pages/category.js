@@ -5,6 +5,7 @@ import AdminManageProfile from "../components/admin/manageProfiles";
 import ManageEnquiries from "../components/admin/manageEnquiries";
 import ManageContactForms from "../components/admin/manageContactForms";
 import CategoryContent from "../components/home/categoryContent";
+import ArtistList from "../components/home/artistList";
 import Nav from "../components/nav";
 import Router, { withRouter } from "next/router";
 import Link from "next/link";
@@ -90,9 +91,13 @@ class Category extends Component {
               //   console.log(collapsed, type);
             }}
           >
-            <div style={{ textAlign: "center" }}>
-              <img src="../static/logo.png" height="80px" />
-            </div>
+            <Link href="/">
+              <a>
+                <div style={{ textAlign: "center" }}>
+                  <img src="../static/logo.png" height="80px" />
+                </div>
+              </a>
+            </Link>
 
             <Menu
               theme="dark"
@@ -119,6 +124,7 @@ class Category extends Component {
 
           <Content style={{ margin: "24px 16px 0" }}>
             <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
+              {currentCategory.name === "Artist" ? <ArtistList /> : null}
               <h1 style={{ textAlign: "center" }}>
                 {currentCategory.name} in {this.context.selectedLocation}
               </h1>
@@ -128,9 +134,9 @@ class Category extends Component {
                 changeLocation={this.changeLocation}
               />
 
-              <Footer style={{ textAlign: "center" }}>
+              {/* <Footer style={{ textAlign: "center" }}>
                 Ant Design ©2018 Created by Ant UED
-              </Footer>
+              </Footer> */}
             </div>
           </Content>
         </Layout>

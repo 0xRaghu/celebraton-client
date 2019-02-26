@@ -22,16 +22,25 @@ class LoginProvider extends Component {
     email: "",
     drawerVisible: false,
     errors: {},
-    currentProfile: {}
+    currentProfile: {
+      images: [{}],
+      videos: [],
+      enquiriesRead: [],
+      wishList: []
+    },
+    deactivated: false
   };
   componentDidMount() {
     if (localStorage.jwtToken) {
       setAuthToken(localStorage.jwtToken);
       const decoded = jwt_decode(localStorage.jwtToken);
-      this.setState({
-        currentUser: decoded,
-        isAuthenticated: true
-      });
+      axios.get("/api/profiles/getProfile").then(profile =>
+        this.setState({
+          currentUser: decoded,
+          isAuthenticated: true,
+          currentProfile: profile.data
+        })
+      );
     }
   }
   showDrawer = () => {
@@ -67,8 +76,8 @@ class LoginProvider extends Component {
           if (this.state.currentUser.role === "vendor") {
             axios
               .get("/api/profiles/getProfile")
-              .then(profile => Router.push("/vendor-dashboard"))
-              .catch(err => Router.push("/create-profile"));
+              .then(profile => Router.push("/dashboard"))
+              .catch(err => Router.push("/dashboard"));
           }
         } else {
           this.setState({ errors: payload.data.errors });
@@ -81,7 +90,7 @@ class LoginProvider extends Component {
       .catch(err => console.log(err));
   };
   updateProfile = profile => {
-    this.setState({ currentProfile: profile });
+    this.setState({ currentProfile: profile, deactivated: false });
   };
   updateNumberState = e => {
     this.setState({ mobile: e.target.value });
@@ -101,6 +110,10 @@ class LoginProvider extends Component {
       currentUser: {},
       isAuthenticated: false
     });
+    Router.push("/");
+  };
+  deactivateDashboard = () => {
+    this.setState({ deactivated: true });
   };
   findUser = async () => {
     let response;
@@ -163,7 +176,10 @@ class LoginProvider extends Component {
           updateNameState: this.updateNameState,
           updateEmailState: this.updateEmailState,
           updateProfile: this.updateProfile,
-          signOut: this.signOut
+          signOut: this.signOut,
+          currentProfile: this.state.currentProfile,
+          deactivated: this.state.deactivated,
+          deactivateDashboard: this.deactivateDashboard
         }}
       >
         {this.props.children}

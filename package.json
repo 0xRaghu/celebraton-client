@@ -39,5 +39,8 @@
     "reqwest": "^2.0.5",
     "superagent": "^4.1.0",
     "xhr2": "^0.1.4"
+  },
+  "resolutions": {
+    "hoist-non-react-statics": "3.2.1"
   }
 }

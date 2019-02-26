@@ -29,7 +29,8 @@ class Hero extends Component {
             <div>
               <Row
                 type="flex"
-                style={{ alignItems: "center", height: "500px" }}
+                className="hero-image"
+                style={{ alignItems: "center", minHeight: "500px" }}
               >
                 <Col sm={15} xs={24}>
                   <div className="hero-text">
@@ -84,7 +85,7 @@ class Hero extends Component {
                 }
                 @media only screen and (max-width: 600px) {
                   .hero-image {
-                    height: 600px;
+                    height: 750px;
                   }
                 }
 

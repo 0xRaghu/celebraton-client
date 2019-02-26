@@ -6,6 +6,7 @@ import AllEnquiries from "../components/vendor/allEnquiries";
 import Router from "next/router";
 import Link from "next/link";
 import { LoginContext } from "../components/provider/loginProvider";
+import setAuthToken from "../components/setAuthToken";
 import axios from "axios";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -16,36 +17,43 @@ class Dashboard extends Component {
     limit: 20
   };
   static contextType = LoginContext;
-  static async getInitialProps() {
-    let profile = await axios.get("/api/profiles/getProfile");
-    profile = await profile.data;
 
-    return { profile };
-  }
-  componentWillMount() {
-    this.setState({
-      content: <AllEnquiries profile={this.props.profile} />
-    });
-  }
   componentDidMount() {
-    // if (this.context.currentUser.role !== "vendor") {
-    //   if (this.context.currentUser.role === "admin") {
-    //     Router.push("/admin/adminDashboard");
-    //   } else if (this.context.currentUser.role === "customer") {
-    //     Router.push("/");
-    //   }
-    // }
+    if (this.context.currentUser.role !== "admin") {
+      if (this.context.currentUser.role === "vendor") {
+        Router.push("/dashboard");
+      } else if (this.context.currentUser.role === "customer") {
+        Router.push("/");
+      }
+    }
+    if (this.context.currentProfile) {
+      this.setState({
+        content: <AllEnquiries profile={this.context.currentProfile} />
+      });
+    } else {
+      this.setState({
+        content: <ManageProfile />
+      });
+      this.context.deactivateDashboard();
+    }
   }
+
   clickManageProfile = () => {
-    this.setState({ content: <ManageProfile profile={this.props.profile} /> });
+    this.setState({
+      content: <ManageProfile profile={this.context.currentProfile} />
+    });
   };
   clickAllEnquiries = () => {
     this.setState({
-      content: <AllEnquiries profile={this.props.profile} />
+      content: <AllEnquiries profile={this.context.currentProfile} />
     });
   };
   clickViewProfile = () => {
-    Router.push("/profile?profileId=" + this.props.profile._id);
+    Router.push("/profile?profileId=" + this.context.currentProfile.slug);
+  };
+  clickSignOut = () => {
+    this.context.signOut();
+    Router.push("/");
   };
   render() {
     return (
@@ -72,32 +80,46 @@ class Dashboard extends Component {
             </div>
 
             <Menu theme="dark" mode="inline" defaultSelectedKeys={[]}>
-              <Menu.Item key="1" onClick={() => this.clickAllEnquiries()}>
-                <Icon type="user" />
+              <Menu.Item
+                key="1"
+                onClick={() => this.clickAllEnquiries()}
+                disabled={this.context.deactivated}
+              >
+                <Icon type="appstore" />
                 <span className="nav-text">All Enquiries</span>
               </Menu.Item>
-              <Menu.Item key="2" onClick={() => this.clickManageProfile()}>
-                <Icon type="video-camera" />
+              <Menu.Item
+                key="2"
+                onClick={() => this.clickManageProfile()}
+                disabled={this.context.deactivated || true}
+              >
+                <Icon type="area-chart" />
                 <span className="nav-text">Vendor Dashboard</span>
               </Menu.Item>
-              <Menu.Item key="3" onClick={() => this.clickManageProfile()}>
-                <Icon type="upload" />
+              <Menu.Item
+                key="3"
+                onClick={() => this.clickManageProfile()}
+                disabled={this.context.deactivated}
+              >
+                <Icon type="idcard" />
                 <span className="nav-text">Manage Profile</span>
               </Menu.Item>
-
-              <Menu.Item key="4">
-                <Link
-                  href={"/profile?profileId=" + this.props.profile.slug}
-                  prefetch
+              {this.context.currentProfile !== {} ? (
+                <Menu.Item
+                  key="4"
+                  disabled={this.context.deactivated}
+                  onClick={() => this.clickViewProfile()}
                 >
-                  <a>
-                    <Icon type="user" />
-                    <span className="nav-text">View Profile</span>
-                  </a>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="5" onClick={() => this.clickManageProfile()}>
-                <Icon type="user" />
+                  <Icon type="profile" />
+                  <span className="nav-text">View Profile</span>
+                </Menu.Item>
+              ) : null}
+              <Menu.Item
+                key="5"
+                onClick={() => this.clickSignOut()}
+                disabled={this.context.deactivated}
+              >
+                <Icon type="logout" />
                 <span className="nav-text">Sign Out</span>
               </Menu.Item>
             </Menu>
@@ -106,9 +128,9 @@ class Dashboard extends Component {
           <Content style={{ margin: "24px 16px 0" }}>
             <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
               {this.state.content}
-              <Footer style={{ textAlign: "center" }}>
+              {/* <Footer style={{ textAlign: "center" }}>
                 Ant Design ©2018 Created by Ant UED
-              </Footer>
+              </Footer> */}
             </div>
           </Content>
         </Layout>
