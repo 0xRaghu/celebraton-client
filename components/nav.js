@@ -57,6 +57,11 @@ class Nav extends React.Component {
                   defaultSelectedKeys={[""]}
                   style={{ lineHeight: "40px" }}
                 >
+                  <Menu.Item key="1">
+                    <Link href="/">
+                      <a>Home</a>
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item key="2" onClick={showDrawer}>
                     Login
                   </Menu.Item>
