@@ -34,14 +34,19 @@ class Nav extends React.Component {
                   defaultSelectedKeys={[""]}
                   style={{ lineHeight: "40px" }}
                 >
+                  <Menu.Item key="1">
+                    <Link href="/">
+                      <a>Home</a>
+                    </Link>
+                  </Menu.Item>
                   {currentUser.role !== "customer" ? (
-                    <Menu.Item key="1">
+                    <Menu.Item key="2">
                       <Link href="/dashboard">
                         <a>Dashboard</a>
                       </Link>
                     </Menu.Item>
                   ) : null}
-                  <Menu.Item key="2">
+                  <Menu.Item key="3">
                     <a onClick={signOut}>Sign Out</a>
                   </Menu.Item>
                 </Menu>
@@ -52,10 +57,10 @@ class Nav extends React.Component {
                   defaultSelectedKeys={[""]}
                   style={{ lineHeight: "40px" }}
                 >
-                  <Menu.Item key="1" onClick={showDrawer}>
+                  <Menu.Item key="2" onClick={showDrawer}>
                     Login
                   </Menu.Item>
-                  <Menu.Item key="2">
+                  <Menu.Item key="3">
                     <Link href="/vendor-login">
                       <a>Become our Vendor</a>
                     </Link>
