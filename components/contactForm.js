@@ -8,6 +8,7 @@ import {
   Col,
   notification
 } from "antd";
+import Router from "next/router";
 import axios from "axios";
 
 class NormalLoginForm extends React.Component {
@@ -16,8 +17,12 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log("Received values of form: ", values);
+        let role;
+        Router.pathname === "/vendor-login"
+          ? (role = "Vendor")
+          : (role = "Customer");
         values.profile = this.props.profile;
-        axios.post("/api/contactForms/Customer", values).then(res => {
+        axios.post("/api/contactForms/" + role, values).then(res => {
           notification.open({
             message: `Thank you ${res.data.name}, we will call you soon`,
             description: `Thanks for choosing CelebratON for your celebrations`,
