@@ -360,37 +360,48 @@ class ManageProfile extends Component {
             <React.Fragment>
               <Form.Item {...Layout} label="Artist Genre">
                 {getFieldDecorator("artistGenre", {
-                  initialValue: profile.artistGenre
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.artistGenre : ""
                 })(<Input placeholder="Enter the Genre" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Languages Known">
                 {getFieldDecorator("languagesKnown", {
-                  initialValue: profile.languagesKnown
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.languagesKnown : ""
                 })(<Input placeholder="Enter the Languages you know" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Troupe Size (Performing)">
                 {getFieldDecorator("troupeSizeP", {
-                  initialValue: profile.troupeSizeP
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.troupeSizeP : ""
                 })(<Input placeholder="Enter number" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Troupe Size (Non-Performing)">
                 {getFieldDecorator("troupeSizeNP", {
-                  initialValue: profile.troupeSizeNP
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.troupeSizeNP : ""
                 })(<Input placeholder="Enter number" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Performance Duration">
                 {getFieldDecorator("performanceDuration", {
-                  initialValue: profile.performanceDuration
+                  initialValue:
+                    typeof profile !== "undefined"
+                      ? profile.performanceDuration
+                      : ""
                 })(<Input placeholder="Duration per performance" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Event Preference">
                 {getFieldDecorator("eventPreference", {
-                  initialValue: profile.eventPreference
+                  initialValue:
+                    typeof profile !== "undefined"
+                      ? profile.eventPreference
+                      : ""
                 })(<Input placeholder="What do you prefer?" />)}
               </Form.Item>
               <Form.Item label="Open to Travel?" {...Layout}>
                 {getFieldDecorator("openToTravel", {
-                  initialValue: profile.openToTravel
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.openToTravel : ""
                 })(
                   <Radio.Group buttonStyle="solid">
                     <Radio.Button value={true}>Yes</Radio.Button>
@@ -400,23 +411,27 @@ class ManageProfile extends Component {
               </Form.Item>
               <Form.Item {...Layout} label="Managed By">
                 {getFieldDecorator("managedBy", {
-                  initialValue: profile.managedBy
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.managedBy : ""
                 })(<Input placeholder="Self or Manager?" />)}
               </Form.Item>
 
               <Form.Item {...Layout} label="Manager Name">
                 {getFieldDecorator("managerName", {
-                  initialValue: profile.managerName
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.managerName : ""
                 })(<Input placeholder="Enter your manager's name" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Manager Mobile">
                 {getFieldDecorator("managerNumber", {
-                  initialValue: profile.managerNumber
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.managerNumber : ""
                 })(<Input placeholder="Enter your manager's mobile" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Manager Email">
                 {getFieldDecorator("managerMail", {
-                  initialValue: profile.managerMail
+                  initialValue:
+                    typeof profile !== "undefined" ? profile.managerMail : ""
                 })(<Input placeholder="Enter your manager's email id" />)}
               </Form.Item>
             </React.Fragment>
