@@ -1,4 +1,13 @@
-import { Form, Icon, Input, Button, Checkbox, Row, Col } from "antd";
+import {
+  Form,
+  Icon,
+  Input,
+  Button,
+  Checkbox,
+  Row,
+  Col,
+  notification
+} from "antd";
 import axios from "axios";
 
 class NormalLoginForm extends React.Component {
@@ -8,9 +17,16 @@ class NormalLoginForm extends React.Component {
       if (!err) {
         // console.log("Received values of form: ", values);
         values.profile = this.props.profile;
-        axios.post("/api/contactForms/Customer", values);
+        axios.post("/api/contactForms/Customer", values).then(res => {
+          notification.open({
+            message: `Thank you ${res.data.name}, we will call you soon`,
+            description: `Thanks for choosing CelebratON for your celebrations`,
+            duration: 10
+          });
+        });
       }
     });
+    this.props.form.resetFields();
   };
 
   render() {

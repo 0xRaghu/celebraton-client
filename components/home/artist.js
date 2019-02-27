@@ -10,7 +10,7 @@ import Router from "next/router";
 export default class Artist extends Component {
   state = { profiles: [] };
 
-  componentWillMount() {
+  componentDidMount() {
     axios
       .get("/api/profiles/artistProfiles/5/0")
       .then(profiles => this.setState({ profiles: profiles.data }));

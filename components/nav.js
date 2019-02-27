@@ -72,7 +72,7 @@ class Nav extends React.Component {
                   </Menu.Item>
                   <Menu.Item key="3">
                     <Link href="/vendor-login">
-                      <a>Become our Vendor</a>
+                      <a>Be a Vendor</a>
                     </Link>
                   </Menu.Item>
                 </Menu>

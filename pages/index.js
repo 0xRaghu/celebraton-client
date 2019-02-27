@@ -43,7 +43,7 @@ class Home extends Component {
             <Hero />
             <div className="center">
               <div style={{ background: "#ECECEC", padding: "30px" }}>
-                <Row gutter={16}>
+                <Row gutter={10}>
                   <h1 className="h1Heading">
                     Submit your Enquiry directly below
                   </h1>
