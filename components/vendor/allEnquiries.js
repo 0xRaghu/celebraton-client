@@ -255,7 +255,7 @@ class AllEnquiries extends Component {
                 <Skeleton avatar title={false} loading={enquiry.loading} active>
                   <Link href={"/dashboard?enquiry=" + enquiry._id}>
                     <a>
-                      {this.state.profile.wishList.includes(enquiry._id) ? (
+                      {typeof this.state.profile!== "undefined" ? this.state.profile.wishList.includes(enquiry._id) ? (
                         <Tag color="#f50">WishList</Tag>
                       ) : this.state.profile.enquiriesRead.includes(
                           enquiry._id
@@ -263,7 +263,7 @@ class AllEnquiries extends Component {
                         <Tag color="grey">Read</Tag>
                       ) : (
                         <Tag color="#87d068">Unread</Tag>
-                      )}
+                      ): null}
 
                       <Card
                         hoverable

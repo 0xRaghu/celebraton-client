@@ -61,7 +61,7 @@ class Dashboard extends Component {
         <Layout
           style={{
             overflow: "auto",
-            height: "100vh",
+            height: "90vh",
             left: 0
           }}
         >
