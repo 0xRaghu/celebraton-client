@@ -62,7 +62,9 @@ class Nav extends React.Component {
                 >
                   <Menu.Item key="1">
                     <Link href="/">
-                      <a>Home</a>
+                      <a>
+                        <Icon type="home" />
+                      </a>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="2" onClick={showDrawer}>
