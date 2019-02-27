@@ -446,7 +446,11 @@ class AllEnquiries extends Component {
                       size="large"
                       style={{ background: "green", borderColor: "green" }}
                       onClick={() => this.payForLead()}
-                      disabled={!this.props.profile.isAuthorized}
+                      disabled={
+                        typeof this.state.profile !== "undefined"
+                          ? !this.state.profile.isAuthorized
+                          : true
+                      }
                     >
                       Pay Rs.{currentEnquiry.leadAmount}
                     </Button>
