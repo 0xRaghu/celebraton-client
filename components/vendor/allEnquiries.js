@@ -28,7 +28,7 @@ class AllEnquiries extends Component {
   state = {
     drawerVisible: false,
     currentId: "",
-    currentEnquiry: {},
+    currentEnquiry: { sampleImages: [] },
     initLoading: true,
     loading: false,
     enquiries: [],
@@ -360,7 +360,8 @@ class AllEnquiries extends Component {
                 <br />
                 <b>CelebratON Comments: </b>
                 {currentEnquiry.celebratonComments}
-                {currentEnquiry.sampleImages !== null ? (
+                {typeof currentEnquiry.sampleImages !== "undefined" &&
+                currentEnquiry.sampleImages.length > 0 ? (
                   <React.Fragment>
                     <br />
                     <div style={{ textAlign: "center" }}>
