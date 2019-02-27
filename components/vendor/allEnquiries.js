@@ -434,10 +434,10 @@ class AllEnquiries extends Component {
                     Rs.{currentEnquiry.leadAmount}
                     <br />
                     <b>Wallet Balance: </b>
-                    Rs.{this.props.profile.Wallet}
+                    Rs.{this.state.profile.Wallet}
                     <br />
                     <b>Promotional Credit: </b>
-                    Rs.{this.props.profile.promoCredit}
+                    Rs.{this.state.profile.promoCredit}
                     <br />
                     <br />
                     <Button
