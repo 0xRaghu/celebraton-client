@@ -60,6 +60,10 @@ class AllEnquiries extends Component {
             this.setState({ currentEnquiry: enquiry.data, drawerVisible: true })
           )
       : null;
+
+    axios
+      .get("/api/profiles/getProfile")
+      .then(profile => this.setState({ profile: profile.data }));
     var aScript = document.createElement("script");
     aScript.type = "text/javascript";
     aScript.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -255,15 +259,17 @@ class AllEnquiries extends Component {
                 <Skeleton avatar title={false} loading={enquiry.loading} active>
                   <Link href={"/dashboard?enquiry=" + enquiry._id}>
                     <a>
-                      {typeof this.state.profile!== "undefined" ? this.state.profile.wishList.includes(enquiry._id) ? (
-                        <Tag color="#f50">WishList</Tag>
-                      ) : this.state.profile.enquiriesRead.includes(
-                          enquiry._id
-                        ) ? (
-                        <Tag color="grey">Read</Tag>
-                      ) : (
-                        <Tag color="#87d068">Unread</Tag>
-                      ): null}
+                      {typeof this.state.profile !== "undefined" ? (
+                        this.state.profile.wishList.includes(enquiry._id) ? (
+                          <Tag color="#f50">WishList</Tag>
+                        ) : this.state.profile.enquiriesRead.includes(
+                            enquiry._id
+                          ) ? (
+                          <Tag color="grey">Read</Tag>
+                        ) : (
+                          <Tag color="#87d068">Unread</Tag>
+                        )
+                      ) : null}
 
                       <Card
                         hoverable
