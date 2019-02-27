@@ -3,6 +3,8 @@ import { Layout, Menu, Icon, Row, Col, Carousel } from "antd";
 import "../styles.less";
 import Router from "next/router";
 import axios from "axios";
+
+import Head from "../components/home/head";
 import { withRouter } from "next/router";
 import ImageGallery from "react-image-gallery";
 
@@ -60,6 +62,7 @@ class Profile extends Component {
 
     return (
       <React.Fragment>
+        <Head title="Home" />
         <div>
           <div className="hero-image">
             <Row type="flex" style={{ alignItems: "center", height: "400px" }}>

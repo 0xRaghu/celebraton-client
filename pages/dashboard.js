@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Layout, Menu, Icon } from "antd";
+
+import Head from "../components/home/head";
 import "../styles.less";
 import ManageProfile from "../components/vendor/createOrUpdateProfile";
 import AllEnquiries from "../components/vendor/allEnquiries";
@@ -58,6 +60,7 @@ class Dashboard extends Component {
   render() {
     return (
       <React.Fragment>
+        <Head title="Home" />
         <Layout
           style={{
             overflow: "auto",
@@ -76,7 +79,11 @@ class Dashboard extends Component {
             }}
           >
             <div style={{ textAlign: "center" }}>
-              <img src="../static/logo.png" height="80px" />
+              <Link href="/">
+                <a>
+                  <img src="../static/logo.png" height="80px" />
+                </a>
+              </Link>
             </div>
 
             <Menu theme="dark" mode="inline" defaultSelectedKeys={[]}>

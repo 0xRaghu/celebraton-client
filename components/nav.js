@@ -39,6 +39,7 @@ class Nav extends React.Component {
                       <a>Home</a>
                     </Link>
                   </Menu.Item>
+
                   {currentUser.role !== "customer" ? (
                     <Menu.Item key="2">
                       <Link href="/dashboard">
