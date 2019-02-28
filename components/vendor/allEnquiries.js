@@ -285,8 +285,13 @@ class AllEnquiries extends Component {
                           {moment(enquiry.eventDate).format("DD MMM, YYYY")}
                         </b>
                         <br />
-                        Bought by: <b>
-                          {enquiry.interestedPartners.length}/5
+                        Bought by:{" "}
+                        <b>
+                          {typeof enquiry.interestedPartners.length !==
+                          "undefined"
+                            ? enquiry.interestedPartners.length
+                            : 0}
+                          /5
                         </b>{" "}
                         vendors
                         <Meta
