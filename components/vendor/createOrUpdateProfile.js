@@ -36,7 +36,7 @@ class ManageProfile extends Component {
   };
 
   componentDidMount() {
-    axios.get("/api/categories/allCategories/7/0").then(categories => {
+    axios.get("/api/categories/allCategories/11/0").then(categories => {
       this.setState({ categories: categories.data });
     });
 

@@ -19,7 +19,7 @@ const { Meta } = Card;
 class Home extends Component {
   static contextType = HomeContext;
   static async getInitialProps() {
-    let categories = await axios.get("/api/categories/allCategories/1/0");
+    let categories = await axios.get("/api/categories/allCategories/10/0");
     categories = await categories.data;
 
     let locations = await axios.get("/api/admin/getLocations");
@@ -42,29 +42,34 @@ class Home extends Component {
 
             <Hero />
             <div className="center">
-              <div style={{ background: "#ECECEC", padding: "30px" }}>
-                <Row gutter={10}>
-                  <h1 className="h1Heading">
-                    Submit your Enquiry directly below
-                  </h1>
+              <div style={{ background: "#ECECEC", padding: "0px" }}>
+                <h1 className="h1Heading">
+                  Submit your Enquiry directly below
+                </h1>
+                <Row
+                  align="middle"
+                  type="flex"
+                  className="cardDimension"
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
                   {category.map(category => (
                     <h2 key={category._id}>
-                      <Col span={8}>
+                      <Col>
                         <Card
-                          hoverable
-                          style={{ width: 240 }}
-                          bordered={false}
+                          // style={{ width: 220, height: 120 }}
+
+                          bordered={true}
                           onClick={() => clickModal(category)}
                         >
                           <Meta
                             title={
-                              <div>
-                                <i className="large material-icons">
+                              <span>
+                                <i className="small material-icons">
                                   {category.icon}
                                 </i>
                                 <br />
                                 {category.name}
-                              </div>
+                              </span>
                             }
                           />
                         </Card>
@@ -84,6 +89,8 @@ class Home extends Component {
             <Popup />
             <Testimonials />
             <style jsx>{`
+              .cardDimension {
+              }
               .h1Heading {
                 text-align: center;
                 color: #595959;

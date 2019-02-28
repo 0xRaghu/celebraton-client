@@ -37,7 +37,7 @@ class AddGeneral extends Component {
 
   componentDidMount() {
     axios
-      .get("/api/categories/allCategories/7/0")
+      .get("/api/categories/allCategories/11/0")
       .then(cat => this.setState({ categories: cat.data }));
 
     axios.get("/api/admin/getLocations").then(loc =>
@@ -89,7 +89,7 @@ class AddGeneral extends Component {
         } else {
           axios.post(`/api/categories/addCategory`, values).then(cat => {
             axios
-              .get("/api/categories/allCategories/7/0")
+              .get("/api/categories/allCategories/11/0")
               .then(cat => this.setState({ categories: cat.data }));
           });
         }
