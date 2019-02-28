@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, Modal, Row, Col, InputNumber, Button } from "antd";
 
 import Head from "../components/home/head";
 import "../styles.less";
@@ -16,7 +16,9 @@ const { Header, Content, Footer, Sider } = Layout;
 class Dashboard extends Component {
   state = {
     content: null,
-    limit: 20
+    limit: 20,
+    openWalletModal: false,
+    rechargeAmount: 0
   };
   static contextType = LoginContext;
 
@@ -38,6 +40,11 @@ class Dashboard extends Component {
       });
       this.context.deactivateDashboard();
     }
+    var aScript = document.createElement("script");
+    aScript.type = "text/javascript";
+    aScript.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+    document.head.appendChild(aScript);
   }
 
   clickManageProfile = () => {
@@ -53,9 +60,52 @@ class Dashboard extends Component {
   clickViewProfile = () => {
     Router.push("/profile?profileId=" + this.context.currentProfile.slug);
   };
+  clickAddMoney = () => {
+    this.setState({ openWalletModal: true });
+  };
+  onInputWalletMoney = value => {
+    this.setState({ rechargeAmount: value });
+  };
+  addMoneyToWallet = () => {
+    const profile = this.context.currentProfile;
+    const options = {
+      key: "rzp_test_lywdx0vKDyTxOh",
+      amount: this.state.rechargeAmount * 100, // 2000 paise = INR 20
+      name: "CelebratON.in",
+      description: `Adding Money to ${profile.name}'s wallet`,
+      image: "",
+      handler: response => {
+        axios
+          .post(
+            "/api/profiles/addMoneyToWallet/" +
+              profile._id +
+              "/" +
+              this.state.rechargeAmount
+          )
+          .then(profile => this.context.updateProfile(profile.data));
+      },
+      prefill: {
+        name: profile.name,
+        email: profile.email
+      },
+      notes: {
+        address: "Wallet Recharge"
+      },
+      theme: {
+        color: "#ba0f58"
+      }
+    };
+
+    new Razorpay(options).open();
+  };
   clickSignOut = () => {
     this.context.signOut();
     Router.push("/");
+  };
+  onClose = () => {
+    this.setState({
+      openWalletModal: false
+    });
   };
   render() {
     return (
@@ -123,6 +173,14 @@ class Dashboard extends Component {
               ) : null}
               <Menu.Item
                 key="5"
+                onClick={() => this.clickAddMoney()}
+                disabled={this.context.deactivated}
+              >
+                <Icon type="wallet" />
+                <span className="nav-text">Add Money to Wallet</span>
+              </Menu.Item>
+              <Menu.Item
+                key="6"
                 onClick={() => this.clickSignOut()}
                 disabled={this.context.deactivated}
               >
@@ -141,6 +199,42 @@ class Dashboard extends Component {
             </div>
           </Content>
         </Layout>
+        <Modal
+          title="Add Money to Wallet"
+          onCancel={this.onClose}
+          visible={this.state.openWalletModal}
+          style={{
+            textAlign: "center",
+            zIndex: "200000"
+          }}
+          footer={[]}
+        >
+          <Row align="middle">
+            <Col>Enter amount to recharge </Col>
+            <br />
+            <Col>
+              <InputNumber
+                size="large"
+                min={1}
+                autoFocus={true}
+                style={{ width: "100px" }}
+                onChange={this.onInputWalletMoney}
+              />
+            </Col>
+            <br />
+            <Col>
+              <Button
+                type="primary"
+                icon="caret-right"
+                size="large"
+                style={{ background: "green", borderColor: "green" }}
+                onClick={() => this.addMoneyToWallet()}
+              >
+                Add Money
+              </Button>
+            </Col>
+          </Row>
+        </Modal>
       </React.Fragment>
     );
   }

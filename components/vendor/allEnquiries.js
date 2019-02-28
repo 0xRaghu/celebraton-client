@@ -276,7 +276,6 @@ class AllEnquiries extends Component {
                         title={enquiry.category}
                         bordered={false}
                         style={{
-                          height: "180px",
                           background: enquiry.isVerified ? null : null
                         }}
                       >

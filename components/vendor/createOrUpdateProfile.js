@@ -46,7 +46,7 @@ class ManageProfile extends Component {
     typeof this.props.profile !== "undefined"
       ? this.setState({ imageUrl: this.props.profile.images })
       : null;
-    typeof this.props.profile !== "undefined"
+    typeof this.props.profile.categories !== "undefined"
       ? this.setState({
           artistSelected: this.props.profile.categories.includes("Artist")
         })
