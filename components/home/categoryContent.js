@@ -37,9 +37,7 @@ class Enquiry extends Component {
     inputGuests: 0,
     imageUrl: [],
     sampleImage: [],
-    newEnquiry: {},
-    pickerOpen: false,
-    selectedDate: null
+    newEnquiry: {}
   };
   static contextType = HomeContext;
   submitEnquiry = e => {
@@ -102,13 +100,6 @@ class Enquiry extends Component {
     this.setState({
       inputGuests: value
     });
-  };
-  togglePicker = () => {
-    this.setState({ pickerOpen: !this.state.pickerOpen });
-  };
-
-  handleChange = selectedDate => {
-    this.setState({ selectedDate, pickerOpen: !this.state.pickerOpen });
   };
 
   normFile = e => {
@@ -184,20 +175,10 @@ class Enquiry extends Component {
                   ]
                 })(
                   <React.Fragment>
-                    <Button
-                      type="primary"
-                      size="large"
-                      onClick={this.togglePicker}
-                    >
-                      Select Date
-                    </Button>
-                    <br />
                     <DatePicker
                       format={dateFormat}
-                      open={pickerOpen}
                       disabledDate={this.disabledDate}
-                      onChange={this.handleChange}
-                      disabled
+                      onOpenChange={blur()}
                     />
                   </React.Fragment>
                 )}

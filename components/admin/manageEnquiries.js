@@ -58,7 +58,8 @@ class ManageEnquiriesAdmin extends Component {
     imageUrl: []
   };
   static contextType = HomeContext;
-  componentWillMount() {
+
+  componentDidMount() {
     axios
       .get("/api/admin/allCategories")
       .then(categories => categories.data)
@@ -78,8 +79,6 @@ class ManageEnquiriesAdmin extends Component {
           selectedLocation: locations[0].locations[0]
         })
       );
-  }
-  componentDidMount() {
     this.getData(res => {
       this.setState({
         initLoading: false,
