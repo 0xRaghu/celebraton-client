@@ -37,7 +37,9 @@ class Enquiry extends Component {
     inputGuests: 0,
     imageUrl: [],
     sampleImage: [],
-    newEnquiry: {}
+    newEnquiry: {},
+    pickerOpen: false,
+    selectedDate: null
   };
   static contextType = HomeContext;
   submitEnquiry = e => {
@@ -101,6 +103,14 @@ class Enquiry extends Component {
       inputGuests: value
     });
   };
+  togglePicker = () => {
+    this.setState({ pickerOpen: !this.state.pickerOpen });
+  };
+
+  handleChange = selectedDate => {
+    this.setState({ selectedDate, pickerOpen: !this.state.pickerOpen });
+  };
+
   normFile = e => {
     const file = e.file;
     this.setState({ sampleImage: this.state.sampleImage.concat(file) });
@@ -127,7 +137,7 @@ class Enquiry extends Component {
     };
 
     const dateFormat = "DD MMM YYYY";
-    const { inputGuests } = this.state;
+    const { inputGuests, pickerOpen, selectedDate } = this.state;
     const { TextArea } = Input;
     let Layout, layoutVariable;
     if (typeof screen !== "undefined") {
@@ -173,12 +183,23 @@ class Enquiry extends Component {
                     }
                   ]
                 })(
-                  <DatePicker
-                    format={dateFormat}
-                    disabledDate={this.disabledDate}
-                    onOpenChange={blur()}
-                    readOnly
-                  />
+                  <React.Fragment>
+                    <Button
+                      type="primary"
+                      size="large"
+                      onClick={this.togglePicker}
+                    >
+                      Select Date
+                    </Button>
+                    <br />
+                    <DatePicker
+                      format={dateFormat}
+                      open={pickerOpen}
+                      disabledDate={this.disabledDate}
+                      onChange={this.handleChange}
+                      disabled
+                    />
+                  </React.Fragment>
                 )}
               </Form.Item>
               <Form.Item {...Layout} label="No of Guests">
