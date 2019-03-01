@@ -103,6 +103,7 @@ class Login extends Component {
                       }
                       placeholder="OTP"
                       onChange={updateOtpState}
+                      autoComplete="off"
                     />
                   )}
                 </Form.Item>

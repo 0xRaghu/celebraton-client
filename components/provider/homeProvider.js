@@ -33,7 +33,7 @@ class HomeProvider extends Component {
   updateLimit = async () => {
     this.setState({ disabled: true });
     axios
-      .get("/api/categories/allCategories/11/5")
+      .get("/api/categories/allCategories/11/10")
       .then(categories => categories.data)
       .then(category =>
         category.map(cat =>

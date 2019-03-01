@@ -176,6 +176,8 @@ class Enquiry extends Component {
                   <DatePicker
                     format={dateFormat}
                     disabledDate={this.disabledDate}
+                    onOpenChange={blur()}
+                    readOnly
                   />
                 )}
               </Form.Item>
@@ -232,7 +234,9 @@ class Enquiry extends Component {
                 {...Layout}
                 label={"Area of event (in " + selectedLocation + ")"}
               >
-                {getFieldDecorator("locality", {})(<Input />)}
+                {getFieldDecorator("locality", {})(
+                  <Input autoComplete="off" />
+                )}
               </Form.Item>
               <Form.Item label="What is your budget?" {...Layout}>
                 {getFieldDecorator("budget", {

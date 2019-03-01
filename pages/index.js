@@ -18,12 +18,22 @@ const { Meta } = Card;
 
 class Home extends Component {
   static contextType = HomeContext;
+  state = { countCategories: 10 };
   static async getInitialProps() {
     let categories = await axios.get("/api/categories/allCategories/10/0");
     categories = await categories.data;
 
     let locations = await axios.get("/api/admin/getLocations");
     locations = await locations.data;
+
+    axios
+      .get("/api/admin/allCategories")
+
+      .then(categories =>
+        this.setState({
+          countCategories: categories.data.length
+        })
+      );
 
     return { categories, locations };
   }
@@ -77,9 +87,11 @@ class Home extends Component {
                     </h2>
                   ))}
                 </Row>
-                <Button onClick={updateLimit} disabled={disabled}>
-                  View More
-                </Button>
+                {this.state.countCategories > 10 ? (
+                  <Button onClick={updateLimit} disabled={disabled}>
+                    View More
+                  </Button>
+                ) : null}
               </div>
             </div>
             <Artist categories={category} />
