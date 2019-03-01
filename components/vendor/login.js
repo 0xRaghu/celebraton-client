@@ -20,7 +20,7 @@ export default class VendorLogin extends Component {
         <Row>
           <Col sm={{ span: 24, offset: 0 }} md={{ span: 13, offset: 1 }}>
             <div style={{ textAlign: "center" }}>
-              <img src="../static/logo.png" height="200px" />
+              <img src="../static/logo-black.png" height="150px" />
 
               <h1>Be a vendor in India's first Verified Leads Portal !!</h1>
               <h3>

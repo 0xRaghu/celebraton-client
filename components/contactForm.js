@@ -40,9 +40,9 @@ class NormalLoginForm extends React.Component {
       <div>
         <Row>
           <Col xs={{ span: 12, offset: 6 }} lg={{ span: 12, offset: 6 }}>
-            <h1 style={{ align: "center", color: this.props.color }}>
+            <h2 style={{ align: "center", color: this.props.color }}>
               Request Callback
-            </h1>
+            </h2>
             <Form onSubmit={this.handleSubmit} className="login-form">
               <Form.Item>
                 {getFieldDecorator("name", {
@@ -100,7 +100,8 @@ class NormalLoginForm extends React.Component {
           #components-form-demo-normal-login .login-form-button {
             width: 100%;
           }
-          h1 {
+          h1,
+          h2 {
             color: white;
           }
         `}</style>

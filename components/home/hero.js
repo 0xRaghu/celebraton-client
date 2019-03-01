@@ -30,21 +30,25 @@ class Hero extends Component {
               <Row
                 type="flex"
                 className="hero-image"
-                style={{ alignItems: "center", minHeight: "500px" }}
+                style={{ alignItems: "center", minHeight: "330px" }}
               >
                 <Col sm={15} xs={24}>
                   <div className="hero-text">
-                    <img src="../static/logo.png" height="150px" />
-                    <h1>Hire the best EVENT EXPERTS</h1>
+                    <img
+                      src="../static/logo.png"
+                      height="150px"
+                      // width="80%"
+                      // max-width="500px"
+                    />
+                    <h2>Hire the best EVENT EXPERTS</h2>
 
-                    <h2>
+                    <h3>
                       <Icon type="phone" />
                       <a href="tel:07904204718">+91-7904204718</a>
-                    </h2>
+                    </h3>
 
                     <Select
                       defaultValue="Chennai"
-                      size="large"
                       style={{ width: 180 }}
                       onChange={selectLocation}
                       value={selectedLocation}
@@ -55,7 +59,7 @@ class Hero extends Component {
                     </Select>
                   </div>
                 </Col>
-                <Col sm={9} xs={24}>
+                <Col sm={9} xs={0}>
                   <div className="inputForm">
                     <WrappedLoginForm />
                   </div>
@@ -98,7 +102,7 @@ class Hero extends Component {
                   color: white;
                 }
                 h1,
-                h2,
+                h2,h3,
                 a {
                   color: white;
                 }

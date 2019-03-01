@@ -26,19 +26,16 @@ class Home extends Component {
     let locations = await axios.get("/api/admin/getLocations");
     locations = await locations.data;
 
-    axios
-      .get("/api/admin/allCategories")
+    let count = await axios.get("/api/admin/allCategories");
+    count = await count.data;
 
-      .then(categories =>
-        this.setState({
-          countCategories: categories.data.length
-        })
-      );
-
-    return { categories, locations };
+    return { categories, locations, count };
   }
   componentWillMount() {
     this.context.updateCatandLoc(this.props.categories, this.props.locations);
+    this.setState({
+      countCategories: this.props.count.length
+    });
   }
 
   render() {
@@ -65,24 +62,20 @@ class Home extends Component {
                   {category.map(category => (
                     <h2 key={category._id}>
                       <Col>
-                        <Card
-                          // style={{ width: 220, height: 120 }}
+                        <a>
+                          <Card
+                            // style={{ width: 220, height: 120 }}
 
-                          bordered={true}
-                          onClick={() => clickModal(category)}
-                        >
-                          <Meta
-                            title={
-                              <span>
-                                <i className="small material-icons">
-                                  {category.icon}
-                                </i>
-                                <br />
-                                {category.name}
-                              </span>
-                            }
-                          />
-                        </Card>
+                            bordered={true}
+                            onClick={() => clickModal(category)}
+                          >
+                            <i className="small material-icons">
+                              {category.icon}
+                            </i>
+                            <br />
+                            {category.name}
+                          </Card>
+                        </a>
                       </Col>
                     </h2>
                   ))}
