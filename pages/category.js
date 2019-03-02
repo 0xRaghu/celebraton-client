@@ -61,9 +61,7 @@ class Category extends Component {
           currentCategory: category
         });
 
-        router.push(
-          "/category?enquiry=" + category.slug + "-" + this.props.location
-        );
+        router.push("/" + category.slug + "_in_" + this.props.location);
       }
     });
   };

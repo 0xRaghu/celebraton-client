@@ -58,7 +58,7 @@ class Dashboard extends Component {
     });
   };
   clickViewProfile = () => {
-    Router.push("/profile?profileId=" + this.context.currentProfile.slug);
+    Router.push("/profile/" + this.context.currentProfile.slug);
   };
   clickAddMoney = () => {
     this.setState({ openWalletModal: true });

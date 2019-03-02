@@ -530,7 +530,7 @@ class AdminManageProfile extends Component {
             </Form.Item>
             {this.state.profileMode === "update" ? (
               <Form.Item {...tailformItemLayout}>
-                <Link href={"/profile?profileId=" + profile.slug} prefetch>
+                <Link href={"/profile/" + profile.slug} prefetch>
                   <a target="_blank">
                     <Button type="primary">View Profile</Button>
                   </a>

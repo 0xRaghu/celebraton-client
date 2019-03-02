@@ -452,7 +452,8 @@ class AllEnquiries extends Component {
                       style={{ background: "green", borderColor: "green" }}
                       onClick={() => this.payForLead()}
                       disabled={
-                        typeof this.state.profile !== "undefined"
+                        typeof this.state.profile !== "undefined" &&
+                        currentEnquiry.interestedPartners.length < 5
                           ? !this.state.profile.isAuthorized
                           : true
                       }

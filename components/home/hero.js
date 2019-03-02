@@ -21,10 +21,10 @@ class Hero extends Component {
         {() => (
           <div
             className="hero-image"
-            style={{
-              backgroundImage:
-                "linear-gradient(to bottom right, #C81F70, #BF3A30)"
-            }}
+            // style={{
+            //   backgroundImage:
+            //     "linear-gradient(to bottom right, #C81F70, #BF3A30)"
+            // }}
           >
             <div>
               <Row
@@ -71,28 +71,6 @@ class Hero extends Component {
                   height: 100%;
                 }
 
-                /* The hero image */
-                .hero-image {
-                  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-                  
-                    background-color: red
-
-                  /* Set a specific height */
-                  height: 500px;
-                  align: center;
-
-                  /* Position and center the image to scale nicely on all screens */
-                  background-position: top;
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  position: relative;
-                }
-                @media only screen and (max-width: 600px) {
-                  .hero-image {
-                    height: 750px;
-                  }
-                }
-
                 /* Place text in the middle of the image */
                 .hero-text {
                   text-align: center;
@@ -102,7 +80,8 @@ class Hero extends Component {
                   color: white;
                 }
                 h1,
-                h2,h3,
+                h2,
+                h3,
                 a {
                   color: white;
                 }

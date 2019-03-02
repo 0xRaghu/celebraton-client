@@ -25,7 +25,7 @@ export default class ArtistList extends Component {
       .then(res => callback(res.data));
   };
   clickArtist = slug => {
-    Router.push("/profile?profileId=" + slug);
+    Router.push("/profile/" + slug);
   };
   onLoadMore = () => {
     this.setState({

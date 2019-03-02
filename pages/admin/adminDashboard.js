@@ -43,7 +43,7 @@ class Dashboard extends Component {
     });
   };
   clickViewProfile = () => {
-    Router.push("/profile?profileId=" + this.props.profile._id);
+    Router.push("/profile/" + this.props.profile._id);
   };
   clickManageContactForms = () => {
     this.setState({

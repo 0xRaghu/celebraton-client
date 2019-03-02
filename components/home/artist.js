@@ -16,7 +16,7 @@ export default class Artist extends Component {
       .then(profiles => this.setState({ profiles: profiles.data }));
   }
   clickArtist = slug => {
-    Router.push("/profile?profileId=" + slug);
+    Router.push("/profile/" + slug);
   };
   render() {
     const { profiles } = this.state;
@@ -53,7 +53,7 @@ export default class Artist extends Component {
                 </h2>
               ))}
             </Row>
-            <Link href="/category?enquiry=Artists-Mumbai">
+            <Link href="/Artists_in_Mumbai">
               <a>
                 <Button>View More</Button>
               </a>

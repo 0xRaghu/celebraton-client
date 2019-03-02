@@ -178,7 +178,6 @@ class Enquiry extends Component {
                     <DatePicker
                       format={dateFormat}
                       disabledDate={this.disabledDate}
-                      onOpenChange={blur()}
                     />
                   </React.Fragment>
                 )}
