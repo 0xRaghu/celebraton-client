@@ -22,16 +22,6 @@ import { LoginConsumer } from "../provider/loginProvider";
 import request from "superagent";
 import { storage } from "../../firebase";
 
-const CLOUDINARY_UPLOAD_PRESET = "celebraton";
-const CLOUDINARY_UPLOAD_URL =
-  "https://api.cloudinary.com/v2/celebraton/image/upload";
-
-// cloudinary.config({
-//   cloud_name: "celebraton",
-//   api_key: "762772115648482",
-//   api_secret: "HmVoOwYoNTKA-htyImhCfBA51qI"
-// });
-
 class Enquiry extends Component {
   state = {
     inputGuests: 0,
