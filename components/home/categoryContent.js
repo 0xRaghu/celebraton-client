@@ -271,7 +271,11 @@ class Enquiry extends Component {
                   valuePropName: "fileList",
                   getValueFromEvent: this.normFile
                 })(
-                  <Upload name="logo" listType="picture" multiple={false}>
+                  <Upload
+                    name="logo"
+                    listType="picture"
+                    accept=".jpeg,.jpg,.png,.bmp,.gif"
+                  >
                     <Button>
                       <Icon type="upload" /> Click to upload
                     </Button>
