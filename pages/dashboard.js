@@ -23,13 +23,6 @@ class Dashboard extends Component {
   static contextType = LoginContext;
 
   componentDidMount() {
-    if (this.context.currentUser.role !== "admin") {
-      if (this.context.currentUser.role === "vendor") {
-        Router.push("/dashboard");
-      } else if (this.context.currentUser.role === "customer") {
-        Router.push("/");
-      }
-    }
     if (this.context.currentProfile) {
       this.setState({
         content: <AllEnquiries profile={this.context.currentProfile} />
@@ -108,6 +101,10 @@ class Dashboard extends Component {
     });
   };
   render() {
+    if (this.context.currentUser.role === "customer") {
+      Router.push("/");
+    }
+
     return (
       <React.Fragment>
         <Head title="Home" />

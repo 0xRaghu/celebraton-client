@@ -33,13 +33,13 @@ class Category extends Component {
 
     categories = await categories.data;
     let category = await axios.get(
-      "/api/categories/categoryBySlug/" + query[0]
+      "/api/categories/categoryBySlug/" + query[0].toLowerCase()
     );
 
     category = await category.data;
     let locations = await axios.get("/api/admin/getLocations");
     locations = await locations.data;
-    let location = query[1];
+    let location = query[1].charAt(0).toUpperCase() + query[1].slice(1);
 
     return { categories, category, locations, location };
   };
@@ -70,7 +70,14 @@ class Category extends Component {
     const { categories, currentCategory } = this.state;
     return (
       <React.Fragment>
-        <Head title="Home" />
+        <Head
+          title={`Best ${currentCategory.name}s in ${
+            this.context.selectedLocation
+          } | CelebratON`}
+          description={`Hire or Book the best ${currentCategory.name}s in ${
+            this.context.selectedLocation
+          } in a few clicks. We have the best Wedding Planners, Birthday Planners and Suprise Planners in our platform | CelebratON`}
+        />
 
         <Layout
           style={{

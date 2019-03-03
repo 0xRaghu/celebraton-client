@@ -2,14 +2,17 @@ import React from "react";
 import NextHead from "next/head";
 import { string } from "prop-types";
 
-const defaultDescription = "";
+const defaultDescription = "Book the best customized Wedding Planner, Birthday Planner, Suprise Planner or an Event Organizer in just a few clicks";
 const defaultOGURL = "";
 const defaultOGImage = "";
 
 const Head = props => (
   <NextHead>
     <meta charSet="UTF-8" />
-    <title>{props.title || ""}</title>
+    <title>
+      {props.title ||
+        "Best Wedding, Birthday and Surprise Planners all at one place | CelebratON"}
+    </title>
     <meta
       name="description"
       content={props.description || defaultDescription}

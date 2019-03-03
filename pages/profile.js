@@ -62,7 +62,8 @@ class Profile extends Component {
 
     return (
       <React.Fragment>
-        <Head title="Home" />
+        <Head title={`CelebratON | ${currentProfile.companyName} - Preferred Partner`} description={`${currentProfile.companyName} is one of the best vendors on CelebratON | Hire or Book the best Wedding Planners, Surprise Planners and Birthday Planners in a few clicks on CelebratON`} />
+
         <div>
           <div className="hero-image">
             <Row type="flex" style={{ alignItems: "center", height: "400px" }}>

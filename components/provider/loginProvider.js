@@ -34,13 +34,13 @@ class LoginProvider extends Component {
     if (localStorage.jwtToken) {
       setAuthToken(localStorage.jwtToken);
       const decoded = jwt_decode(localStorage.jwtToken);
-      axios.get("/api/profiles/getProfile").then(profile =>
+      axios.get("/api/profiles/getProfile").then(profile => {
         this.setState({
           currentUser: decoded,
           isAuthenticated: true,
           currentProfile: profile.data
-        })
-      );
+        });
+      });
     }
   }
   showDrawer = () => {

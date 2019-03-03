@@ -4,7 +4,6 @@ import Head from "../components/home/head";
 import Hero from "../components/home/hero";
 import Nav from "../components/nav";
 import axios from "axios";
-import Categories from "../components/home/categories";
 import HowItWorks from "../components/home/HowItWorks";
 import Testimonials from "../components/home/testimonials";
 import Popup from "../components/home/modal";
@@ -45,7 +44,7 @@ class Home extends Component {
       <HomeConsumer>
         {() => (
           <div>
-            <Head title="Home" />
+            <Head title="Best Wedding, Birthday and Surprise Planners all at one place | CelebratON" description="Book the best customized Wedding Planner, Birthday Planner, Suprise Planner or an Event Organizer in just a few clicks" />
 
             <Hero />
             <div className="center">

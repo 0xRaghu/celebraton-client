@@ -15,15 +15,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 class Dashboard extends Component {
   static contextType = LoginContext;
-  componentDidMount() {
-    if (this.context.currentUser.role !== "admin") {
-      if (this.context.currentUser.role === "vendor") {
-        Router.push("/dashboard");
-      } else if (this.context.currentUser.role === "customer") {
-        Router.push("/");
-      }
-    }
-  }
+  componentDidMount() {}
   state = {
     content: <ManageEnquiries />,
     limit: 20
@@ -51,6 +43,13 @@ class Dashboard extends Component {
     });
   };
   render() {
+    // if (this.context.currentUser.role !== "admin") {
+    //   if (this.context.currentUser.role === "vendor") {
+    //     Router.push("/dashboard");
+    //   } else if (this.context.currentUser.role === "customer") {
+    //     Router.push("/");
+    //   }
+    // }
     return (
       <React.Fragment>
         <Head title="Home" />
@@ -96,7 +95,11 @@ class Dashboard extends Component {
                 <Icon type="user" />
                 <span className="nav-text">Contact Forms</span>
               </Menu.Item>
-              <Menu.Item key="5" onClick={() => this.clickManageProfile()}>
+              <Menu.Item
+                key="5"
+                onClick={() => this.clickManageProfile()}
+                disabled={true}
+              >
                 <Icon type="area-chart" />
                 <span className="nav-text">Admin Dashboard</span>
               </Menu.Item>
