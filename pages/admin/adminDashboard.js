@@ -16,13 +16,13 @@ const { Header, Content, Footer, Sider } = Layout;
 class Dashboard extends Component {
   static contextType = LoginContext;
   componentDidMount() {
-    // if (this.context.currentUser.role !== "admin") {
-    //   if (this.context.currentUser.role === "vendor") {
-    //     Router.push("/dashboard");
-    //   } else if (this.context.currentUser.role === "customer") {
-    //     Router.push("/");
-    //   }
-    // }
+    if (this.context.currentUser.role !== "admin") {
+      if (this.context.currentUser.role === "vendor") {
+        Router.push("/dashboard");
+      } else if (this.context.currentUser.role === "customer") {
+        Router.push("/");
+      }
+    }
   }
   state = {
     content: <ManageEnquiries />,

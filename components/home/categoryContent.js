@@ -34,6 +34,7 @@ class Enquiry extends Component {
     e.preventDefault();
 
     this.props.form.validateFieldsAndScroll((err, values) => {
+      console.log(values);
       if (!err) {
         let request = { enquiry: values, category: this.props.modalCategory };
         axios.post("/api/enquiries/addEnquiry", request).then(enquiry => {
@@ -164,12 +165,10 @@ class Enquiry extends Component {
                     }
                   ]
                 })(
-                  <React.Fragment>
-                    <DatePicker
-                      format={dateFormat}
-                      disabledDate={this.disabledDate}
-                    />
-                  </React.Fragment>
+                  <DatePicker
+                    format={dateFormat}
+                    disabledDate={this.disabledDate}
+                  />
                 )}
               </Form.Item>
               <Form.Item {...Layout} label="No of Guests">

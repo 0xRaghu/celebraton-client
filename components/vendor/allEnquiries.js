@@ -28,7 +28,7 @@ class AllEnquiries extends Component {
   state = {
     drawerVisible: false,
     currentId: "",
-    currentEnquiry: { sampleImages: [] },
+    currentEnquiry: { sampleImages: [], interestedPartners: [] },
     initLoading: true,
     loading: false,
     enquiries: [],
@@ -43,14 +43,6 @@ class AllEnquiries extends Component {
       .then(profile => this.setState({ profile: profile.data }));
   }
   componentDidMount() {
-    this.getData(res => {
-      this.setState({
-        initLoading: false,
-        enquiries: res,
-        list: res,
-        count: this.state.count + 20
-      });
-    });
     this.props.router.query.enquiry
       ? axios
           .get(
@@ -61,9 +53,17 @@ class AllEnquiries extends Component {
           )
       : null;
 
-    axios
-      .get("/api/profiles/getProfile")
-      .then(profile => this.setState({ profile: profile.data }));
+    axios.get("/api/profiles/getProfile").then(profile => {
+      this.setState({ profile: profile.data });
+      this.getData(res => {
+        this.setState({
+          initLoading: false,
+          enquiries: res,
+          list: res,
+          count: this.state.count + 20
+        });
+      });
+    });
     var aScript = document.createElement("script");
     aScript.type = "text/javascript";
     aScript.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -73,7 +73,9 @@ class AllEnquiries extends Component {
 
   getData = callback => {
     axios
-      .get(`/api/enquiries/allEnquiries/20/${this.state.count}`)
+      .post(`/api/enquiries/allEnquiries/20/${this.state.count}`, {
+        profile: this.state.profile
+      })
       .then(res => callback(res.data));
   };
 
