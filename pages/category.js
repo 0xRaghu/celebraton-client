@@ -61,7 +61,7 @@ class Category extends Component {
           currentCategory: category
         });
 
-        router.push("/" + category.slug + "_in_" + this.props.location);
+        
       }
     });
   };
@@ -72,10 +72,10 @@ class Category extends Component {
       <React.Fragment>
         <Head
           title={`Best ${currentCategory.name}s in ${
-            this.context.selectedLocation
+            this.props.location
           } | CelebratON`}
           description={`Hire or Book the best ${currentCategory.name}s in ${
-            this.context.selectedLocation
+            this.props.location
           } in a few clicks. We have the best Wedding Planners, Birthday Planners and Suprise Planners in our platform | CelebratON`}
         />
 
@@ -111,18 +111,21 @@ class Category extends Component {
             >
               {categories.map(category => (
                 <Menu.Item
-                  key={category.order}
-                  onClick={() => this.clickCategory(category._id)}
-                >
-                  <Row type="flex" align="middle">
-                    <Col span={1}>
-                      <i className="large material-icons">{category.icon}</i>{" "}
-                    </Col>
-                    <Col span={1} offset={3}>
-                      <p className="nav-text">{category.name}</p>
-                    </Col>
-                  </Row>
-                </Menu.Item>
+                key={category.order}
+                onClick={() => this.clickCategory(category._id)}
+              >
+              {/* <Link href={`/${category.slug}_in_${this.props.location}`}><a> */}
+                <Row type="flex" align="middle">
+                  <Col span={1}>
+                    <i className="large material-icons">{category.icon}</i>{" "}
+                  </Col>
+                  <Col span={1} offset={3}>
+                    <p className="nav-text">{category.name}</p>
+                  </Col>
+                </Row>
+                {/* </a></Link> */}
+              </Menu.Item>
+                
               ))}
             </Menu>
           </Sider>
