@@ -101,7 +101,7 @@ class Dashboard extends Component {
     });
   };
   render() {
-    if (this.context.currentUser.role === "customer") {
+    if (this.context.currentUser.role !== "vendor" && typeof window !== "undefined") {
       Router.push("/");
     }
 
