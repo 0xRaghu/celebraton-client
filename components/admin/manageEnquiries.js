@@ -98,7 +98,7 @@ class ManageEnquiriesAdmin extends Component {
   getData = callback => {
     axios
       .post(`/api/enquiries/allEnquiries/20/${this.state.count}`)
-      .then(res => callback(res.data));
+      .then(res => callback(res.data)).catch(err=>Router.push("/"));
   };
 
   onLoadMore = () => {

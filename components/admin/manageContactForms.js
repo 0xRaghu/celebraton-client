@@ -49,7 +49,7 @@ class ManageContactForms extends Component {
   getData = callback => {
     axios
       .get(`/api/contactForms/allForms/20/${this.state.count}`)
-      .then(res => callback(res.data));
+      .then(res => callback(res.data)).catch(err=>Router.push("/"));
   };
 
   onLoadMore = () => {

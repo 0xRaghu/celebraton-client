@@ -50,7 +50,7 @@ class AllEnquiries extends Component {
           )
           .then(enquiry =>
             this.setState({ currentEnquiry: enquiry.data, drawerVisible: true })
-          )
+          ).catch(err=>Router.push("/"))
       : null;
 
     axios.get("/api/profiles/getProfile").then(profile => {

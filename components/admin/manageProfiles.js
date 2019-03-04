@@ -70,7 +70,7 @@ class AdminManageProfile extends Component {
   getData = callback => {
     axios
       .get(`/api/profiles/allProfiles/20/${this.state.count}`)
-      .then(res => callback(res.data));
+      .then(res => callback(res.data)).catch(err=>Router.push("/"));
   };
   onLoadMore = () => {
     this.setState({
