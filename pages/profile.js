@@ -85,30 +85,7 @@ class Profile extends Component {
                 height: 100%;
               }
 
-              /* The hero image */
-              .hero-image {
-                /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-                background-image: linear-gradient(
-                    rgba(0, 0, 0, 0.4),
-                    rgba(0, 0, 0, 0.4)
-                  ),
-                  url("../static/banner3.jpg");
-
-                /* Set a specific height */
-                height: 400px;
-                align: center;
-
-                /* Position and center the image to scale nicely on all screens */
-                background-position: top;
-                background-repeat: no-repeat;
-                background-size: cover;
-                position: relative;
-              }
-              @media only screen and (max-width: 600px) {
-                .hero-image {
-                  height: 400px;
-                }
-              }
+              
 
               /* Place text in the middle of the image */
               .hero-text {

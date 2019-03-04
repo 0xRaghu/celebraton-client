@@ -7,7 +7,7 @@ class VendorRegister extends Component {
   render() {
     return (
       <React.Fragment>
-        <Head title="CelebratON | Register or Login as our Vendor" description="Book the best customized Wedding Planner, Birthday Planner, Suprise Planner or an Event Organizer in just a few clicks" />
+        <Head title="CelebratON | Register or Login as our Vendor" description="Book the best customized Wedding Planner, Birthday Planner, Surprise Planner or an Event Organizer in just a few clicks" />
 
         <VendorLogin />
       </React.Fragment>

@@ -76,7 +76,7 @@ class Category extends Component {
           } | CelebratON`}
           description={`Hire or Book the best ${currentCategory.name}s in ${
             this.props.location
-          } in a few clicks. We have the best Wedding Planners, Birthday Planners and Suprise Planners in our platform | CelebratON`}
+          } in a few clicks. We have the best Wedding Planners, Birthday Planners and Surprise Planners in our platform | CelebratON`}
         />
 
         <Layout

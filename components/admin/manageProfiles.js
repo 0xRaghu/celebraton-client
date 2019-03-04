@@ -49,7 +49,7 @@ class AdminManageProfile extends Component {
       this.setState({
         initLoading: false,
         profiles: res,
-        count: this.state.count + 2
+        count: this.state.count + 20
       });
     });
     if (this.props.profile !== {}) {
@@ -69,13 +69,13 @@ class AdminManageProfile extends Component {
   }
   getData = callback => {
     axios
-      .get(`/api/profiles/allProfiles/2/${this.state.count}`)
+      .get(`/api/profiles/allProfiles/20/${this.state.count}`)
       .then(res => callback(res.data));
   };
   onLoadMore = () => {
     this.setState({
       loading: true,
-      count: this.state.count + 2
+      count: this.state.count + 20
     });
     this.getData(res => {
       const profiles = this.state.profiles.concat(res);

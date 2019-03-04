@@ -8,7 +8,7 @@ class HowItWorks extends Component {
         <Row gutter={16}>
           <Col sm={{ span: 8 }}>
             <Card title="Submit Enquiry">
-              Login, Select Locaton, select category and share your Requirement
+              Login, Select Location, select category and share your Requirement
             </Card>
           </Col>
           <Col sm={{ span: 8 }}>

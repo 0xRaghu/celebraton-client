@@ -84,7 +84,7 @@ class ManageEnquiriesAdmin extends Component {
         initLoading: false,
         enquiries: res,
         list: res,
-        count: this.state.count + 2
+        count: this.state.count + 20
       });
     });
 
@@ -97,14 +97,14 @@ class ManageEnquiriesAdmin extends Component {
 
   getData = callback => {
     axios
-      .post(`/api/enquiries/allEnquiries/2/${this.state.count}`)
+      .post(`/api/enquiries/allEnquiries/20/${this.state.count}`)
       .then(res => callback(res.data));
   };
 
   onLoadMore = () => {
     this.setState({
       loading: true,
-      count: this.state.count + 2
+      count: this.state.count + 20
     });
     this.getData(res => {
       const enquiries = this.state.enquiries.concat(res);

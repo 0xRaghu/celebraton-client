@@ -2,7 +2,7 @@ import React from "react";
 import NextHead from "next/head";
 import { string } from "prop-types";
 
-const defaultDescription = "Book the best customized Wedding Planner, Birthday Planner, Suprise Planner or an Event Organizer in just a few clicks";
+const defaultDescription = "Book the best customized Wedding Planner, Birthday Planner, Surprise Planner or an Event Organizer in just a few clicks";
 const defaultOGURL = "";
 const defaultOGImage = "";
 

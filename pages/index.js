@@ -44,7 +44,7 @@ class Home extends Component {
       <HomeConsumer>
         {() => (
           <div>
-            <Head title="Best Wedding, Birthday and Surprise Planners all at one place | CelebratON" description="Book the best customized Wedding Planner, Birthday Planner, Suprise Planner or an Event Organizer in just a few clicks" />
+            <Head title="Best Wedding, Birthday and Surprise Planners all at one place | CelebratON" description="Book the best customized Wedding Planner, Birthday Planner, Surprise Planner or an Event Organizer in just a few clicks" />
 
             <Hero />
             <div className="center">

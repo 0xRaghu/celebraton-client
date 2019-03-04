@@ -48,13 +48,13 @@ class ManageContactForms extends Component {
 
   getData = callback => {
     axios
-      .get(`/api/contactForms/allForms/2/${this.state.count}`)
+      .get(`/api/contactForms/allForms/20/${this.state.count}`)
       .then(res => callback(res.data));
   };
 
   onLoadMore = () => {
     this.setState({
-      count: this.state.count + 2
+      count: this.state.count + 20
     });
     this.getData(res => {
       const contactForms = this.state.contactForms.concat(res);
