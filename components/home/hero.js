@@ -100,7 +100,7 @@ class Hero extends Component {
               <Drawer visible={this.state.modalVisible} placement="bottom" closable={true}
           onClose={this.onClose}>
               <div className="inputForm">
-                    <WrappedLoginForm color={"black"} />
+                    <WrappedLoginForm color={"black"} onClose={()=>this.onClose()}/>
                   </div>
               </Drawer>
               <style jsx>{`

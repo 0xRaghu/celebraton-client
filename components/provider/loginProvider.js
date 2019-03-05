@@ -110,7 +110,7 @@ class LoginProvider extends Component {
       currentUser: {},
       isAuthenticated: false
     });
-    Router.push("/");
+    
   };
   deactivateDashboard = () => {
     this.setState({ deactivated: true });

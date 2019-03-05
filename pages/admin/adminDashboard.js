@@ -43,14 +43,12 @@ class Dashboard extends Component {
     });
   };
   render() {
-    if (this.context.currentUser.role !== "admin"  && this.context.currentUser.role) {
+    if (this.context.currentUser.role !== "admin") {
       if (this.context.currentUser.role === "vendor") {
         Router.push("/dashboard");
       } else if (this.context.currentUser.role === "customer") {
         Router.push("/");
       }
-    } else if(typeof window !== "undefined"){
-      Router.push("/");
     } 
     
     return (

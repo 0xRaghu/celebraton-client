@@ -50,7 +50,7 @@ class AllEnquiries extends Component {
           )
           .then(enquiry =>
             this.setState({ currentEnquiry: enquiry.data, drawerVisible: true })
-          ).catch(err=>Router.push("/"))
+          )
       : null;
 
     axios.get("/api/profiles/getProfile").then(profile => {
@@ -238,7 +238,7 @@ class AllEnquiries extends Component {
 
     return (
       <React.Fragment>
-        <div style={{ background: "#ECECEC", padding: "30px" }}>
+        <div style={{ background: "#ECECEC", padding: "10px" }}>
           <h1 style={{ textAlign: "center" }}>All Enquiries</h1>
           <List
             className="demo-loadmore-list"
@@ -248,12 +248,12 @@ class AllEnquiries extends Component {
             dataSource={enquiries}
             grid={{
               gutter: 16,
-              xs: 1,
-              sm: 2,
-              md: 3,
-              lg: 3,
-              xl: 3,
-              xxl: 3
+              xs: 2,
+              sm: 3,
+              md: 4,
+              lg: 4,
+              xl: 4,
+              xxl: 4
             }}
             style={{ padding: "10px" }}
             renderItem={enquiry => (

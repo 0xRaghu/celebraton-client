@@ -101,7 +101,7 @@ class Dashboard extends Component {
     });
   };
   render() {
-    if (this.context.currentUser.role !== "vendor" && typeof window !== "undefined") {
+    if (this.context.currentUser.role === "customer"  && typeof window !== "undefined") {
       Router.push("/");
     }
 
@@ -187,8 +187,8 @@ class Dashboard extends Component {
             </Menu>
           </Sider>
 
-          <Content style={{ margin: "24px 16px 0" }}>
-            <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
+          <Content>
+            <div style={{ padding: 0, background: "#fff", minHeight: 360 }}>
               {this.state.content}
               {/* <Footer style={{ textAlign: "center" }}>
                 Ant Design ©2018 Created by Ant UED

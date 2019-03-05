@@ -32,6 +32,7 @@ class NormalLoginForm extends React.Component {
       }
     });
     this.props.form.resetFields();
+    this.props.onClose();
   };
 
   render() {
