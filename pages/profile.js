@@ -66,16 +66,16 @@ class Profile extends Component {
 
         <div>
           <div className="hero-image">
-            <Row type="flex" style={{ alignItems: "center", height: "400px" }}>
+            <Row type="flex" style={{ alignItems: "center", height: "200px" }}>
               <Col xs={24}>
                 <div className="hero-text">
-                  <img src="../static/logo.png" height="150px" />
-                  <h1>Hire the best EVENT EXPERTS</h1>
+                  <img src="../static/logo.png" height="100px" />
+                  <h2>Hire the best EVENT EXPERTS</h2>
 
-                  <h2>
+                  <h3>
                     <Icon type="phone" />
                     <a href="tel:07904204718">+91-7904204718</a>
-                  </h2>
+                  </h3>
                 </div>
               </Col>
             </Row>
@@ -96,7 +96,7 @@ class Profile extends Component {
                 color: white;
               }
               h1,
-              h2,
+              h2,h3,
               a {
                 color: white;
               }

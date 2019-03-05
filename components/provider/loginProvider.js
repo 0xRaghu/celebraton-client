@@ -40,9 +40,7 @@ class LoginProvider extends Component {
           isAuthenticated: true,
           currentProfile: profile.data
         });
-      }).catch(err=>Router.push("/"));
-    } else {
-      Router.push("/");
+      });
     }
   }
   showDrawer = () => {

@@ -15,10 +15,10 @@ class Footer extends React.Component {
     return (
       <React.Fragment>
         <Row
-          style={{ padding: "20px" }}
+          style={{ padding: "0px" }}
           style={{ color: "white", backgroundColor: "#001529" }}
         >
-          <Col sm={{ span: 8 }}>
+          <Col sm={{ span: 7,offset:1 }}  xs={{ span: 20, offset: 2 }}>
             <h3 style={{ color: "white" }}>About Us</h3>
             <hr />
             <p>
@@ -35,7 +35,7 @@ class Footer extends React.Component {
             </p>
           </Col>
 
-          <Col sm={{ span: 8 }}>
+          <Col sm={{ span: 7,offset:1 }} xs={{ span: 20, offset: 2 }}>
             <h3 style={{ color: "white" }}>Contact Us</h3>
             <hr />
             <p>
@@ -63,7 +63,7 @@ class Footer extends React.Component {
             </p>
           </Col>
 
-          <Col sm={{ span: 8 }}>
+          <Col sm={{ span: 6,offset:1 }} xs={{ span: 20, offset: 2 }}>
             <h3 style={{ color: "white" }}>Important Links</h3>
             <hr />
             <ul>

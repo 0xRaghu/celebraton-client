@@ -6,7 +6,7 @@ class Testimonials extends Component {
     return (
       <Layout style={{ textAlign: "center", paddingTop: "15px" }}>
         <h2>Testimonials</h2>
-        <Carousel autoplay effect="fade" style={{ textAlign: "center" }}>
+        <Carousel autoplay effect="fade" style={{ textAlign: "center"}}>
           <div>
             <p>
               Hired a Birthday Planner using CelebratON for my kid's birthday.

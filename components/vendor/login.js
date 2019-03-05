@@ -18,9 +18,9 @@ export default class VendorLogin extends Component {
     return (
       <div>
         <Row>
-          <Col sm={{ span: 24, offset: 0 }} md={{ span: 13, offset: 1 }}>
+          <Col xs={{ span: 20, offset: 2 }} sm={{ span: 20, offset: 2 }} md={{ span: 13, offset: 1 }}>
             <div style={{ textAlign: "center" }}>
-              <img src="../static/logo-black.png" height="150px" />
+              <img src="../static/logo-black.png" max-height="150px" width="80%" />
 
               <h1>Be a vendor in India's first Verified Leads Portal !!</h1>
               <h3>
@@ -30,7 +30,8 @@ export default class VendorLogin extends Component {
             </div>
           </Col>
           <Col
-            sm={{ span: 24, offset: 0 }}
+           xs={{ span: 20, offset: 2 }}
+            sm={{ span: 20, offset: 2 }}
             md={{ span: 8, offset: 1 }}
             style={{ paddingTop: "40px" }}
           >
@@ -42,25 +43,25 @@ export default class VendorLogin extends Component {
         <div style={{ textAlign: "center" }}>
           <h1>How it Works for you?</h1>
           <Row gutter={16}>
-            <Col sm={{ span: 6 }}>
+            <Col sm={{ span: 6 }}  xs={{ span: 20, offset: 2 }}>
               <Card title="Register">
                 Register your profile in less than a minute with your mobile
                 number
               </Card>
             </Col>
-            <Col sm={{ span: 6 }}>
+            <Col sm={{ span: 6 }} xs={{ span: 20, offset: 2 }}>
               <Card title="Get Notified with Leads">
                 You will be notified with quality leads with complete
                 information
               </Card>
             </Col>
-            <Col sm={{ span: 6 }}>
+            <Col sm={{ span: 6 }} xs={{ span: 20, offset: 2 }}>
               <Card title="Buy Leads">
                 With complete info., Pay a small amount to buy leads & get
                 contact details
               </Card>
             </Col>
-            <Col sm={{ span: 6 }}>
+            <Col sm={{ span: 6 }} xs={{ span: 20, offset: 2 }}>
               <Card title="Connect and Convert">
                 Connect with them, dictate your own terms and book business
               </Card>

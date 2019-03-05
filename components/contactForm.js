@@ -39,7 +39,7 @@ class NormalLoginForm extends React.Component {
     return (
       <div>
         <Row>
-          <Col xs={{ span: 12, offset: 6 }} lg={{ span: 12, offset: 6 }}>
+          <Col xs={{ span: 20, offset: 2 }} lg={{ span: 12, offset: 6 }}>
             <h2 style={{ align: "center", color: this.props.color }}>
               Request Callback
             </h2>

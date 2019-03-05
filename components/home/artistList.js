@@ -57,7 +57,7 @@ export default class ArtistList extends Component {
         <div className="center">
           <div style={{ background: "#ECECEC", padding: "30px" }}>
             <Row gutter={16}>
-              <h1 className="h1Heading">Artists on our platform</h1>
+              <h2 className="h1Heading">Artists on our platform</h2>
               {artists.map(profile => (
                 <h2 key={profile._id}>
                   <Col span={8}>
@@ -92,9 +92,7 @@ export default class ArtistList extends Component {
               text-align: center;
               color: #595959;
             }
-            h2 {
-              display: inline-block;
-            }
+            
             .center {
               text-align: center;
             }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../../styles.less";
 // import "~antd/dist/antd.less";
-import { Row, Col, Select, Icon } from "antd";
+import { Row, Col, Select, Icon,Drawer,Button } from "antd";
 import WrappedLoginForm from "../contactForm";
 
 import { HomeConsumer, HomeContext } from "../provider/homeProvider";
@@ -12,8 +12,16 @@ function handleChange(value) {
   console.log(`selected ${value}`);
 }
 
+
 class Hero extends Component {
   static contextType = HomeContext;
+  state={modalVisible:false}
+  onClose=()=>{
+    this.setState({modalVisible:false})
+  }
+  openCallbackModal=()=>{
+    this.setState({modalVisible:true})
+  }
   render() {
     const { locations, selectedLocation, selectLocation } = this.context;
     return (
@@ -30,9 +38,9 @@ class Hero extends Component {
               <Row
                 type="flex"
                 className="hero-image"
-                style={{ alignItems: "center", minHeight: "330px" }}
+                style={{ alignItems: "center"}}
               >
-                <Col sm={15} xs={24}>
+                <Col sm={15} xs={0}>
                   <div className="hero-text">
                     <img
                       src="../static/logo.png"
@@ -64,7 +72,37 @@ class Hero extends Component {
                     <WrappedLoginForm />
                   </div>
                 </Col>
+                <Col sm={0} xs={24}>
+                <div className="hero-text">
+                    
+                    <h2>Hire the best EVENT EXPERTS</h2>
+
+                    <h3>
+                      <Icon type="phone" />
+                      <a href="tel:07904204718">+91-7904204718</a>
+                    </h3>
+
+                    <Select
+                      defaultValue="Chennai"
+                      style={{ width: 180 }}
+                      onChange={selectLocation}
+                      value={selectedLocation}
+                    >
+                      {locations.map(location => (
+                        <Option key={location}>{location}</Option>
+                      ))}
+                    </Select><br /><br />
+                    <Button type="primary" onClick={()=>this.openCallbackModal()}>Request Callback</Button>
+                  </div>
+                </Col>
+                
               </Row>
+              <Drawer visible={this.state.modalVisible} placement="bottom" closable={true}
+          onClose={this.onClose}>
+              <div className="inputForm">
+                    <WrappedLoginForm color={"black"} />
+                  </div>
+              </Drawer>
               <style jsx>{`
                 body,
                 html {

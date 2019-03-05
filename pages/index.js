@@ -4,6 +4,7 @@ import Head from "../components/home/head";
 import Hero from "../components/home/hero";
 import Nav from "../components/nav";
 import axios from "axios";
+import Link from "next/link"
 import HowItWorks from "../components/home/HowItWorks";
 import Testimonials from "../components/home/testimonials";
 import Popup from "../components/home/modal";
@@ -36,6 +37,7 @@ class Home extends Component {
       countCategories: this.props.count.length
     });
   }
+  
 
   render() {
     const { category, disabled, updateLimit, clickModal } = this.context;
@@ -49,9 +51,9 @@ class Home extends Component {
             <Hero />
             <div className="center">
               <div style={{ background: "#ECECEC", padding: "0px" }}>
-                <h1 className="h1Heading">
+                <h2 className="h1Heading">
                   Submit your Enquiry directly below
-                </h1>
+                </h2>
                 <Row
                   align="middle"
                   type="flex"
@@ -61,7 +63,7 @@ class Home extends Component {
                   {category.map(category => (
                     <h2 key={category._id}>
                       <Col>
-                        <a>
+                        <Link href="?m=enquiry"><a>
                           <Card
                             // style={{ width: 220, height: 120 }}
 
@@ -74,7 +76,7 @@ class Home extends Component {
                             <br />
                             {category.name}
                           </Card>
-                        </a>
+                        </a></Link>
                       </Col>
                     </h2>
                   ))}
@@ -88,7 +90,7 @@ class Home extends Component {
             </div>
             <Artist categories={category} />
 
-            <h1 className="h1Heading">How it Works</h1>
+            <h2 className="h1Heading">How it Works</h2>
             <HowItWorks />
             <Popup />
             <Testimonials />
@@ -99,9 +101,7 @@ class Home extends Component {
                 text-align: center;
                 color: #595959;
               }
-              h2 {
-                display: inline-block;
-              }
+              
               .center {
                 text-align: center;
               }

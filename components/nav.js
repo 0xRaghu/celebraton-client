@@ -82,7 +82,7 @@ class Nav extends React.Component {
               width="300px"
               title="Login/Register"
               placement="right"
-              closable={false}
+              closable={true}
               onClose={onCloseDrawer}
               visible={drawerVisible}
             >

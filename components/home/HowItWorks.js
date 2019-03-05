@@ -4,7 +4,7 @@ import { Row, Col, Card } from "antd";
 class HowItWorks extends Component {
   render() {
     return (
-      <div style={{ padding: "30px" }} className="center">
+      <div style={{ padding: "10px" }} className="center">
         <Row gutter={16}>
           <Col sm={{ span: 8 }}>
             <Card title="Submit Enquiry">

@@ -23,9 +23,9 @@ export default class Artist extends Component {
     return (
       <React.Fragment>
         <div className="center">
-          <div style={{ background: "#ECECEC", padding: "30px" }}>
+          <div style={{ background: "#ECECEC", padding: "10px" }}>
             <Row gutter={16}>
-              <h1 className="h1Heading">Artists on our platform</h1>
+              <h2 className="h1Heading">Artists on our platform</h2>
               {profiles.map(profile => (
                 <h2 key={profile._id}>
                   <Col span={8}>
@@ -64,9 +64,7 @@ export default class Artist extends Component {
               text-align: center;
               color: #595959;
             }
-            h2 {
-              display: inline-block;
-            }
+            
             .center {
               text-align: center;
             }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
+import Router from "next/router"
 
 /* First we will make a new context */
 const HomeContext = React.createContext();
@@ -52,6 +53,7 @@ class HomeProvider extends Component {
 
   handleCancel = () => {
     this.setState({ visible: false });
+    Router.push("/")
   };
   clickModal = category => {
     this.setState({ visible: true, modalCategory: category });
