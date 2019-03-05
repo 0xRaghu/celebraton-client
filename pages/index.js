@@ -63,7 +63,7 @@ class Home extends Component {
                   {category.map(category => (
                     <h2 key={category._id}>
                       <Col>
-                        <Link href="?m=enquiry"><a>
+                        <Link href="?m=enquiry"><a style={{textDecoration:"none"}}>
                           <Card
                             // style={{ width: 220, height: 120 }}
 
