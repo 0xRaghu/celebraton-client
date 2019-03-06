@@ -29,14 +29,14 @@ class AllEnquiries extends Component {
   state = {
     drawerVisible: false,
     currentId: "",
-    currentEnquiry: { sampleImages: [], interestedPartners: [] },
+    currentEnquiry: { sampleImages: [], interestedPartners: [],user:{name:"",mobile:"",email:""} },
     initLoading: true,
     loading: false,
     enquiries: [],
     list: [],
     count: 0,
     junk: "",
-    profile: { enquiriesRead: [], wishList: [] }
+    profile: { _id:"",enquiriesRead: [], wishList: [],Wallet:"",promoCredit:"" }
   };
   componentWillMount() {
     
@@ -315,7 +315,173 @@ class AllEnquiries extends Component {
               </List.Item>
             )}
           />
-
+<Modal
+            title={currentEnquiry.category}
+            onCancel={this.onClose}
+            visible={this.state.drawerVisible}
+            style={{ textAlign: "center" }}
+            footer={[]}
+          >
+          
+            <Row type="flex" align="middle">
+              <Col
+                style={{ textAlign: "left" }}
+                md={{ span: 9, offset: 3 }}
+                sm={{ span: 22, offset: 2 }}
+              >
+                <b>Customer Name: </b>
+                {currentEnquiry.user.name}
+                <br />
+                <b>Event: </b>
+                {currentEnquiry.serviceFor}
+                <br />
+                <b>Event Date: </b>{" "}
+                {moment(currentEnquiry.eventDate).format("DD MMM, YYYY")}
+                <br />
+                <b>No. of Guests: </b>
+                {currentEnquiry.noOfGuests}
+                <br />
+                <b>Services Required: </b>
+                {currentEnquiry.servicesRequired}
+                <br />
+                <b>Location: </b>
+                {currentEnquiry.locality} in {currentEnquiry.city}
+                <br />
+                <b>Budget: </b>{" "}
+                {currentEnquiry.budgetRange.to !== 0
+                  ? "Rs." +
+                    currentEnquiry.budgetRange.from
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+                    " - Rs." +
+                    currentEnquiry.budgetRange.to
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                  : "Above Rs." +
+                    currentEnquiry.budgetRange.from
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                <br />
+                <b>Other Info: </b>
+                {currentEnquiry.otherInfo}
+                <br />
+                <b>CelebratON Comments: </b>
+                {currentEnquiry.celebratonComments}
+                {typeof currentEnquiry.sampleImages !== "undefined" &&
+                currentEnquiry.sampleImages.length > 0 ? (
+                  <React.Fragment>
+                    <br />
+                    <div style={{ textAlign: "center" }}>
+                      <b>Sample Image: </b>
+                      <br />
+                      <img
+                        src={currentEnquiry.sampleImages}
+                        height="300px"
+                        width="auto"
+                      />
+                    </div>
+                  </React.Fragment>
+                ) : null}
+              </Col>
+              
+              <Col
+                style={{ textAlign: "center" }}
+                md={{ span: 12 }}
+                sm={{ span: 24 }}
+                xs={{ span: 24 }}
+              >
+                {typeof currentEnquiry.interestedPartners != "undefined" && this.context.currenProfile!==null &&
+                currentEnquiry.interestedPartners.includes(
+                  profile._id
+                ) ? (
+                  <React.Fragment>
+                    <h2>
+                      <u>Customer Contact</u>
+                    </h2>
+                    <b>Name: </b>
+                    {currentEnquiry.user.name}
+                    <br />
+                    <b>Mobile: </b>
+                    {currentEnquiry.user.mobile}
+                    <br />
+                    <b>Email: </b>
+                    {currentEnquiry.user.email}
+                    <br />
+                    <br />
+                    <a href={`tel:+91${currentEnquiry.user.mobile}`}>
+                      <Button
+                        type="primary"
+                        icon="mobile"
+                        size="large"
+                        style={{
+                          background: "green",
+                          borderColor: "green"
+                        }}
+                      >
+                        Call
+                      </Button>
+                    </a>
+                    {"  "}
+                    <a href={`mailto:${currentEnquiry.user.email}`}>
+                      <Button
+                        type="primary"
+                        size="default"
+                        icon="mail"
+                        size="large"
+                        style={{ background: "orange", borderColor: "orange" }}
+                      >
+                        Mail
+                      </Button>
+                    </a>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <h2>
+                      <u>Pricing Info</u>
+                    </h2>
+                    <b>Lead Price: </b>
+                    Rs.{currentEnquiry.leadAmount}
+                    <br />
+                    <b>Wallet Balance: </b>
+                    Rs.{this.state.profile.Wallet}
+                    <br />
+                    <b>Promotional Credit: </b>
+                    Rs.{this.state.profile.promoCredit}
+                    <br />
+                    <br />
+                    <Button
+                      type="primary"
+                      icon="caret-right"
+                      size="large"
+                      style={{ background: "green", borderColor: "green" }}
+                      onClick={() => this.payForLead()}
+                      disabled={
+                        typeof this.state.profile !== "undefined" &&
+                        currentEnquiry.interestedPartners.length < 5
+                          ? !this.state.profile.isAuthorized
+                          : true
+                      }
+                    >
+                      Pay Rs.{currentEnquiry.leadAmount}
+                    </Button>
+                    <br />
+                    <br />
+                    <Button
+                      type="danger"
+                      size="default"
+                      icon="heart"
+                      size="large"
+                      onClick={() => this.wishListEnquiry(currentEnquiry._id)}
+                      // style={{ background: "red", borderColor: "red" }}
+                    >
+                      Add to Wishlist
+                    </Button>
+                  </React.Fragment>
+                )}
+              </Col>
+              
+            </Row>
+          </Modal>
           
           <style jsx>{`
             a {
@@ -329,3 +495,4 @@ class AllEnquiries extends Component {
 }
 
 export default withRouter(AllEnquiries);
+
