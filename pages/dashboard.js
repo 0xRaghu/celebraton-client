@@ -23,16 +23,21 @@ class Dashboard extends Component {
   static contextType = LoginContext;
 
   componentDidMount() {
-    if (this.context.currentProfile) {
-      this.setState({
-        content: <AllEnquiries profile={this.context.currentProfile} />
-      });
-    } else {
+    axios.get("/api/profiles/getProfile").then(profile=>{
+      
+        this.setState({
+          content: <AllEnquiries profile={profile.data} />
+        });
+      
+        
+      
+    }).catch(err=>{
       this.setState({
         content: <ManageProfile />
       });
       this.context.deactivateDashboard();
-    }
+    })
+    
     var aScript = document.createElement("script");
     aScript.type = "text/javascript";
     aScript.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -104,7 +109,7 @@ class Dashboard extends Component {
     if (this.context.currentUser.role === "customer"  && typeof window !== "undefined") {
       Router.push("/");
     }
-
+    
     return (
       <React.Fragment>
         <Head title="Home" />
@@ -188,7 +193,7 @@ class Dashboard extends Component {
           </Sider>
 
           <Content>
-            <div style={{ padding: 0, background: "#fff", minHeight: 360 }}>
+            <div style={{ padding: 10, background: "#fff", minHeight: 360 }}>
               {this.state.content}
               {/* <Footer style={{ textAlign: "center" }}>
                 Ant Design ©2018 Created by Ant UED

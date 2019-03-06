@@ -43,14 +43,10 @@ class ManageProfile extends Component {
     axios
       .get("/api/admin/getLocations")
       .then(loc => this.setState({ locations: loc.data[0].locations }));
-    typeof this.props.profile !== "undefined"
-      ? this.setState({ imageUrl: this.props.profile.images })
-      : null;
-    typeof this.props.profile.categories !== "undefined"
-      ? this.setState({
-          artistSelected: this.props.profile.categories.includes("Artist")
-        })
-      : null;
+      axios.get("/api/profiles/getProfile").then(profile=>{
+        this.setState({ imageUrl: profile.data.images,artistSelected: profile.data.categories.includes("Artist") })
+      })
+    
   }
   componentWillMount() {
     // this.setState({ categories, locations: locations[0].locations });

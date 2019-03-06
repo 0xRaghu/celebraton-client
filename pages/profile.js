@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon, Row, Col, Carousel } from "antd";
+import { Layout, Menu, Icon, Row, Col, Carousel,Card,Divider } from "antd";
 import "../styles.less";
 import Router from "next/router";
 import axios from "axios";
 
 import Head from "../components/home/head";
+import Hero from "../components/home/hero"
 import { withRouter } from "next/router";
 import ImageGallery from "react-image-gallery";
 
@@ -64,73 +65,55 @@ class Profile extends Component {
       <React.Fragment>
         <Head title={`CelebratON | ${currentProfile.companyName} - Preferred Partner`} description={`${currentProfile.companyName} is one of the best vendors on CelebratON | Hire or Book the best Wedding Planners, Surprise Planners and Birthday Planners in a few clicks on CelebratON`} />
 
-        <div>
-          <div className="hero-image">
-            <Row type="flex" style={{ alignItems: "center", height: "200px" }}>
-              <Col xs={24}>
-                <div className="hero-text">
-                  <img src="../static/logo.png" height="100px" />
-                  <h2>Hire the best EVENT EXPERTS</h2>
-
-                  <h3>
-                    <Icon type="phone" />
-                    <a href="tel:07904204718">+91-7904204718</a>
-                  </h3>
-                </div>
-              </Col>
-            </Row>
-            <style jsx>{`
-              body,
-              html {
-                height: 100%;
-              }
-
+        <Hero />
+        <div  style={{background:"#ECECEC"}}>
+        <Row type="flex" align="middle">
+          <Col xs={{ span: 21, offset: 1 }} md={{ span: 21, offset: 1 }}  style={{background:"white"}}>
+          <div style={{textAlign:"center"}}>
+            <div style={{margin:"-50px 0px 2px 0px",boxShadow:"2px 2px 5px grey",width:"90%",display:"inline-block"}}>
+            <Card><h2 style={{ textAlign: "center",margin:"0px" }}>
               
 
-              /* Place text in the middle of the image */
-              .hero-text {
-                text-align: center;
-                position: relative;
-                // left: 50%;
-                // transform: translate(-50%, -50%);
-                color: white;
-              }
-              h1,
-              h2,h3,
-              a {
-                color: white;
-              }
-
-              .inputForm {
-                text-align: center;
-              }
-            `}</style>
-          </div>
-        </div>
-        <Row type="flex" align="middle">
-          <Col xs={{ span: 21, offset: 1 }} md={{ span: 14, offset: 1 }}>
-            <h1 style={{ textAlign: "center" }}>
-              <br />
-
-              <u>{currentProfile.companyName}</u>
-            </h1>
+              {currentProfile.companyName}
+            </h2></Card></div></div>
+            
             <h4 style={{ textAlign: "center" }}>
-              <br />
+            
 
               {currentProfile.description}
             </h4>
-            {currentProfile.experience ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Experience: </b>
+            <Row type="flex" align="middle">
+              <Col span={8}>
+            
+              
+              <h4 style={{ textAlign: "center",color:"grey"}} className="profileIconFoot">
+              <span className="profileIconHead">Experience</span><br />
+                <Icon type="schedule" theme="twoTone" twoToneColor="orange" className="profileIcon"/><br />
                 {currentProfile.experience}
               </h4>
-            ) : null}
-            {currentProfile.eventsCovered ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Events Covered: </b>
+            
+            
+            </Col>
+            
+            <Col span={8}>
+            
+              <h4 style={{ textAlign: "center" ,color:"grey"}} className="profileIconFoot">
+                <span  className="profileIconHead">Events Covered</span><br />
+                <Icon type="dashboard" theme="twoTone" twoToneColor="#10c6e4"  className="profileIcon"/><br />
                 {currentProfile.eventsCovered}
               </h4>
-            ) : null}
+            
+            
+            </Col>
+            
+            <Col span={8}>
+            <h4 style={{ textAlign: "center" ,color:"grey"}} className="profileIconFoot">
+                <span  className="profileIconHead">CelebratON</span><br />
+                <Icon type="safety-certificate" theme="twoTone" twoToneColor="#44c106"  className="profileIcon" /><br />
+                Verified
+              </h4>
+              </Col>
+              </Row>
             {currentProfile.artistGenre ? (
               <h4 style={{ textAlign: "center" }}>
                 <b>Genre: </b>
@@ -146,9 +129,12 @@ class Profile extends Component {
             {currentProfile.openToTravel ? (
               <h4 style={{ textAlign: "center" }}>
                 <b>Open to Travel: </b>
-                {currentProfile.openToTravel}
+                Yes
               </h4>
-            ) : null}
+            ) : <h4 style={{ textAlign: "center" }}>
+            <b>Open to Travel: </b>
+            No
+          </h4>}
             {currentProfile.troupeSizeP ? (
               <h4 style={{ textAlign: "center" }}>
                 <b>Performing Troupe Size: </b>
@@ -174,13 +160,7 @@ class Profile extends Component {
               </h4>
             ) : null}
           </Col>
-          <Col
-            xs={{ span: 24 }}
-            md={{ span: 8 }}
-            style={{ textAlign: "center" }}
-          >
-            <WrappedLoginForm color="black" profile={currentProfile} />
-          </Col>
+          
         </Row>
 
         <div>
@@ -298,6 +278,7 @@ class Profile extends Component {
               There are no ratings for this vendor yet
             </Col>
           </Row>
+        </div>
         </div>
       </React.Fragment>
     );
