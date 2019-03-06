@@ -23,31 +23,23 @@ class Dashboard extends Component {
   static contextType = LoginContext;
 
   componentDidMount() {
-    axios.get("/api/profiles/getProfile").then(profile=>{
-      
-        this.setState({
-          content: <AllEnquiries profile={profile.data} />
-        });
-      
-        
-      
-    }).catch(err=>{
-      this.setState({
-        content: <ManageProfile />
-      });
-      this.context.deactivateDashboard();
-    })
     
+        
     var aScript = document.createElement("script");
     aScript.type = "text/javascript";
     aScript.src = "https://checkout.razorpay.com/v1/checkout.js";
 
     document.head.appendChild(aScript);
+    this.context.currentProfile!==null?
+    this.setState({content:<AllEnquiries profile={this.context.currentProfile} />})
+    :this.setState({content:<ManageProfile />});
+    
   }
+  
 
   clickManageProfile = () => {
     this.setState({
-      content: <ManageProfile profile={this.context.currentProfile} />
+      content: <ManageProfile />
     });
   };
   clickAllEnquiries = () => {
@@ -97,8 +89,9 @@ class Dashboard extends Component {
     new Razorpay(options).open();
   };
   clickSignOut = () => {
-    this.context.signOut();
     Router.push("/");
+    this.context.signOut();
+    
   };
   onClose = () => {
     this.setState({
@@ -158,7 +151,7 @@ class Dashboard extends Component {
               <Menu.Item
                 key="3"
                 onClick={() => this.clickManageProfile()}
-                disabled={this.context.deactivated}
+                // disabled={this.context.deactivated}
               >
                 <Icon type="idcard" />
                 <span className="nav-text">Manage Profile</span>

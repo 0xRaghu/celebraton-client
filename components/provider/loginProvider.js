@@ -108,6 +108,7 @@ class LoginProvider extends Component {
     localStorage.setItem("jwtToken", "");
     this.setState({
       currentUser: {},
+      currentProfile: null,
       isAuthenticated: false
     });
     

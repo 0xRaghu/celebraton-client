@@ -36,6 +36,7 @@ class ManageProfile extends Component {
   };
 
   componentDidMount() {
+
     axios.get("/api/categories/allCategories/11/0").then(categories => {
       this.setState({ categories: categories.data });
     });
@@ -45,7 +46,7 @@ class ManageProfile extends Component {
       .then(loc => this.setState({ locations: loc.data[0].locations }));
       axios.get("/api/profiles/getProfile").then(profile=>{
         this.setState({ imageUrl: profile.data.images,artistSelected: profile.data.categories.includes("Artist") })
-      })
+      }).catch(err=>this.context.deactivateDashboard())
     
   }
   componentWillMount() {
@@ -172,18 +173,19 @@ class ManageProfile extends Component {
       layoutVariable = "horizontal";
     }
     const { categories, locations } = this.state;
-    const { profile } = this.props;
+    const  profile  = this.context.currentProfile;
 
     return (
       <React.Fragment>
         <h1 style={{ textAlign: "center" }}>Create or Update Profile</h1>
+        
         <Form onSubmit={this.handleSubmit} layout={layoutVariable}>
           <Form.Item {...Layout} label="Company Name">
             {getFieldDecorator(
               "companyName",
               {
                 initialValue:
-                  typeof profile !== "undefined" ? profile.companyName : ""
+                  profile !== null ? profile.companyName : ""
               },
               {
                 rules: [
@@ -200,7 +202,7 @@ class ManageProfile extends Component {
               "description",
               {
                 initialValue:
-                  typeof profile !== "undefined" ? profile.description : ""
+                profile !== null ? profile.description : ""
               },
               {
                 rules: [
@@ -223,7 +225,7 @@ class ManageProfile extends Component {
               "categories",
               {
                 initialValue:
-                  typeof profile !== "undefined" ? profile.categories : null
+                profile !== null ? profile.categories : null
               },
               {
                 rules: [
@@ -262,7 +264,7 @@ class ManageProfile extends Component {
               "locations",
               {
                 initialValue:
-                  typeof profile !== "undefined" ? profile.locations : null
+                profile !== null ? profile.locations : null
               },
               {
                 rules: [
@@ -293,7 +295,7 @@ class ManageProfile extends Component {
           <Form.Item {...Layout} label="Choose Primary Location">
             {getFieldDecorator("primaryLocation", {
               initialValue:
-                typeof profile !== "undefined"
+              profile !== null
                   ? profile.primaryLocation
                     ? profile.primaryLocation
                     : "Chennai"
@@ -311,7 +313,7 @@ class ManageProfile extends Component {
               "budgetBracket",
               {
                 initialValue:
-                  typeof profile !== "undefined" ? profile.budgetBracket : ""
+                profile !== null ? profile.budgetBracket : ""
               },
               {
                 value:
@@ -324,26 +326,26 @@ class ManageProfile extends Component {
           <Form.Item {...Layout} label="Experience">
             {getFieldDecorator("experience", {
               initialValue:
-                typeof profile !== "undefined" ? profile.experience : ""
+              profile !== null ? profile.experience : ""
             })(<Input placeholder="Experience in the events industry" />)}
           </Form.Item>
           <Form.Item {...Layout} label="Events Covered">
             {getFieldDecorator("eventsCovered", {
               initialValue:
-                typeof profile !== "undefined" ? profile.eventsCovered : ""
+              profile !== null ? profile.eventsCovered : ""
             })(<Input placeholder="Enter number of events covered till now" />)}
           </Form.Item>
           <Form.Item {...Layout} label="Cancellation Policy">
             {getFieldDecorator("cancellationPolicy", {
               initialValue:
-                typeof profile !== "undefined" ? profile.cancellationPolicy : ""
+              profile !== null ? profile.cancellationPolicy : ""
             })(<TextArea placeholder="Cancellation Policy if any" autosize />)}
             <div style={{ margin: "24px 0" }} />
           </Form.Item>
           <Form.Item {...Layout} label="Payment Terms">
             {getFieldDecorator("paymentTerms", {
               initialValue:
-                typeof profile !== "undefined" ? profile.paymentTerms : ""
+              profile !== null ? profile.paymentTerms : ""
             })(
               <TextArea
                 placeholder="Advance(%), Payment on event date(%), Payment on Delivery(%)"
@@ -357,31 +359,31 @@ class ManageProfile extends Component {
               <Form.Item {...Layout} label="Artist Genre">
                 {getFieldDecorator("artistGenre", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.artistGenre : ""
+                  profile !== null ? profile.artistGenre : ""
                 })(<Input placeholder="Enter the Genre" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Languages Known">
                 {getFieldDecorator("languagesKnown", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.languagesKnown : ""
+                  profile !== null ? profile.languagesKnown : ""
                 })(<Input placeholder="Enter the Languages you know" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Troupe Size (Performing)">
                 {getFieldDecorator("troupeSizeP", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.troupeSizeP : ""
+                  profile !== null ? profile.troupeSizeP : ""
                 })(<Input placeholder="Enter number" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Troupe Size (Non-Performing)">
                 {getFieldDecorator("troupeSizeNP", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.troupeSizeNP : ""
+                  profile !== null ? profile.troupeSizeNP : ""
                 })(<Input placeholder="Enter number" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Performance Duration">
                 {getFieldDecorator("performanceDuration", {
                   initialValue:
-                    typeof profile !== "undefined"
+                  profile !== null
                       ? profile.performanceDuration
                       : ""
                 })(<Input placeholder="Duration per performance" />)}
@@ -389,7 +391,7 @@ class ManageProfile extends Component {
               <Form.Item {...Layout} label="Event Preference">
                 {getFieldDecorator("eventPreference", {
                   initialValue:
-                    typeof profile !== "undefined"
+                  profile !== null
                       ? profile.eventPreference
                       : ""
                 })(<Input placeholder="What do you prefer?" />)}
@@ -397,7 +399,7 @@ class ManageProfile extends Component {
               <Form.Item label="Open to Travel?" {...Layout}>
                 {getFieldDecorator("openToTravel", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.openToTravel : ""
+                  profile !== null ? profile.openToTravel : ""
                 })(
                   <Radio.Group buttonStyle="solid">
                     <Radio.Button value={true}>Yes</Radio.Button>
@@ -408,26 +410,26 @@ class ManageProfile extends Component {
               <Form.Item {...Layout} label="Managed By">
                 {getFieldDecorator("managedBy", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.managedBy : ""
+                  profile !== null ? profile.managedBy : ""
                 })(<Input placeholder="Self or Manager?" />)}
               </Form.Item>
 
               <Form.Item {...Layout} label="Manager Name">
                 {getFieldDecorator("managerName", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.managerName : ""
+                  profile !== null ? profile.managerName : ""
                 })(<Input placeholder="Enter your manager's name" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Manager Mobile">
                 {getFieldDecorator("managerNumber", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.managerNumber : ""
+                  profile !== null ? profile.managerNumber : ""
                 })(<Input placeholder="Enter your manager's mobile" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Manager Email">
                 {getFieldDecorator("managerMail", {
                   initialValue:
-                    typeof profile !== "undefined" ? profile.managerMail : ""
+                  profile !== null ? profile.managerMail : ""
                 })(<Input placeholder="Enter your manager's email id" />)}
               </Form.Item>
             </React.Fragment>
@@ -453,7 +455,7 @@ class ManageProfile extends Component {
               "videos",
               {
                 initialValue:
-                  typeof profile !== "undefined" ? profile.videos.join(",") : ""
+                profile !== null ? profile.videos.join(",") : ""
               },
               {}
             )(
@@ -465,13 +467,14 @@ class ManageProfile extends Component {
           <div style={{ textAlign: "center" }}>
             <Form.Item {...tailformItemLayout}>
               <Button type="primary" htmlType="submit">
-                {typeof profile !== "undefined"
+                {profile !== null
                   ? "Update Profile"
                   : "Create Profile"}
               </Button>
             </Form.Item>
           </div>
         </Form>
+        
       </React.Fragment>
     );
   }
