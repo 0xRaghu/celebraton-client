@@ -76,8 +76,8 @@ class LoginProvider extends Component {
           if (this.state.currentUser.role === "vendor") {
             axios
               .get("/api/profiles/getProfile")
-              .then(profile => Router.push("/dashboard"))
-              .catch(err => Router.push("/dashboard"));
+              .then(profile => this.setState({currentProfile:profile.data}))
+              .catch(err => Router.push("/")).then(Router.push("/dashboard"));
           }
         } else {
           this.setState({ errors: payload.data.errors });

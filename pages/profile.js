@@ -68,7 +68,7 @@ class Profile extends Component {
         <Hero />
         <div  style={{background:"#ECECEC"}}>
         <Row type="flex" align="middle">
-          <Col xs={{ span: 21, offset: 1 }} md={{ span: 21, offset: 1 }}  style={{background:"white"}}>
+          <Col xs={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }}  style={{background:"white"}}>
           <div style={{textAlign:"center"}}>
             <div style={{margin:"-50px 0px 2px 0px",boxShadow:"2px 2px 5px grey",width:"90%",display:"inline-block"}}>
             <Card><h2 style={{ textAlign: "center",margin:"0px" }}>
@@ -114,51 +114,90 @@ class Profile extends Component {
               </h4>
               </Col>
               </Row>
+              <Row ><Col sm={{span:10,offset:2}} xs={{span:22,offset:1}}>
             {currentProfile.artistGenre ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Genre: </b>
-                {currentProfile.artistGenre}
-              </h4>
+              <React.Fragment>
+                <Icon type="star" theme="twoTone" twoToneColor="#ba0f58"  />
+                <b> Genre: </b>
+                <span>{currentProfile.artistGenre}</span>
+                </React.Fragment>
+              
             ) : null}
-            {currentProfile.languagesKnown ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Languages Known: </b>
-                {currentProfile.languagesKnown}
-              </h4>
-            ) : null}
+           
+            </Col><Col sm={{span:10,offset:2}} xs={{span:22,offset:1}}>
             {currentProfile.openToTravel ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Open to Travel: </b>
-                Yes
-              </h4>
-            ) : <h4 style={{ textAlign: "center" }}>
-            <b>Open to Travel: </b>
-            No
-          </h4>}
-            {currentProfile.troupeSizeP ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Performing Troupe Size: </b>
-                {currentProfile.troupeSizeP}
-              </h4>
+              <React.Fragment>
+                <Icon type="car" theme="twoTone" twoToneColor="#ba0f58"  />
+              <b> Open to Travel: </b>
+              <span>Yes</span>
+              </React.Fragment>
+                
+                
+              
+            ) : 
+            null
+            
+            
+          }
+          </Col><Col sm={{span:10,offset:2}} xs={{span:22,offset:1}}>
+            {currentProfile.troupeSizeP && currentProfile.troupeSizeNP ? (
+              <React.Fragment>
+                <Icon type="eye" theme="twoTone" twoToneColor="#ba0f58"  />
+              <b> Troupe Size (P/NP): </b>
+              <span>{currentProfile.troupeSizeP} / {currentProfile.troupeSizeNP}</span>
+              </React.Fragment>
+                
+                
+              
             ) : null}
+            </Col>
+            {/* <Col sm={{span:10,offset:2}} xs={{span:22,offset:1}}>
             {currentProfile.troupeSizeNP ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Non performing Troupe Size: </b>
-                {currentProfile.troupeSizeNP}
-              </h4>
+             <React.Fragment>
+               <Icon type="eye-invisible" theme="twoTone" twoToneColor="#ba0f58"  />
+             <b>Non performing Troupe Size: </b>
+             <span>{currentProfile.troupeSizeNP}</span>
+             </React.Fragment>
+                
+                
+              
             ) : null}
+            </Col> */}
+            <Col sm={{span:10,offset:2}} xs={{span:22,offset:1}}>
             {currentProfile.performanceDuration ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Performance Duration: </b>
-                {currentProfile.performanceDuration}
-              </h4>
+              <React.Fragment>
+                <Icon type="fire" theme="twoTone" twoToneColor="#ba0f58"  />
+              <b> Performance Duration: </b>
+              <span>{currentProfile.performanceDuration}</span>
+              </React.Fragment>
+                
+                
+              
             ) : null}
+            </Col><Col sm={{span:10,offset:2}} xs={{span:22,offset:1}}>
+            {currentProfile.languagesKnown ? (
+              <React.Fragment>
+                <Icon type="sound" theme="twoTone" twoToneColor="#ba0f58"  />
+              <b> Languages Known: </b>
+              <span>{currentProfile.languagesKnown}</span>
+              </React.Fragment>
+                
+                
+              
+            ) : null}
+            </Col><Col sm={{span:10,offset:2}} xs={{span:22,offset:1}}>
+            
             {currentProfile.eventPreference ? (
-              <h4 style={{ textAlign: "center" }}>
-                <b>Event Preference: </b>
-                {currentProfile.eventPreference}
-              </h4>
+              <React.Fragment>
+                <Icon type="skin" theme="twoTone" twoToneColor="#ba0f58"  />
+              <b> Event Preference: </b>
+              <span>{currentProfile.eventPreference}</span>
+              </React.Fragment>
+                
+                
+              
             ) : null}
+            </Col></Row>
           </Col>
           
         </Row>
@@ -166,7 +205,7 @@ class Profile extends Component {
         <div>
           {typeof window !== "undefined" ? (
             <Row type="flex" align="middle">
-              <Col xs={{ span: 21, offset: 1 }} md={{ span: 21, offset: 1 }}>
+              <Col xs={{ span: 22, offset: 1 }} md={{ span: 16, offset: 4 }}>
                 <br />
                 <h1 style={{ textAlign: "center" }}>Image Gallery</h1>
 
@@ -192,14 +231,14 @@ class Profile extends Component {
         </div>
         <div>
           <Row type="flex" align="middle">
-            <Col xs={{ span: 21, offset: 1 }} md={{ span: 14, offset: 1 }}>
+            <Col xs={{ span: 24, offset: 0 }} md={{ span: 14, offset: 1 }}>
               <br />
               <h1 style={{ textAlign: "center" }}>Video Gallery</h1>
               <Row type="flex" align="middle" style={{ textAlign: "center" }}>
                 <Col
                   xs={{ span: 2, offset: 0 }}
                   md={{ span: 2, offset: 0 }}
-                  style={{ color: "#ba0f58", fontSize: "50px" }}
+                  style={{ color: "#ba0f58", fontSize: "30px" }}
                 >
                   <Icon
                     type="left-circle"
@@ -227,7 +266,7 @@ class Profile extends Component {
                           <div key={videoEmbedUrl}>
                             <iframe
                               width="100%"
-                              height="500"
+                              className="profileVideo"
                               src={`https://www.youtube.com/embed/${videoEmbedUrl}`}
                               frameBorder="0"
                               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -242,7 +281,7 @@ class Profile extends Component {
                 <Col
                   xs={{ span: 2, offset: 0 }}
                   md={{ span: 2, offset: 0 }}
-                  style={{ color: "#ba0f58", fontSize: "50px" }}
+                  style={{ color: "#ba0f58", fontSize: "30px" }}
                 >
                   <Icon
                     type="right-circle"
@@ -251,8 +290,8 @@ class Profile extends Component {
                   />
                 </Col>
                 <Col
-                  xs={{ span: 22, offset: 2 }}
-                  md={{ span: 22, offset: 2 }}
+                  xs={{ span: 20, offset: 2 }}
+                  md={{ span: 20, offset: 2 }}
                   style={{ textAlign: "left" }}
                 >
                   {currentProfile.paymentTerms ? (
