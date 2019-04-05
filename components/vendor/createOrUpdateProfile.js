@@ -74,8 +74,7 @@ class ManageProfile extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      if (!err && typeof this.props.profile === "undefined") {
-        // console.log("Received values of form: ", values);
+      if (!err && this.props.profile) {
         axios.post("/api/profiles/addProfile", values).then(profile => {
           this.state.portfolioImages.map(image => {
             const upload = storage
@@ -108,10 +107,9 @@ class ManageProfile extends Component {
             );
           });
           this.context.updateProfile(profile.data);
-          this.props.form.resetFields();
         });
         notification.open({
-          message: "Profile Submitted/Updated",
+          message: "Profile Submitted",
           description:
             "Your profile has been submitted. Please navigate to the menu on the left to view enquiries",
           duration: 10,
@@ -120,8 +118,7 @@ class ManageProfile extends Component {
           }
         });
       }
-      if (!err && typeof this.props.profile !== "undefined") {
-        // console.log("Received values of form: ", values);
+      if (!err && !this.props.profile) {
         axios.post("/api/profiles/updateProfile", values).then(profile => {
           this.state.portfolioImages.map(image => {
             const upload = storage
@@ -154,6 +151,15 @@ class ManageProfile extends Component {
             );
           });
           this.context.updateProfile(profile.data);
+        });
+        notification.open({
+          message: "Profile Updated",
+          description:
+            "Your profile has been updated. Please navigate to the menu on the left to view enquiries",
+          duration: 10,
+          onClick: () => {
+            console.log("Notification Clicked!");
+          }
         });
       }
     });

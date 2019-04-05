@@ -96,13 +96,13 @@ class Dashboard extends Component {
     });
   };
   render() {
-    if (typeof window !== "undefined") {
-      if (typeof this.context.currentUser.role == "undefined") {
-        Router.push("/");
-      } else if (this.context.currentUser.role == "customer") {
-        Router.push("/");
-      }
-    }
+    // if (typeof window !== "undefined") {
+    //   if (typeof this.context.currentUser.role == "undefined") {
+    //     Router.push("/");
+    //   } else if (this.context.currentUser.role == "customer") {
+    //     Router.push("/");
+    //   }
+    // }
 
     return (
       <React.Fragment>

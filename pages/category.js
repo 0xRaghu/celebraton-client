@@ -60,8 +60,6 @@ class Category extends Component {
         this.setState({
           currentCategory: category
         });
-
-        
       }
     });
   };
@@ -71,7 +69,7 @@ class Category extends Component {
     return (
       <React.Fragment>
         <Head
-          title={`Best ${currentCategory.name}s in ${
+          title={`${currentCategory.name}s in ${
             this.props.location
           } | CelebratON`}
           description={`Hire or Book the best ${currentCategory.name}s in ${
@@ -111,21 +109,20 @@ class Category extends Component {
             >
               {categories.map(category => (
                 <Menu.Item
-                key={category.order}
-                onClick={() => this.clickCategory(category._id)}
-              >
-              {/* <Link href={`/${category.slug}_in_${this.props.location}`}><a> */}
-                <Row type="flex" align="middle">
-                  <Col span={1}>
-                    <i className="large material-icons">{category.icon}</i>{" "}
-                  </Col>
-                  <Col span={1} offset={3}>
-                    <p className="nav-text">{category.name}</p>
-                  </Col>
-                </Row>
-                {/* </a></Link> */}
-              </Menu.Item>
-                
+                  key={category.order}
+                  onClick={() => this.clickCategory(category._id)}
+                >
+                  {/* <Link href={`/${category.slug}_in_${this.props.location}`}><a> */}
+                  <Row type="flex" align="middle">
+                    <Col span={1}>
+                      <i className="large material-icons">{category.icon}</i>{" "}
+                    </Col>
+                    <Col span={1} offset={3}>
+                      <p className="nav-text">{category.name}</p>
+                    </Col>
+                  </Row>
+                  {/* </a></Link> */}
+                </Menu.Item>
               ))}
             </Menu>
           </Sider>
