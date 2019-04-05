@@ -60,7 +60,7 @@ class Dashboard extends Component {
       key: "rzp_live_g0RFgYo3CprLSc",
       amount: this.state.rechargeAmount * 100, // 2000 paise = INR 20
       name: "CelebratON.in",
-      description: `Adding Money to ${profile.name}'s wallet`,
+      description: `Adding Money to ${profile.companyName}'s wallet`,
       image: "",
       handler: response => {
         axios
