@@ -18,7 +18,7 @@ class Footer extends React.Component {
           style={{ padding: "0px" }}
           style={{ color: "white", backgroundColor: "#001529" }}
         >
-          <Col sm={{ span: 7,offset:1 }}  xs={{ span: 20, offset: 2 }}>
+          <Col sm={{ span: 7, offset: 1 }} xs={{ span: 20, offset: 2 }}>
             <h3 style={{ color: "white" }}>About Us</h3>
             <hr />
             <p>
@@ -35,16 +35,16 @@ class Footer extends React.Component {
             </p>
           </Col>
 
-          <Col sm={{ span: 7,offset:1 }} xs={{ span: 20, offset: 2 }}>
+          <Col sm={{ span: 7, offset: 1 }} xs={{ span: 20, offset: 2 }}>
             <h3 style={{ color: "white" }}>Contact Us</h3>
             <hr />
             <p>
-              <a href="tel:07036063377" className="white-text">
-                +91–7036063377
+              <a href="tel:08082338257" className="white-text">
+                +91–8082338257
               </a>
               <br />
-              <a href="tel:09003086910" className="white-text">
-                +91–9003086910
+              <a href="tel:07021127797" className="white-text">
+                +91–7021127797
               </a>
               <br />
               <a href="mailto:partnersupport@celebraton.in?Subject=Partner%20Registration">
@@ -63,7 +63,7 @@ class Footer extends React.Component {
             </p>
           </Col>
 
-          <Col sm={{ span: 6,offset:1 }} xs={{ span: 20, offset: 2 }}>
+          <Col sm={{ span: 6, offset: 1 }} xs={{ span: 20, offset: 2 }}>
             <h3 style={{ color: "white" }}>Important Links</h3>
             <hr />
             <ul>
@@ -105,6 +105,22 @@ class Footer extends React.Component {
             © 2017 Sylabel Technologies Pvt. Ltd., - All Rights Reserved.
           </div>
         </div>
+        {/* <div
+          class="chatModal"
+          id="chatWindow"
+          role="dialog"
+          aria-labelledby="exampleModal"
+          aria-hidden="true"
+        >
+          <div class="transparent noborder" role="document">
+            <iframe
+              allow="microphone;"
+              height="430"
+              align="right"
+              src="https://console.dialogflow.com/api-client/demo/embedded/9d0a9a71-617f-4dc7-b760-e12f4380208f"
+            />
+          </div>
+        </div> */}
         <style jsx>{`
           a {
             text-decoration: none;

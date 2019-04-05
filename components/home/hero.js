@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../../styles.less";
 // import "~antd/dist/antd.less";
-import { Row, Col, Select, Icon,Drawer,Button } from "antd";
+import { Row, Col, Select, Icon, Drawer, Button } from "antd";
 import WrappedLoginForm from "../contactForm";
 
 import { HomeConsumer, HomeContext } from "../provider/homeProvider";
@@ -12,16 +12,15 @@ function handleChange(value) {
   console.log(`selected ${value}`);
 }
 
-
 class Hero extends Component {
   static contextType = HomeContext;
-  state={modalVisible:false}
-  onClose=()=>{
-    this.setState({modalVisible:false})
-  }
-  openCallbackModal=()=>{
-    this.setState({modalVisible:true})
-  }
+  state = { modalVisible: false };
+  onClose = () => {
+    this.setState({ modalVisible: false });
+  };
+  openCallbackModal = () => {
+    this.setState({ modalVisible: true });
+  };
   render() {
     const { locations, selectedLocation, selectLocation } = this.context;
     return (
@@ -38,7 +37,7 @@ class Hero extends Component {
               <Row
                 type="flex"
                 className="hero-image"
-                style={{ alignItems: "center"}}
+                style={{ alignItems: "center" }}
               >
                 <Col sm={15} xs={0}>
                   <div className="hero-text">
@@ -52,7 +51,7 @@ class Hero extends Component {
 
                     <h3>
                       <Icon type="phone" />
-                      <a href="tel:07904204718">+91-7904204718</a>
+                      <a href="tel:08082338257">+91-8082338257</a>
                     </h3>
 
                     <Select
@@ -73,13 +72,12 @@ class Hero extends Component {
                   </div>
                 </Col>
                 <Col sm={0} xs={24}>
-                <div className="hero-text">
-                    
+                  <div className="hero-text">
                     <h2>Hire the best EVENT EXPERTS</h2>
 
                     <h3>
                       <Icon type="phone" />
-                      <a href="tel:07904204718">+91-7904204718</a>
+                      <a href="tel:08082338257">+91-8082338257</a>
                     </h3>
 
                     <Select
@@ -91,17 +89,30 @@ class Hero extends Component {
                       {locations.map(location => (
                         <Option key={location}>{location}</Option>
                       ))}
-                    </Select><br /><br />
-                    <Button type="primary" onClick={()=>this.openCallbackModal()}>Request Callback</Button>
+                    </Select>
+                    <br />
+                    <br />
+                    <Button
+                      type="primary"
+                      onClick={() => this.openCallbackModal()}
+                    >
+                      Request Callback
+                    </Button>
                   </div>
                 </Col>
-                
               </Row>
-              <Drawer visible={this.state.modalVisible} placement="bottom" closable={true}
-          onClose={this.onClose}>
-              <div className="inputForm">
-                    <WrappedLoginForm color={"black"} onClose={()=>this.onClose()}/>
-                  </div>
+              <Drawer
+                visible={this.state.modalVisible}
+                placement="bottom"
+                closable={true}
+                onClose={this.onClose}
+              >
+                <div className="inputForm">
+                  <WrappedLoginForm
+                    color={"black"}
+                    onClose={() => this.onClose()}
+                  />
+                </div>
               </Drawer>
               <style jsx>{`
                 body,

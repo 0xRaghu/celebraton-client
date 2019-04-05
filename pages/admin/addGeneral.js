@@ -232,7 +232,9 @@ class AddGeneral extends Component {
                 ]
               }
             )(<Input placeholder="Category Slug" />)}
+            <p>ex. eventplanners</p>
           </Form.Item>
+
           <Form.Item {...Layout} label="Icon">
             {getFieldDecorator(
               "icon",
@@ -246,7 +248,10 @@ class AddGeneral extends Component {
                 ]
               }
             )(<Input placeholder="Category Icon" />)}
+            <a>https://materializecss.com/icons.html</a> - Just copy the name of
+            the icon ex. 3d_rotation
           </Form.Item>
+
           <Form.Item {...Layout} label="Order">
             {getFieldDecorator(
               "order",

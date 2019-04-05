@@ -23,19 +23,17 @@ class Dashboard extends Component {
   static contextType = LoginContext;
 
   componentDidMount() {
-    
-        
     var aScript = document.createElement("script");
     aScript.type = "text/javascript";
     aScript.src = "https://checkout.razorpay.com/v1/checkout.js";
 
     document.head.appendChild(aScript);
-    this.context.currentProfile!==null?
-    this.setState({content:<AllEnquiries profile={this.context.currentProfile} />})
-    :this.setState({content:<ManageProfile />});
-    
+    this.context.currentProfile !== null
+      ? this.setState({
+          content: <AllEnquiries profile={this.context.currentProfile} />
+        })
+      : this.setState({ content: <ManageProfile /> });
   }
-  
 
   clickManageProfile = () => {
     this.setState({
@@ -59,7 +57,7 @@ class Dashboard extends Component {
   addMoneyToWallet = () => {
     const profile = this.context.currentProfile;
     const options = {
-      key: "rzp_test_lywdx0vKDyTxOh",
+      key: "rzp_live_g0RFgYo3CprLSc",
       amount: this.state.rechargeAmount * 100, // 2000 paise = INR 20
       name: "CelebratON.in",
       description: `Adding Money to ${profile.name}'s wallet`,
@@ -91,7 +89,6 @@ class Dashboard extends Component {
   clickSignOut = () => {
     Router.push("/");
     this.context.signOut();
-    
   };
   onClose = () => {
     this.setState({
@@ -99,10 +96,14 @@ class Dashboard extends Component {
     });
   };
   render() {
-    if (this.context.currentUser.role === "customer"  && typeof window !== "undefined") {
-      Router.push("/");
+    if (typeof window !== "undefined") {
+      if (typeof this.context.currentUser.role == "undefined") {
+        Router.push("/");
+      } else if (this.context.currentUser.role == "customer") {
+        Router.push("/");
+      }
     }
-    
+
     return (
       <React.Fragment>
         <Head title="Home" />

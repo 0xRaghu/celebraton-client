@@ -19,6 +19,7 @@ import {
   DatePicker,
   InputNumber,
   Checkbox,
+  notification,
   Upload
 } from "antd";
 import moment from "moment";
@@ -199,6 +200,14 @@ class ManageEnquiriesAdmin extends Component {
           });
           this.props.form.resetFields();
         });
+        notification.open({
+          message: "Enquiry Submitted",
+          description: "Your enquiry has been submitted",
+          duration: 10,
+          onClick: () => {
+            console.log("Notification Clicked!");
+          }
+        });
       }
     });
   };
@@ -220,7 +229,7 @@ class ManageEnquiriesAdmin extends Component {
     this.setState({ modalCategory: category });
   };
   render() {
-    const { selectLocationInModal } = this.context;
+    const { selectLocationInModal, selectedLocation } = this.context;
     const {
       initLoading,
       loading,
@@ -228,7 +237,6 @@ class ManageEnquiriesAdmin extends Component {
       enquiries,
       modalCategory,
       locations,
-      selectedLocation,
       categories,
       currentEnquiry
     } = this.state;
@@ -529,7 +537,6 @@ class ManageEnquiriesAdmin extends Component {
                     title={enquiry.category}
                     bordered={false}
                     style={{
-                      
                       background: enquiry.isVerified ? null : null
                     }}
                   >

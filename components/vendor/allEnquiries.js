@@ -16,7 +16,7 @@ import {
   Badge,
   Tag
 } from "antd";
-import Router from "next/router"
+import Router from "next/router";
 import moment from "moment";
 import Link from "next/link";
 
@@ -29,18 +29,26 @@ class AllEnquiries extends Component {
   state = {
     drawerVisible: false,
     currentId: "",
-    currentEnquiry: { sampleImages: [], interestedPartners: [],user:{name:"",mobile:"",email:""} },
+    currentEnquiry: {
+      sampleImages: [],
+      interestedPartners: [],
+      user: { name: "", mobile: "", email: "" }
+    },
     initLoading: true,
     loading: false,
     enquiries: [],
     list: [],
     count: 0,
     junk: "",
-    profile: { _id:"",enquiriesRead: [], wishList: [],Wallet:"",promoCredit:"" }
+    profile: {
+      _id: "",
+      enquiriesRead: [],
+      wishList: [],
+      Wallet: "",
+      promoCredit: ""
+    }
   };
-  componentWillMount() {
-    
-  }
+  componentWillMount() {}
   componentDidMount() {
     this.props.router.query.enquiry
       ? axios
@@ -52,18 +60,21 @@ class AllEnquiries extends Component {
           )
       : null;
 
-    axios.get("/api/profiles/getProfile").then(profile => {
-      this.setState({ profile: profile.data });
-      this.getData(res => {
-        this.setState({
-          initLoading: false,
-          enquiries: res,
-          list: res,
-          count: this.state.count + 20
+    axios
+      .get("/api/profiles/getProfile")
+      .then(profile => {
+        this.setState({ profile: profile.data });
+        this.getData(res => {
+          this.setState({
+            initLoading: false,
+            enquiries: res,
+            list: res,
+            count: this.state.count + 20
+          });
         });
-      });
-    }).catch(err=>console.log(err))
-    
+      })
+      .catch(err => console.log(err));
+
     var aScript = document.createElement("script");
     aScript.type = "text/javascript";
     aScript.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -158,7 +169,7 @@ class AllEnquiries extends Component {
         .then(profile => this.setState({ profile: profile.data }));
     } else {
       const options = {
-        key: "rzp_test_lywdx0vKDyTxOh",
+        key: "rzp_live_g0RFgYo3CprLSc",
         amount:
           (currentEnquiry.leadAmount - (profile.Wallet + profile.promoCredit)) *
           100, // 2000 paise = INR 20
@@ -227,8 +238,7 @@ class AllEnquiries extends Component {
       ) : null;
 
     const { router } = this.props;
-    const { currentEnquiry,profile } = this.state;
-    
+    const { currentEnquiry, profile } = this.state;
 
     typeof currentEnquiry.budgetRange !== "undefined"
       ? null
@@ -315,14 +325,13 @@ class AllEnquiries extends Component {
               </List.Item>
             )}
           />
-<Modal
+          <Modal
             title={currentEnquiry.category}
             onCancel={this.onClose}
             visible={this.state.drawerVisible}
             style={{ textAlign: "center" }}
             footer={[]}
           >
-          
             <Row type="flex" align="middle">
               <Col
                 style={{ textAlign: "left" }}
@@ -383,17 +392,16 @@ class AllEnquiries extends Component {
                   </React.Fragment>
                 ) : null}
               </Col>
-              
+
               <Col
                 style={{ textAlign: "center" }}
                 md={{ span: 12 }}
                 sm={{ span: 24 }}
                 xs={{ span: 24 }}
               >
-                {typeof currentEnquiry.interestedPartners != "undefined" && this.context.currenProfile!==null &&
-                currentEnquiry.interestedPartners.includes(
-                  profile._id
-                ) ? (
+                {typeof currentEnquiry.interestedPartners != "undefined" &&
+                this.context.currenProfile !== null &&
+                currentEnquiry.interestedPartners.includes(profile._id) ? (
                   <React.Fragment>
                     <h2>
                       <u>Customer Contact</u>
@@ -479,10 +487,9 @@ class AllEnquiries extends Component {
                   </React.Fragment>
                 )}
               </Col>
-              
             </Row>
           </Modal>
-          
+
           <style jsx>{`
             a {
               text-decoration: none;
@@ -495,4 +502,3 @@ class AllEnquiries extends Component {
 }
 
 export default withRouter(AllEnquiries);
-

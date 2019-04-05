@@ -15,6 +15,7 @@ import {
   Icon,
   List,
   Skeleton,
+  notification,
   Radio
 } from "antd";
 import Router from "next/router";
@@ -70,7 +71,8 @@ class AdminManageProfile extends Component {
   getData = callback => {
     axios
       .get(`/api/profiles/allProfiles/20/${this.state.count}`)
-      .then(res => callback(res.data)).catch(err=>Router.push("/"));
+      .then(res => callback(res.data))
+      .catch(err => Router.push("/"));
   };
   onLoadMore = () => {
     this.setState({
@@ -189,6 +191,15 @@ class AdminManageProfile extends Component {
               }
             );
           });
+          this.props.form.resetFields();
+        });
+        notification.open({
+          message: "Profile Submitted/Updated",
+          description: "Your profile has been submitted.",
+          duration: 10,
+          onClick: () => {
+            console.log("Notification Clicked!");
+          }
         });
       }
     });

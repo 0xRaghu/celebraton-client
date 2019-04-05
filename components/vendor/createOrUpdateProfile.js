@@ -13,6 +13,7 @@ import {
   InputNumber,
   Upload,
   Icon,
+  notification,
   Radio
 } from "antd";
 import WrappedNormalLoginForm from "../contactForm";
@@ -36,7 +37,6 @@ class ManageProfile extends Component {
   };
 
   componentDidMount() {
-
     axios.get("/api/categories/allCategories/11/0").then(categories => {
       this.setState({ categories: categories.data });
     });
@@ -44,10 +44,15 @@ class ManageProfile extends Component {
     axios
       .get("/api/admin/getLocations")
       .then(loc => this.setState({ locations: loc.data[0].locations }));
-      axios.get("/api/profiles/getProfile").then(profile=>{
-        this.setState({ imageUrl: profile.data.images,artistSelected: profile.data.categories.includes("Artist") })
-      }).catch(err=>this.context.deactivateDashboard())
-    
+    axios
+      .get("/api/profiles/getProfile")
+      .then(profile => {
+        this.setState({
+          imageUrl: profile.data.images,
+          artistSelected: profile.data.categories.includes("Artist")
+        });
+      })
+      .catch(err => this.context.deactivateDashboard());
   }
   componentWillMount() {
     // this.setState({ categories, locations: locations[0].locations });
@@ -103,6 +108,16 @@ class ManageProfile extends Component {
             );
           });
           this.context.updateProfile(profile.data);
+          this.props.form.resetFields();
+        });
+        notification.open({
+          message: "Profile Submitted/Updated",
+          description:
+            "Your profile has been submitted. Please navigate to the menu on the left to view enquiries",
+          duration: 10,
+          onClick: () => {
+            console.log("Notification Clicked!");
+          }
         });
       }
       if (!err && typeof this.props.profile !== "undefined") {
@@ -173,19 +188,18 @@ class ManageProfile extends Component {
       layoutVariable = "horizontal";
     }
     const { categories, locations } = this.state;
-    const  profile  = this.context.currentProfile;
+    const profile = this.context.currentProfile;
 
     return (
       <React.Fragment>
         <h1 style={{ textAlign: "center" }}>Create or Update Profile</h1>
-        
+
         <Form onSubmit={this.handleSubmit} layout={layoutVariable}>
           <Form.Item {...Layout} label="Company Name">
             {getFieldDecorator(
               "companyName",
               {
-                initialValue:
-                  profile !== null ? profile.companyName : ""
+                initialValue: profile !== null ? profile.companyName : ""
               },
               {
                 rules: [
@@ -201,8 +215,7 @@ class ManageProfile extends Component {
             {getFieldDecorator(
               "description",
               {
-                initialValue:
-                profile !== null ? profile.description : ""
+                initialValue: profile !== null ? profile.description : ""
               },
               {
                 rules: [
@@ -224,8 +237,7 @@ class ManageProfile extends Component {
             {getFieldDecorator(
               "categories",
               {
-                initialValue:
-                profile !== null ? profile.categories : null
+                initialValue: profile !== null ? profile.categories : null
               },
               {
                 rules: [
@@ -263,8 +275,7 @@ class ManageProfile extends Component {
             {getFieldDecorator(
               "locations",
               {
-                initialValue:
-                profile !== null ? profile.locations : null
+                initialValue: profile !== null ? profile.locations : null
               },
               {
                 rules: [
@@ -295,7 +306,7 @@ class ManageProfile extends Component {
           <Form.Item {...Layout} label="Choose Primary Location">
             {getFieldDecorator("primaryLocation", {
               initialValue:
-              profile !== null
+                profile !== null
                   ? profile.primaryLocation
                     ? profile.primaryLocation
                     : "Chennai"
@@ -312,8 +323,7 @@ class ManageProfile extends Component {
             {getFieldDecorator(
               "budgetBracket",
               {
-                initialValue:
-                profile !== null ? profile.budgetBracket : ""
+                initialValue: profile !== null ? profile.budgetBracket : ""
               },
               {
                 value:
@@ -325,27 +335,23 @@ class ManageProfile extends Component {
           </Form.Item>
           <Form.Item {...Layout} label="Experience">
             {getFieldDecorator("experience", {
-              initialValue:
-              profile !== null ? profile.experience : ""
+              initialValue: profile !== null ? profile.experience : ""
             })(<Input placeholder="Experience in the events industry" />)}
           </Form.Item>
           <Form.Item {...Layout} label="Events Covered">
             {getFieldDecorator("eventsCovered", {
-              initialValue:
-              profile !== null ? profile.eventsCovered : ""
+              initialValue: profile !== null ? profile.eventsCovered : ""
             })(<Input placeholder="Enter number of events covered till now" />)}
           </Form.Item>
           <Form.Item {...Layout} label="Cancellation Policy">
             {getFieldDecorator("cancellationPolicy", {
-              initialValue:
-              profile !== null ? profile.cancellationPolicy : ""
+              initialValue: profile !== null ? profile.cancellationPolicy : ""
             })(<TextArea placeholder="Cancellation Policy if any" autosize />)}
             <div style={{ margin: "24px 0" }} />
           </Form.Item>
           <Form.Item {...Layout} label="Payment Terms">
             {getFieldDecorator("paymentTerms", {
-              initialValue:
-              profile !== null ? profile.paymentTerms : ""
+              initialValue: profile !== null ? profile.paymentTerms : ""
             })(
               <TextArea
                 placeholder="Advance(%), Payment on event date(%), Payment on Delivery(%)"
@@ -358,48 +364,38 @@ class ManageProfile extends Component {
             <React.Fragment>
               <Form.Item {...Layout} label="Artist Genre">
                 {getFieldDecorator("artistGenre", {
-                  initialValue:
-                  profile !== null ? profile.artistGenre : ""
+                  initialValue: profile !== null ? profile.artistGenre : ""
                 })(<Input placeholder="Enter the Genre" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Languages Known">
                 {getFieldDecorator("languagesKnown", {
-                  initialValue:
-                  profile !== null ? profile.languagesKnown : ""
+                  initialValue: profile !== null ? profile.languagesKnown : ""
                 })(<Input placeholder="Enter the Languages you know" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Troupe Size (Performing)">
                 {getFieldDecorator("troupeSizeP", {
-                  initialValue:
-                  profile !== null ? profile.troupeSizeP : ""
+                  initialValue: profile !== null ? profile.troupeSizeP : ""
                 })(<Input placeholder="Enter number" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Troupe Size (Non-Performing)">
                 {getFieldDecorator("troupeSizeNP", {
-                  initialValue:
-                  profile !== null ? profile.troupeSizeNP : ""
+                  initialValue: profile !== null ? profile.troupeSizeNP : ""
                 })(<Input placeholder="Enter number" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Performance Duration">
                 {getFieldDecorator("performanceDuration", {
                   initialValue:
-                  profile !== null
-                      ? profile.performanceDuration
-                      : ""
+                    profile !== null ? profile.performanceDuration : ""
                 })(<Input placeholder="Duration per performance" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Event Preference">
                 {getFieldDecorator("eventPreference", {
-                  initialValue:
-                  profile !== null
-                      ? profile.eventPreference
-                      : ""
+                  initialValue: profile !== null ? profile.eventPreference : ""
                 })(<Input placeholder="What do you prefer?" />)}
               </Form.Item>
               <Form.Item label="Open to Travel?" {...Layout}>
                 {getFieldDecorator("openToTravel", {
-                  initialValue:
-                  profile !== null ? profile.openToTravel : ""
+                  initialValue: profile !== null ? profile.openToTravel : ""
                 })(
                   <Radio.Group buttonStyle="solid">
                     <Radio.Button value={true}>Yes</Radio.Button>
@@ -409,27 +405,23 @@ class ManageProfile extends Component {
               </Form.Item>
               <Form.Item {...Layout} label="Managed By">
                 {getFieldDecorator("managedBy", {
-                  initialValue:
-                  profile !== null ? profile.managedBy : ""
+                  initialValue: profile !== null ? profile.managedBy : ""
                 })(<Input placeholder="Self or Manager?" />)}
               </Form.Item>
 
               <Form.Item {...Layout} label="Manager Name">
                 {getFieldDecorator("managerName", {
-                  initialValue:
-                  profile !== null ? profile.managerName : ""
+                  initialValue: profile !== null ? profile.managerName : ""
                 })(<Input placeholder="Enter your manager's name" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Manager Mobile">
                 {getFieldDecorator("managerNumber", {
-                  initialValue:
-                  profile !== null ? profile.managerNumber : ""
+                  initialValue: profile !== null ? profile.managerNumber : ""
                 })(<Input placeholder="Enter your manager's mobile" />)}
               </Form.Item>
               <Form.Item {...Layout} label="Manager Email">
                 {getFieldDecorator("managerMail", {
-                  initialValue:
-                  profile !== null ? profile.managerMail : ""
+                  initialValue: profile !== null ? profile.managerMail : ""
                 })(<Input placeholder="Enter your manager's email id" />)}
               </Form.Item>
             </React.Fragment>
@@ -454,8 +446,7 @@ class ManageProfile extends Component {
             {getFieldDecorator(
               "videos",
               {
-                initialValue:
-                profile !== null ? profile.videos.join(",") : ""
+                initialValue: profile !== null ? profile.videos.join(",") : ""
               },
               {}
             )(
@@ -467,14 +458,11 @@ class ManageProfile extends Component {
           <div style={{ textAlign: "center" }}>
             <Form.Item {...tailformItemLayout}>
               <Button type="primary" htmlType="submit">
-                {profile !== null
-                  ? "Update Profile"
-                  : "Create Profile"}
+                {profile !== null ? "Update Profile" : "Create Profile"}
               </Button>
             </Form.Item>
           </div>
         </Form>
-        
       </React.Fragment>
     );
   }
