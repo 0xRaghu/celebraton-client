@@ -101,6 +101,17 @@ class Nav extends React.Component {
                 <a>Vendor Login page</a>
               </Link>
             </Drawer>
+            <Head>
+              <script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=UA-103422228-1"
+              />
+              <script>
+                window.dataLayer = window.dataLayer || []; function gtag()
+                {dataLayer.push(arguments)}
+                gtag('js', new Date()); gtag('config', 'UA-103422228-1');
+              </script>
+            </Head>
           </Layout>
         )}
       </LoginConsumer>

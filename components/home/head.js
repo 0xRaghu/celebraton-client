@@ -42,16 +42,6 @@ const Head = props => (
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-103422228-1"
-    />
-    <script>
-      window.dataLayer = window.dataLayer || []; function gtag()
-      {dataLayer.push(arguments)}
-      gtag('js', new Date()); gtag('config', 'UA-103422228-1');
-    </script>
-
     {/* <script src="https://checkout.razorpay.com/v1/checkout.js" /> */}
   </NextHead>
 );
