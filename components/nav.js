@@ -5,6 +5,7 @@ import Layout from "antd/lib/layout";
 import Breadcrumb from "antd/lib/breadcrumb";
 import { Drawer, Menu, Icon } from "antd";
 import Login from "./login/login";
+import Head from "./home/head";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const { Header, Content, Footer } = Layout;
@@ -101,17 +102,6 @@ class Nav extends React.Component {
                 <a>Vendor Login page</a>
               </Link>
             </Drawer>
-            <Head>
-              <script
-                async
-                src="https://www.googletagmanager.com/gtag/js?id=UA-103422228-1"
-              />
-              <script>
-                window.dataLayer = window.dataLayer || []; function gtag()
-                {dataLayer.push(arguments)}
-                gtag('js', new Date()); gtag('config', 'UA-103422228-1');
-              </script>
-            </Head>
           </Layout>
         )}
       </LoginConsumer>

@@ -4,6 +4,8 @@ import HomeProvider from "../components/provider/homeProvider";
 import LoginProvider from "../components/provider/loginProvider";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
+import withGA from "next-ga";
+import Router from "next/router";
 
 class MyApp extends App {
   render() {
@@ -23,4 +25,5 @@ class MyApp extends App {
   }
 }
 
-export default MyApp;
+export default withGA("UA-103422228-1", Router)(MyApp);
+// export default MyApp;
