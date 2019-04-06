@@ -146,7 +146,6 @@ class AdminManageProfile extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      console.log(values);
       if (!err) {
         let request = {
           values: values,

@@ -190,7 +190,7 @@ class Dashboard extends Component {
             <div style={{ padding: 10, background: "#fff", minHeight: 360 }}>
               {this.state.content}
               {/* <Footer style={{ textAlign: "center" }}>
-                Ant Design ©2018 Created by Ant UED
+                CelebratON.in ©2019
               </Footer> */}
             </div>
           </Content>
