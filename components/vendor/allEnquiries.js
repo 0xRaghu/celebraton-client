@@ -351,7 +351,7 @@ class AllEnquiries extends Component {
                 {currentEnquiry.noOfGuests}
                 <br />
                 <b>Services Required: </b>
-                {currentEnquiry.servicesRequired != "undefined"
+                {typeof currentEnquiry.servicesRequired != "undefined"
                   ? currentEnquiry.servicesRequired.toString()
                   : null}
                 <br />
