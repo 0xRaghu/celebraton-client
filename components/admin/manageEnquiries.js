@@ -88,12 +88,6 @@ class ManageEnquiriesAdmin extends Component {
         count: this.state.count + 20
       });
     });
-
-    axios
-      .get("/api/enquiries/currentEnquiry/" + this.state.currentEnquiry._id)
-      .then(enquiry =>
-        this.setState({ currentEnquiry: enquiry.data, drawerVisible: true })
-      );
   }
 
   getData = callback => {
