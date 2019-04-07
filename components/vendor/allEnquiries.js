@@ -351,7 +351,9 @@ class AllEnquiries extends Component {
                 {currentEnquiry.noOfGuests}
                 <br />
                 <b>Services Required: </b>
-                {currentEnquiry.servicesRequired.toString()}
+                {currentEnquiry.servicesRequired != "undefined"
+                  ? currentEnquiry.servicesRequired.toString()
+                  : null}
                 <br />
                 <b>Location: </b>
                 {currentEnquiry.locality} in {currentEnquiry.city}
