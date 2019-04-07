@@ -351,7 +351,7 @@ class AllEnquiries extends Component {
                 {currentEnquiry.noOfGuests}
                 <br />
                 <b>Services Required: </b>
-                {currentEnquiry.servicesRequired}
+                {currentEnquiry.servicesRequired.toString()}
                 <br />
                 <b>Location: </b>
                 {currentEnquiry.locality} in {currentEnquiry.city}
@@ -375,7 +375,7 @@ class AllEnquiries extends Component {
                 {currentEnquiry.otherInfo}
                 <br />
                 <b>CelebratON Comments: </b>
-                {currentEnquiry.celebratonComments}
+                {currentEnquiry.celebratonComment}
                 {typeof currentEnquiry.sampleImages !== "undefined" &&
                 currentEnquiry.sampleImages.length > 0 ? (
                   <React.Fragment>
