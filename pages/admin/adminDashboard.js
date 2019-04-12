@@ -19,18 +19,18 @@ const { Header, Content, Footer, Sider } = Layout;
 class Dashboard extends Component {
   static contextType = LoginContext;
   componentDidMount() {
-    if (localStorage.jwtToken) {
-      setAuthToken(localStorage.jwtToken);
-      const decoded = jwt_decode(localStorage.jwtToken);
-      if (decoded.role == "customer") {
-        Router.push("/");
-      }
-      if (decoded.role == "vendor") {
-        Router.push("/dashboard");
-      }
-    } else {
-      Router.push("/");
-    }
+    // if (localStorage.jwtToken) {
+    //   setAuthToken(localStorage.jwtToken);
+    //   const decoded = jwt_decode(localStorage.jwtToken);
+    //   if (decoded.role == "customer") {
+    //     Router.push("/");
+    //   }
+    //   if (decoded.role == "vendor") {
+    //     Router.push("/dashboard");
+    //   }
+    // } else {
+    //   Router.push("/");
+    // }
   }
   state = {
     content: <ManageEnquiries />,
