@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/adminDashboard
+Disallow: /dashboard
+Disallow: /dashboard?enquiry=
+Disallow: /?m=enquiry
+
+Sitemap: https://www.celebraton.in/sitemap.xml
