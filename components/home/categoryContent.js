@@ -225,7 +225,9 @@ class Enquiry extends Component {
                 label={"Area of event (in " + selectedLocation + ")"}
               >
                 {getFieldDecorator("locality", {
-                  initialValue: this.props.locality
+                  initialValue: locations.includes(this.props.locality)
+                    ? ""
+                    : this.props.locality
                 })(<Input autoComplete="off" />)}
               </Form.Item>
               <Form.Item label="What is your budget?" {...Layout}>

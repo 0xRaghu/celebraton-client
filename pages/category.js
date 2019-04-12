@@ -1714,7 +1714,9 @@ class Category extends Component {
       "Salcete"
     ];
     if (
-      locations.includes(query[1].charAt(0).toUpperCase() + query[1].slice(1))
+      locations[0].locations.includes(
+        query[1].charAt(0).toUpperCase() + query[1].slice(1)
+      )
     ) {
       location = query[1].charAt(0).toUpperCase() + query[1].slice(1);
       locality = query[1].charAt(0).toUpperCase() + query[1].slice(1);
@@ -1778,14 +1780,19 @@ class Category extends Component {
 
   render() {
     const { categories, currentCategory } = this.state;
+
     return (
       <React.Fragment>
         <Head
           title={`${currentCategory.name}s in ${
-            this.props.locality
+            this.props.location == this.props.locality
+              ? this.props.location
+              : this.props.locality + ", " + this.props.location
           } | CelebratON`}
           description={`Hire or Book the best ${currentCategory.name}s in ${
-            this.props.locality
+            this.props.location == this.props.locality
+              ? this.props.location
+              : this.props.locality + ", " + this.props.location
           } in a few clicks. We have the best Wedding Planners, Birthday Planners and Surprise Planners in our platform | CelebratON`}
         />
 
@@ -1843,7 +1850,10 @@ class Category extends Component {
             <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
               {currentCategory.name === "Artist" ? <ArtistList /> : null}
               <h1 style={{ textAlign: "center" }}>
-                {currentCategory.name} in {this.props.locality}
+                {currentCategory.name} in{" "}
+                {this.props.location == this.props.locality
+                  ? this.props.location
+                  : this.props.locality + ", " + this.props.location}
               </h1>
 
               <CategoryContent
