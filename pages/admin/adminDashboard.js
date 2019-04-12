@@ -9,13 +9,29 @@ import Router from "next/router";
 import Link from "next/link";
 import AddGeneral from "./addGeneral";
 import { LoginContext } from "../../components/provider/loginProvider";
+import setAuthToken from "../../components/setAuthToken";
+
+import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 class Dashboard extends Component {
   static contextType = LoginContext;
-  componentDidMount() {}
+  componentDidMount() {
+    if (localStorage.jwtToken) {
+      setAuthToken(localStorage.jwtToken);
+      const decoded = jwt_decode(localStorage.jwtToken);
+      if (decoded.role == "customer") {
+        Router.push("/");
+      }
+      if (decoded.role == "vendor") {
+        Router.push("/dashboard");
+      }
+    } else {
+      Router.push("/");
+    }
+  }
   state = {
     content: <ManageEnquiries />,
     limit: 20
