@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ReactGA from "react-ga";
 import {
   Row,
   Col,
@@ -50,15 +51,29 @@ class AllEnquiries extends Component {
   };
   componentWillMount() {}
   componentDidMount() {
-    this.props.router.query.enquiry
-      ? axios
-          .get(
-            "/api/enquiries/currentEnquiry/" + this.props.router.query.enquiry
-          )
-          .then(enquiry =>
-            this.setState({ currentEnquiry: enquiry.data, drawerVisible: true })
-          )
-      : null;
+    if (this.props.router.query.enquiry) {
+      axios
+        .get("/api/enquiries/currentEnquiry/" + this.props.router.query.enquiry)
+        .then(enquiry =>
+          this.setState({ currentEnquiry: enquiry.data, drawerVisible: true })
+        );
+      // ReactGA.event({
+      //   category: "View Enquiry",
+      //   action: this.props.router.query.source
+      //     ? this.props.router.query.source
+      //     : "default",
+      //   label: this.props.router.query.enquiry
+      // });
+      ReactGA.ga(
+        "send",
+        "event",
+        "View Enquiry",
+        this.props.router.query.source
+          ? this.props.router.query.source
+          : "default",
+        this.props.router.query.enquiry
+      );
+    }
 
     axios
       .get("/api/profiles/getProfile")

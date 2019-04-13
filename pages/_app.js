@@ -6,8 +6,17 @@ import Nav from "../components/nav";
 import Footer from "../components/footer";
 import withGA from "next-ga";
 import Router from "next/router";
+import ReactGA from "react-ga";
+import { initGA, logPageView } from "./utils/analytics";
 
 class MyApp extends App {
+  componentDidMount() {
+    if (!window.GA_INITIALIZED) {
+      initGA();
+      window.GA_INITIALIZED = true;
+    }
+    logPageView();
+  }
   render() {
     const { Component, pageProps } = this.props;
     return (
@@ -25,5 +34,5 @@ class MyApp extends App {
   }
 }
 
-export default withGA("UA-103422228-1", Router)(MyApp);
-// export default MyApp;
+// export default withGA("UA-103422228-1", Router)(MyApp);
+export default MyApp;

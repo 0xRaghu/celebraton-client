@@ -4,7 +4,7 @@ import Head from "../components/home/head";
 import Hero from "../components/home/hero";
 import Nav from "../components/nav";
 import axios from "axios";
-import Link from "next/link"
+import Link from "next/link";
 import HowItWorks from "../components/home/HowItWorks";
 import Testimonials from "../components/home/testimonials";
 import Popup from "../components/home/modal";
@@ -37,7 +37,6 @@ class Home extends Component {
       countCategories: this.props.count.length
     });
   }
-  
 
   render() {
     const { category, disabled, updateLimit, clickModal } = this.context;
@@ -46,7 +45,10 @@ class Home extends Component {
       <HomeConsumer>
         {() => (
           <div>
-            <Head title="Best Wedding, Birthday and Surprise Planners all at one place | CelebratON" description="Book the best customized Wedding Planner, Birthday Planner, Surprise Planner or an Event Organizer in just a few clicks" />
+            <Head
+              title="Best Wedding, Birthday and Surprise Planners all at one place | CelebratON"
+              description="Book the best customized Wedding Planner, Birthday Planner, Surprise Planner or an Event Organizer in just a few clicks"
+            />
 
             <Hero />
             <div className="center">
@@ -63,20 +65,22 @@ class Home extends Component {
                   {category.map(category => (
                     <h2 key={category._id}>
                       <Col>
-                        <Link href="?m=enquiry"><a style={{textDecoration:"none"}}>
-                          <Card
-                            // style={{ width: 220, height: 120 }}
+                        <Link href="?m=enquiry">
+                          <a style={{ textDecoration: "none" }}>
+                            <Card
+                              // style={{ width: 220, height: 120 }}
 
-                            bordered={true}
-                            onClick={() => clickModal(category)}
-                          >
-                            <i className="small material-icons">
-                              {category.icon}
-                            </i>
-                            <br />
-                            {category.name}
-                          </Card>
-                        </a></Link>
+                              bordered={true}
+                              onClick={() => clickModal(category)}
+                            >
+                              <i className="small material-icons">
+                                {category.icon}
+                              </i>
+                              <br />
+                              {category.name}
+                            </Card>
+                          </a>
+                        </Link>
                       </Col>
                     </h2>
                   ))}
@@ -101,7 +105,7 @@ class Home extends Component {
                 text-align: center;
                 color: #595959;
               }
-              
+
               .center {
                 text-align: center;
               }
