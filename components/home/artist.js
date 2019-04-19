@@ -23,12 +23,25 @@ export default class Artist extends Component {
     return (
       <React.Fragment>
         <div className="center">
-          <div style={{ background: "#ECECEC", padding: "10px" }}>
-            <Row gutter={16}>
-              <h2 className="h1Heading">Artists on our platform</h2>
+          <div style={{ background: "#ECECEC", padding: "20px" }}>
+            <h2 className="h1Heading">Artists on our platform</h2>
+            <Row
+              // gutter={16}
+              align="middle"
+              type="flex"
+              style={{ alignItems: "center", justifyContent: "center" }}
+            >
               {profiles.map(profile => (
                 <h2 key={profile._id}>
-                  <Col span={8}>
+                  <Col
+                    // xs={24}
+                    // sm={24}
+                    // md={8}
+                    // lg={6}
+                    // xl={4}
+                    span={8}
+                    style={{ padding: "10px" }}
+                  >
                     <Card
                       hoverable
                       style={{ width: 240 }}
@@ -64,7 +77,7 @@ export default class Artist extends Component {
               text-align: center;
               color: #595959;
             }
-            
+
             .center {
               text-align: center;
             }

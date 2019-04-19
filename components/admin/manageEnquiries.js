@@ -531,7 +531,7 @@ class ManageEnquiriesAdmin extends Component {
                     title={enquiry.category}
                     bordered={false}
                     style={{
-                      background: enquiry.isVerified ? null : null
+                      background: enquiry.isVerified ? "#69f0ae" : null
                     }}
                   >
                     For <b>{enquiry.serviceFor}</b> <br />

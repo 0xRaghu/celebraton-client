@@ -31,6 +31,7 @@ class Dashboard extends Component {
     // } else {
     //   Router.push("/");
     // }
+    window["ga-disable-UA-103422228-1"] = true;
   }
   state = {
     content: <ManageEnquiries />,

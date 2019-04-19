@@ -182,6 +182,8 @@ class AdminManageProfile extends Component {
                     this.setState({
                       imageUrl: this.state.imageUrl.concat(temp)
                     });
+                  })
+                  .then(url => {
                     axios.post(
                       `/api/profiles/addImages/${profile.data._id}`,
                       this.state.imageUrl
@@ -191,6 +193,7 @@ class AdminManageProfile extends Component {
             );
           });
           this.props.form.resetFields();
+          this.setState({ images: [], portfolioImages: [], imageUrl: [] });
         });
         notification.open({
           message: "Profile Submitted/Updated",
