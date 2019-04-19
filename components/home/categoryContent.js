@@ -34,7 +34,7 @@ class Enquiry extends Component {
     e.preventDefault();
 
     this.props.form.validateFieldsAndScroll((err, values) => {
-      console.log(values);
+      // console.log(values);
       if (!err) {
         let request = { enquiry: values, category: this.props.modalCategory };
         axios.post("/api/enquiries/addEnquiry", request).then(enquiry => {

@@ -8,7 +8,7 @@ body {
 
 .ant-card-body {
   text-align: center;
-  padding:8px;
+  padding: 8px;
 }
 
 .cardDimension .ant-card-body {
@@ -17,7 +17,7 @@ body {
   font-size: 13px;
   white-space: normal;
   color: #8c8c8c;
-  text-decoration:none;
+  text-decoration: none;
 }
 input.ant-calendar-input {
   display: none;
@@ -32,20 +32,19 @@ input.ant-calendar-input {
   color: #ba0f58;
 }
 
-
 .ant-card-head {
   background-color: #ba0f59;
   color: white;
-  font-size:13px;
-  min-height:30px;
-  height:30px;
-  padding:5px;
+  font-size: 13px;
+  min-height: 30px;
+  height: 30px;
+  padding: 5px;
 }
-.ant-card-head-title{
-  padding:0px;
+.ant-card-head-title {
+  padding: 0px;
 }
 .ant-card {
-  font-size:12px;
+  font-size: 12px;
 }
 
 .ant-carousel .slick-slide {
@@ -64,20 +63,20 @@ input.ant-calendar-input {
 
 .ant-modal {
   width: 80% !important;
-  top:40px;
+  top: 40px;
 }
 .ant-modal-header {
   text-align: center;
 }
-.ant-modal-body{
-  font-size:12px !important;
-  padding:10px;
+.ant-modal-body {
+  font-size: 12px !important;
+  padding: 10px;
 }
-.ant-card-body i{
-  font-size:40px !important;
+.ant-card-body i {
+  font-size: 40px !important;
 }
-.ant-form-vertical .ant-form-item{
-  font-size:12px !important;
+.ant-form-vertical .ant-form-item {
+  font-size: 12px !important;
 }
 
 .ant-layout-header {
@@ -92,19 +91,19 @@ input.ant-calendar-input {
   overflow: auto;
 }
 
-.profileIconHead{
-font-size:15px;
+.profileIconHead {
+  font-size: 15px;
 }
 
-.profileIconFoot{
-  font-size:30px
+.profileIconFoot {
+  font-size: 30px;
 }
 
-.profileIcon{
-font-size:60px;
+.profileIcon {
+  font-size: 60px;
 }
-.profileVideo{
-  height:500px;
+.profileVideo {
+  height: 500px;
 }
 @media only screen and (max-width: 768px) {
   .ant-layout-sider {
@@ -114,39 +113,39 @@ font-size:60px;
   }
   .cardDimension .ant-card-body {
     width: 75px;
-    height:75px;
+    height: 75px;
     font-size: 9px;
   }
-  .ant-card-body i{
-    font-size:30px !important;
+  .ant-card-body i {
+    font-size: 30px !important;
   }
   .ant-card-meta-title {
   }
-  .profileIconHead{
-    font-size:10px;
-    }
-    
-    .profileIconFoot{
-      font-size:15px
-    }
-    
-    .profileIcon{
-    font-size:30px;
-    }
-    .ant-modal {
-      width: 100% !important;
-      margin:0px;
-      max-width:100%;
-      top:50px;
-    }
-    .profileVideo{
-      height:200px;
-    }
+  .profileIconHead {
+    font-size: 10px;
+  }
+
+  .profileIconFoot {
+    font-size: 15px;
+  }
+
+  .profileIcon {
+    font-size: 30px;
+  }
+  .ant-modal {
+    width: 100% !important;
+    margin: 0px;
+    max-width: 100%;
+    top: 50px;
+  }
+  .profileVideo {
+    height: 200px;
+  }
 }
 
 .image-gallery-image {
   text-align: center !important;
-  background:#ECECEC;
+  background: #ececec;
 }
 .image-gallery-slide img {
   max-height: 500px;
@@ -160,12 +159,16 @@ font-size:60px;
   object-fit: cover;
 }
 
-
-.ant-form-explain {
+.login-form .ant-form-explain {
   font-size: 10px;
 }
+
+.login-form .ant-form-item-control .has-error {
+  font-size: 10px;
+}
+
 .ant-form-item {
-  font-size:12px !important;
+  font-size: 12px !important;
   margin-bottom: 5px;
 }
 
@@ -236,8 +239,18 @@ font-size:60px;
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 575px) {
   .hero-image {
     min-height: 250px;
+  }
+}
+
+@media only screen and (min-width: 575px) {
+  .login-form .ant-form-explain {
+    color: white !important;
+  }
+
+  .login-form .ant-form-item-control .has-error {
+    color: white !important;
   }
 }

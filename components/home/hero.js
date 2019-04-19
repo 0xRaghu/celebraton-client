@@ -53,17 +53,18 @@ class Hero extends Component {
                       <Icon type="phone" />
                       <a href="tel:08082338257">+91-8082338257</a>
                     </h3>
-
-                    <Select
-                      defaultValue="Chennai"
-                      style={{ width: 180 }}
-                      onChange={selectLocation}
-                      value={selectedLocation}
-                    >
-                      {locations.map(location => (
-                        <Option key={location}>{location}</Option>
-                      ))}
-                    </Select>
+                    {this.props.page != "profile" ? (
+                      <Select
+                        defaultValue="Chennai"
+                        style={{ width: 180 }}
+                        onChange={selectLocation}
+                        value={selectedLocation}
+                      >
+                        {locations.map(location => (
+                          <Option key={location}>{location}</Option>
+                        ))}
+                      </Select>
+                    ) : null}
                   </div>
                 </Col>
                 <Col sm={9} xs={0}>
@@ -96,7 +97,7 @@ class Hero extends Component {
                       type="primary"
                       onClick={() => this.openCallbackModal()}
                     >
-                      Request Callback
+                      Enquire Now
                     </Button>
                   </div>
                 </Col>

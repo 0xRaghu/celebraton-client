@@ -14,14 +14,14 @@ import axios from "axios";
 class NormalLoginForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         // console.log("Received values of form: ", values);
         let role;
         Router.pathname === "/vendor-login"
           ? (role = "Vendor")
           : (role = "Customer");
-        values.profile = this.props.profile;
+        values.profile = window.location.pathname;
         axios.post("/api/contactForms/" + role, values).then(res => {
           notification.open({
             message: `Thank you ${res.data.name}, we will call you soon`,
@@ -29,10 +29,11 @@ class NormalLoginForm extends React.Component {
             duration: 10
           });
         });
+        this.props.form.resetFields();
       }
     });
-    this.props.form.resetFields();
-    this.props.onClose();
+
+    // this.props.onClose();
   };
 
   render() {
@@ -42,12 +43,17 @@ class NormalLoginForm extends React.Component {
         <Row>
           <Col xs={{ span: 20, offset: 2 }} lg={{ span: 12, offset: 6 }}>
             <h2 style={{ align: "center", color: this.props.color }}>
-              Request Callback
+              Enquire Now
             </h2>
             <Form onSubmit={this.handleSubmit} className="login-form">
               <Form.Item>
                 {getFieldDecorator("name", {
-                  rules: [{ required: true, message: "Please enter your Name" }]
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please enter your name!"
+                    }
+                  ]
                 })(
                   <Input
                     prefix={
@@ -85,7 +91,7 @@ class NormalLoginForm extends React.Component {
                   htmlType="submit"
                   className="login-form-button"
                 >
-                  Request Callback
+                  Enquire Now
                 </Button>
               </Form.Item>
             </Form>
