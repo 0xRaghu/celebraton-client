@@ -55,12 +55,25 @@ export default class ArtistList extends Component {
     return (
       <React.Fragment>
         <div className="center">
-          <div style={{ background: "#ECECEC", padding: "30px" }}>
-            <Row gutter={16}>
-              <h2 className="h1Heading">Artists on our platform</h2>
+          <div style={{ background: "#ECECEC", padding: "20px" }}>
+            <h2 className="h1Heading">Artists on our platform</h2>
+            <Row
+              // gutter={16}
+              align="middle"
+              type="flex"
+              style={{ alignItems: "center", justifyContent: "center" }}
+            >
               {artists.map(profile => (
                 <h2 key={profile._id}>
-                  <Col xs={24} sm={12} md={8} lg={4} xl={3}>
+                  <Col
+                    // xs={24}
+                    // sm={24}
+                    // md={8}
+                    // lg={6}
+                    // xl={4}
+                    span={8}
+                    style={{ padding: "10px" }}
+                  >
                     <Card
                       hoverable
                       style={{ width: 240 }}
