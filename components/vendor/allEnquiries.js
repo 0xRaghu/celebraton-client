@@ -220,6 +220,14 @@ class AllEnquiries extends Component {
                 response.razorpay_payment_id
             )
             .then(profile => this.setState({ profile: profile.data }));
+          let captureData = {
+            amountToPay:
+              (currentEnquiry.leadAmount -
+                (profile.Wallet + profile.promoCredit)) *
+              100,
+            responseId: response.razorpay_payment_id
+          };
+          axios.post("/api/enquiries/capturePayment", captureData);
         },
         prefill: {
           name: profile.name,

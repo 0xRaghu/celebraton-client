@@ -83,6 +83,11 @@ class Dashboard extends Component {
               this.state.rechargeAmount
           )
           .then(profile => this.context.updateProfile(profile.data));
+        let captureData = {
+          amountToPay: this.state.rechargeAmount * 100,
+          responseId: response.razorpay_payment_id
+        };
+        axios.post("/api/enquiries/capturePayment", captureData);
       },
       prefill: {
         name: profile.name,
