@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: celebraton.in
+Token: f64363e455f72a0fbd4ec3e152201401517892721ee3c61cc00f7b8f94724f84
