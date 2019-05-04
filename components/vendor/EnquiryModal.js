@@ -213,8 +213,8 @@ class AllEnquiries extends Component {
                     <br />
                     <img
                       src={currentEnquiry.sampleImages}
-                      height="300px"
-                      width="auto"
+                      height="auto"
+                      width="100%"
                     />
                   </div>
                 </React.Fragment>
@@ -232,8 +232,8 @@ class AllEnquiries extends Component {
                     <br />
                     <img
                       src={currentEnquiry.sampleImages}
-                      height="300px"
-                      width="auto"
+                      height="auto"
+                      width="100%"
                     />
                   </div>
                 </React.Fragment>
@@ -251,8 +251,8 @@ class AllEnquiries extends Component {
                     <br />
                     <img
                       src={currentEnquiry.floorPlan}
-                      height="300px"
-                      width="auto"
+                      height="auto"
+                      width="100%"
                     />
                   </div>
                 </React.Fragment>
