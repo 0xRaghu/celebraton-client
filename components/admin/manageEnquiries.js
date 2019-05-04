@@ -436,6 +436,7 @@ class ManageEnquiriesAdmin extends Component {
             )}
             <div style={{ margin: "24px 0" }} />
           </Form.Item>
+
           <Form.Item {...Layout} label="User Name">
             {getFieldDecorator("name", {
               initialValue: currentEnquiry.user.name
@@ -496,6 +497,41 @@ class ManageEnquiriesAdmin extends Component {
               </Radio.Group>
             )}
           </Form.Item>
+          {modalCategory.name == "Stall Fabricator" ? (
+            <React.Fragment>
+              <Form.Item {...Layout} label="Name of Exhibition">
+                {getFieldDecorator("nameOfExhibition", {
+                  initialValue: currentEnquiry.nameOfExhibition
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Name of Exhibitor Company">
+                {getFieldDecorator("nameOfExhibitor", {
+                  initialValue: currentEnquiry.nameOfExhibitor
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Stall Size">
+                {getFieldDecorator("stallSize", {
+                  initialValue: currentEnquiry.stallSize
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Sides Open">
+                {getFieldDecorator("sidesOpen", {
+                  initialValue: currentEnquiry.sidesOpen
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Stall Location">
+                {getFieldDecorator("stallLocation", {
+                  initialValue: currentEnquiry.stallLocation
+                })(<Input />)}
+              </Form.Item>
+              <Form.Item {...Layout} label="Stall Number">
+                {getFieldDecorator("stallNumber", {
+                  initialValue: currentEnquiry.stallNumber
+                })(<Input />)}
+              </Form.Item>
+            </React.Fragment>
+          ) : null}
+
           <div style={{ textAlign: "center" }}>
             <Form.Item {...tailformItemLayout}>
               <Button type="primary" htmlType="submit" size="large">

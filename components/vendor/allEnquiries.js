@@ -315,7 +315,13 @@ class AllEnquiries extends Component {
                           background: enquiry.isVerified ? null : null
                         }}
                       >
-                        For <b>{enquiry.serviceFor}</b> <br />
+                        For{" "}
+                        <b>
+                          {enquiry.category != "Stall Fabricator"
+                            ? enquiry.serviceFor
+                            : "Exhibition"}
+                        </b>{" "}
+                        <br />
                         on{" "}
                         <b>
                           {moment(enquiry.eventDate).format("DD MMM, YYYY")}
@@ -365,17 +371,23 @@ class AllEnquiries extends Component {
                 {currentEnquiry.user.name}
                 <br />
                 <b>Event: </b>
-                {currentEnquiry.serviceFor}
+                {currentEnquiry.category != "Stall Fabricator"
+                  ? currentEnquiry.serviceFor
+                  : "Exhibition"}
                 <br />
                 <b>Event Date: </b>{" "}
                 {moment(currentEnquiry.eventDate).format("DD MMM, YYYY")}
                 <br />
-                <b>No. of Guests: </b>
-                {currentEnquiry.noOfGuests}
-                <br />
+                {currentEnquiry.category != "Stall Fabricator" ? (
+                  <React.Fragment>
+                    <b>No. of Guests: </b>
+                    {currentEnquiry.noOfGuests}
+                    <br />
+                  </React.Fragment>
+                ) : null}
                 <b>Services Required: </b>
                 {typeof currentEnquiry.servicesRequired != "undefined"
-                  ? currentEnquiry.servicesRequired.toString()
+                  ? currentEnquiry.servicesRequired.join(",")
                   : null}
                 <br />
                 <b>Location: </b>
@@ -396,13 +408,33 @@ class AllEnquiries extends Component {
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 <br />
+                {currentEnquiry.category == "Stall Fabricator" ? (
+                  <React.Fragment>
+                    <b>Name of Exhibition: </b>
+                    {currentEnquiry.nameOfExhibition}
+                    <br />
+                    <b>Stall Size: </b>
+                    {currentEnquiry.stallSize}
+                    <br />
+                    <b>Sides Open: </b>
+                    {currentEnquiry.sidesOpen}
+                    <br />
+                    <b>Stall Location: </b>
+                    {currentEnquiry.stallLocation}
+                    <br />
+                    <b>Stall Number: </b>
+                    {currentEnquiry.stallNumber}
+                    <br />
+                  </React.Fragment>
+                ) : null}
                 <b>Other Info: </b>
                 {currentEnquiry.otherInfo}
                 <br />
                 <b>CelebratON Comments: </b>
-                {currentEnquiry.celebratonComment}
+                {currentEnquiry.celebratonComments}
                 {typeof currentEnquiry.sampleImages !== "undefined" &&
-                currentEnquiry.sampleImages.length > 0 ? (
+                currentEnquiry.sampleImages.length > 0 &&
+                currentEnquiry.category != "Stall Fabricator" ? (
                   <React.Fragment>
                     <br />
                     <div style={{ textAlign: "center" }}>
@@ -410,6 +442,44 @@ class AllEnquiries extends Component {
                       <br />
                       <img
                         src={currentEnquiry.sampleImages}
+                        height="300px"
+                        width="auto"
+                      />
+                    </div>
+                  </React.Fragment>
+                ) : null}
+                {typeof currentEnquiry.sampleImages !== "undefined" &&
+                currentEnquiry.sampleImages.length > 0 &&
+                currentEnquiry.category == "Stall Fabricator" &&
+                typeof currentEnquiry.interestedPartners != "undefined" &&
+                this.context.currenProfile !== null &&
+                currentEnquiry.interestedPartners.includes(profile._id) ? (
+                  <React.Fragment>
+                    <br />
+                    <div style={{ textAlign: "center" }}>
+                      <b>Stall Design: </b>
+                      <br />
+                      <img
+                        src={currentEnquiry.sampleImages}
+                        height="300px"
+                        width="auto"
+                      />
+                    </div>
+                  </React.Fragment>
+                ) : null}
+                {typeof currentEnquiry.floorPlan !== "undefined" &&
+                currentEnquiry.floorPlan.length > 0 &&
+                currentEnquiry.category == "Stall Fabricator" &&
+                typeof currentEnquiry.interestedPartners != "undefined" &&
+                this.context.currenProfile !== null &&
+                currentEnquiry.interestedPartners.includes(profile._id) ? (
+                  <React.Fragment>
+                    <br />
+                    <div style={{ textAlign: "center" }}>
+                      <b>Floor Plan: </b>
+                      <br />
+                      <img
+                        src={currentEnquiry.floorPlan}
                         height="300px"
                         width="auto"
                       />
@@ -439,6 +509,9 @@ class AllEnquiries extends Component {
                     <br />
                     <b>Email: </b>
                     {currentEnquiry.user.email}
+                    <br />
+                    <b>Name of Exhibitor Company: </b>
+                    {currentEnquiry.nameOfExhibitor}
                     <br />
                     <br />
                     <a href={`tel:+91${currentEnquiry.user.mobile}`}>
