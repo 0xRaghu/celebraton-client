@@ -431,7 +431,7 @@ class AllEnquiries extends Component {
                 {currentEnquiry.otherInfo}
                 <br />
                 <b>CelebratON Comments: </b>
-                {currentEnquiry.celebratonComments}
+                {currentEnquiry.celebratonComment}
                 {typeof currentEnquiry.sampleImages !== "undefined" &&
                 currentEnquiry.sampleImages.length > 0 &&
                 currentEnquiry.category != "Stall Fabricator" ? (

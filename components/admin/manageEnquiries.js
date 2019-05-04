@@ -570,7 +570,13 @@ class ManageEnquiriesAdmin extends Component {
                       background: enquiry.isVerified ? "#69f0ae" : null
                     }}
                   >
-                    For <b>{enquiry.serviceFor}</b> <br />
+                    For{" "}
+                    <b>
+                      {enquiry.category != "Stall Fabricator"
+                        ? enquiry.serviceFor
+                        : "Exhibition"}
+                    </b>{" "}
+                    <br />
                     on <b>{moment(enquiry.eventDate).format("DD MMM, YYYY")}</b>
                     <br />
                     Bought by: <b>{enquiry.interestedPartners.length}/5</b>{" "}
